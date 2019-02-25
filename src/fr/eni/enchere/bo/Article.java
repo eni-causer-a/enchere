@@ -95,4 +95,18 @@ public class Article {
 		this.proprietaire = proprietaire;
 	}
 	
+	public Article(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int miseAPrix, int prixVente,  Categorie categorie,Utilisateur proprietaire) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.categorie = categorie;
+		this.proprietaire = proprietaire;
+	}
+	
 }
