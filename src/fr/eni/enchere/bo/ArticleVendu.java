@@ -68,6 +68,10 @@ public class ArticleVendu {
 		this.categorie = categorie;
 	}
 	
+	public ArticleVendu() {
+		super();
+	}
+	
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
 			Date dateFinEncheres, int miseAPrix, int prixVente, EtatVente etatVente, Categorie categorie) {
 		super();
