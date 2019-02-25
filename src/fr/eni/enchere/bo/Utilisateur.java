@@ -127,4 +127,28 @@ public class Utilisateur {
 		this.articlesVendus = articlesVendus;
 		this.articlesAchetes = articlesAchetes;
 	}
+<<<<<<< HEAD
+=======
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administareur) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostale = codePostale;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administareur = administareur;
+		
+	}
+	public Utilisateur() {
+		// TODO Auto-generated constructor stub
+	}
+	
+>>>>>>> branch 'master' of https://github.com/eni-causer-a/enchere
 }
