@@ -4,12 +4,5 @@
   <welcome-file-list>
     <welcome-file>Accueil</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <servlet-name>Accueil</servlet-name>
-    <jsp-file>/WEB-INF/Accueil.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Accueil</servlet-name>
-    <url-pattern>/Accueil</url-pattern>
-  </servlet-mapping>
+  
 </web-app>
