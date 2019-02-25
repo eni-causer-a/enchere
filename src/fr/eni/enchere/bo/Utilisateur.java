@@ -1,5 +1,6 @@
 package fr.eni.enchere.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Utilisateur {
@@ -16,8 +17,7 @@ public class Utilisateur {
 	private int credit;
 	private boolean administareur;
 	
-	private List<Enchere> articlesVendus;
-	private List<ArticleVendu> articlesAchetes;
+	private List<Article> articlesEnVente;
 	
 	public int getNoUtilisateur() {
 		return noUtilisateur;
@@ -91,44 +91,18 @@ public class Utilisateur {
 	public void setAdministareur(boolean administareur) {
 		this.administareur = administareur;
 	}
-	public List<Enchere> getArticlesVendus() {
-		return articlesVendus;
-	}
-	public void setArticlesVendus(List<Enchere> articlesVendus) {
-		this.articlesVendus = articlesVendus;
-	}
-	public List<ArticleVendu> getArticlesAchetes() {
-		return articlesAchetes;
-	}
-	public void setArticlesAchetes(List<ArticleVendu> articlesAchetes) {
-		this.articlesAchetes = articlesAchetes;
-	}
 	
+	public List<Article> getArticlesEnVente() {
+		return articlesEnVente;
+	}
+	public void setArticlesEnVente(List<Article> articlesEnVente) {
+		this.articlesEnVente = articlesEnVente;
+	}
 	public Utilisateur() {
 		super();
+		this.articlesEnVente = new ArrayList<Article>();
 	}
 	
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administareur,
-			List<Enchere> articlesVendus, List<ArticleVendu> articlesAchetes) {
-		super();
-		this.noUtilisateur = noUtilisateur;
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostale = codePostale;
-		this.ville = ville;
-		this.motDePasse = motDePasse;
-		this.credit = credit;
-		this.administareur = administareur;
-		this.articlesVendus = articlesVendus;
-		this.articlesAchetes = articlesAchetes;
-	}
-<<<<<<< HEAD
-=======
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administareur) {
 		super();
@@ -144,11 +118,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administareur = administareur;
-		
+		this.articlesEnVente = new ArrayList<Article>();
 	}
-	public Utilisateur() {
-		// TODO Auto-generated constructor stub
-	}
-	
->>>>>>> branch 'master' of https://github.com/eni-causer-a/enchere
+
 }

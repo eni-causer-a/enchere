@@ -2,7 +2,7 @@ package fr.eni.enchere.bo;
 
 import java.util.Date;
 
-public class ArticleVendu {
+public class Article {
 	private int noArticle;
 	private String nomArticle;
 	private String description;
@@ -12,6 +12,7 @@ public class ArticleVendu {
 	private int prixVente;
 	private EtatVente etatVente;
 	private Categorie categorie;
+	private Utilisateur proprietaire;
 	
 	public int getNoArticle() {
 		return noArticle;
@@ -68,12 +69,19 @@ public class ArticleVendu {
 		this.categorie = categorie;
 	}
 	
-	public ArticleVendu() {
+	public Utilisateur getProprietaire() {
+		return proprietaire;
+	}
+	public void setProprietaire(Utilisateur proprietaire) {
+		this.proprietaire = proprietaire;
+	}
+	
+	public Article() {
 		super();
 	}
 	
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, EtatVente etatVente, Categorie categorie) {
+	public Article(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int miseAPrix, int prixVente, EtatVente etatVente, Categorie categorie,Utilisateur proprietaire) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -84,6 +92,7 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
 		this.categorie = categorie;
+		this.proprietaire = proprietaire;
 	}
 	
 }
