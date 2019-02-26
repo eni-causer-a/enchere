@@ -39,12 +39,12 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ArticleManager am = new ArticleManager(new ArticleDaoJdbcImpl());
-		List<Article> lesArticles = new ArrayList<Article>();
+		List<Article> lesArticles = null;
 		lesArticles = am.getArticleEnCours();
 		request.setAttribute("lesArticles", lesArticles);
 
 		CategorieManager cm = new CategorieManager();
-		List<Categorie> lesCategories = new ArrayList<Categorie>();
+		List<Categorie> lesCategories = null;
 		lesCategories = cm.getListCategorie();
 		request.setAttribute("lesCategories", lesCategories);
 		

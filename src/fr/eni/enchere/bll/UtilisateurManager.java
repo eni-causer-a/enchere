@@ -4,11 +4,16 @@ import java.util.List;
 
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Utilisateur;
+import fr.eni.enchere.dal.DAOFactory;
 import fr.eni.enchere.dal.UtilisateurDao;
 
 public class UtilisateurManager {
 	
 	private UtilisateurDao utilisateurDao;
+	
+	public UtilisateurManager() {
+		this.utilisateurDao = DAOFactory.getUtilisateurDao();
+	}
 	
 	public UtilisateurManager(UtilisateurDao utilisateurDao) {
 		this.utilisateurDao = utilisateurDao;
