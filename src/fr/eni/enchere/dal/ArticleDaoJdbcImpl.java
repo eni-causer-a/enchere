@@ -13,14 +13,12 @@ import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.EtatVente;
 import fr.eni.enchere.bo.Utilisateur;
 
-public class ArticleDaoJdbcImpl {
+public class ArticleDaoJdbcImpl implements ArticleDao{
 
 	private static final String GETETAT = "select date_debut_encheres, date_fin_encheres from ARTICLES_VENDUS where no_article = ? "; 
 
-
 	public void getEtat(Article article) throws ParseException {
 		Utilisateur user = null;
-		
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmtUser = cnx.prepareStatement(GETETAT);)

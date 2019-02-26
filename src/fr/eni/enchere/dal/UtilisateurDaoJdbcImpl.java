@@ -15,7 +15,7 @@ import fr.eni.enchere.bo.Utilisateur;
 
 
 
-public class UtilisateurDaoJdbcImpl {
+public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur VALUES(?,?,?,?,?,?,?,?,?,?,0,0);";
 
@@ -164,6 +164,13 @@ public class UtilisateurDaoJdbcImpl {
 			e.printStackTrace();
 		
 		}
+	}
+
+
+	@Override
+	public List<Article> getListAchat(Utilisateur user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -21,15 +21,14 @@ public class UtilisateurManager {
 	}
 	
 	public Utilisateur getUtilisateur(String pseudo, String mdp) {
-		return utilisateurDao.getUtilisateur(pseudo, mdp);
+		return utilisateurDao.getUser(pseudo, mdp);
 	}
 	
 	public List<Article> getListVentes(Utilisateur user){
 		if (user!=null) {
 			return utilisateurDao.getListVente(user);
 		}
-		
+		return null;
 	}
-	
 	
 }

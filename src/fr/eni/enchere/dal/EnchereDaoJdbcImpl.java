@@ -7,9 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Enchere;
 
-public class EnchereDaoJdbcImpl {
+public class EnchereDaoJdbcImpl implements EnchereDao{
 	
 	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES VALUES(?,?,?,?);";
 	
@@ -37,6 +38,12 @@ public class EnchereDaoJdbcImpl {
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+	}
+
+	@Override
+	public Enchere getLastEnchere(Article article) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
