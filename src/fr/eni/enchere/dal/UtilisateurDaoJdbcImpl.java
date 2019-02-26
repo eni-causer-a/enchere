@@ -19,7 +19,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur VALUES(?,?,?,?,?,?,?,?,?,?,0,0);";
 
-	private static final String GETUSER = "select * from user where pseudo = ? and mot_de_passe = ? ;";
+	private static final String GETUSER = "select * from UTILISATEURS where pseudo = ? and mot_de_passe = ? ;";
 	
 	private static final String GETVENTEUSER = "select * from ARTICLES_VENDUS where no_utilisateur = ?"; 
 
@@ -27,7 +27,9 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?,credit=?, administrateur=? where no_utilisateur = ? ; ";
 
-	private static final String GETACHATUSER= "select distinct ";
+	private static final String GETACHATUSER = "select distinct ";
+	
+	private static final String DELETEUSER = "delete from UTILISATEURS where no_utilisateur = ? ;";
 	
 	public void insert(Utilisateur user) {
 		try(Connection cnx = ConnectionProvider.getConnection();
@@ -167,6 +169,9 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	}
 
 
+	
+
+
 	@Override
 	public List<Article> getListAchat(Utilisateur user) {
 		// TODO Auto-generated method stub
@@ -176,8 +181,17 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 
 	@Override
 	public void deleteUser(Utilisateur user) {
-		// TODO Auto-generated method stub
-		
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtUser = cnx.prepareStatement(DELETEUSER);)
+			{
+				pstmtUser.setInt(1, user.getNoUtilisateur());
+
+				ResultSet rs = pstmtUser.executeQuery();
+				
+			}//Fermeture automatique de la connexion
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	
