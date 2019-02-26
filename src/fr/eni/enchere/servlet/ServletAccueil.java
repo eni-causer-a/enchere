@@ -38,7 +38,7 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArticleManager am = new ArticleManager(new ArticleDaoJdbcImpl());
+		ArticleManager am = new ArticleManager();
 		List<Article> lesArticles = null;
 		lesArticles = am.getArticleEnCours();
 		request.setAttribute("lesArticles", lesArticles);

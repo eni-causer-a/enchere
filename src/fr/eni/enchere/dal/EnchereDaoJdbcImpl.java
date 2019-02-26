@@ -18,7 +18,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	private static final String LASTENCHERE = "select * from enchere where no_article = ? order by montant_enchere(DESC) limit 1";
 	private static final String GETUSER = "select * from user where no_utilisateur = ?  ;";
 
-
+	@Override
 	public void insert(Enchere enchere) {
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmtEnchere = cnx.prepareStatement(INSERT_ENCHERE))
@@ -72,7 +72,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 			return enchere;
 	}
 	
-	public Utilisateur getUser(int id) {
+	private Utilisateur getUser(int id) {
 		Utilisateur user = null;
 		
 		
