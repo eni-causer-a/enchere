@@ -180,10 +180,15 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		Categorie uneCategorie = null;
 		Utilisateur user = null;
 		String req = null;
-		System.out.println(categorie);
-		System.out.println(search);
+		
 		if(categorie.equalsIgnoreCase("Toutes") && search != null) {
 			req = GETBYSEARCH;
+		}
+		else if(categorie.equalsIgnoreCase("Toutes") && search == null) {
+			List<Article> listeArticle = new ArrayList<Article>();
+
+			listeArticle = getArticleEnCours();
+			return listeArticle;
 		}
 		else if(categorie != null && search != null) {
 			
@@ -196,7 +201,6 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			req = GETARTCILEENCOURS;
 		}
 		
-		System.out.println(req);
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtArticle = cnx.prepareStatement(req);
@@ -227,7 +231,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				 uneCategorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
 
 				}
-				pstmtUser.setInt(1,rs.getInt("no_categorie"));
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
 
 				ResultSet rsUser = pstmtUser.executeQuery();
 				while(rsUser.next()) {

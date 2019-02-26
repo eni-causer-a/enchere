@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.enchere.bll.UtilisateurManager;
+import fr.eni.enchere.bo.Utilisateur;
+
 /**
  * Servlet implementation class ServletNouveauProfil
  */
@@ -42,6 +45,12 @@ public class ServletNouveauProfil extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}
 		else {
+			if(request.getParameter("motDePasse") == request.getParameter("confirmationMotDePasse")) {
+			UtilisateurManager um = new UtilisateurManager();
+			Utilisateur user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasse"));
+			um.createUtilisateur(user);
+			}
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 			rd.forward(request, response);
 		}
