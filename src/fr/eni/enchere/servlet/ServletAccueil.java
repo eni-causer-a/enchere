@@ -60,16 +60,16 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		//String cat = request.getParameter("categorie");
 		String cat = request.getParameter("categorie");
-		String search = request.getParameter("filtre");
-
 		ArticleManager am = new ArticleManager(new ArticleDaoJdbcImpl());
 		List<Article> lesArticles = null;
-		if(StringUtils.isEmpty(cat)) {
-			lesArticles = am.getArticleByCategorieSearch(null, search);
+		if(StringUtils.isEmpty(request.getParameter("filtre"))) {
+			lesArticles = am.getArticleByCategorieSearch(cat, null);
 
 		}
 		else {
+			String search = request.getParameter("cat");
 			lesArticles = am.getArticleByCategorieSearch(cat, search);
 
 		}
