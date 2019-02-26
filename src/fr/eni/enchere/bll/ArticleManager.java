@@ -21,9 +21,9 @@ public class ArticleManager {
 	public List<Article> getArticleEnCours() {
 		return articleDao.getArticleEnCours();
 	}
-	public List<Article> getArticleByCategorieSearch(String cat, String search){
-		return articleDao.getArticleByCategorieSearch(cat,search);
-
-	}
 	
+
+	public List<Article> getArticleByCategorieSearch(String categorie, String search) {
+		return articleDao.getArticleByCategorieSearch(categorie, search);   
+	}
 }
