@@ -27,7 +27,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	private static final String GETARTCILEENCOURS = "select * from ARTICLES_VENDUS where cast(date_fin_encheres AS DATETIME) - GETDATE() > 0;";
 	private static final String GETBYCAT = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ?";
 	private static final String GETBYCATSEARCH = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ? and av.nom_article like %?%";
-	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like '?'";
+	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like ? ;";
 	
 	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
 
@@ -180,12 +180,14 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		Categorie uneCategorie = null;
 		Utilisateur user = null;
 		String req = null;
-		
-		if(categorie != null && search != null) {
-			 req = GETBYCATSEARCH;
-		}
-		else if(categorie.equalsIgnoreCase("Toutes") && search != null) {
+		System.out.println(categorie);
+		System.out.println(search);
+		if(categorie.equalsIgnoreCase("Toutes") && search != null) {
 			req = GETBYSEARCH;
+		}
+		else if(categorie != null && search != null) {
+			
+			req = GETBYCATSEARCH;
 		}
 		else if(categorie != null && search == null) {
 			req = GETBYCAT;
@@ -193,6 +195,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		else {
 			req = GETARTCILEENCOURS;
 		}
+		
+		System.out.println(req);
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtArticle = cnx.prepareStatement(req);

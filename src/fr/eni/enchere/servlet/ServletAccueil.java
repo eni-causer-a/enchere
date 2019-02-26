@@ -69,7 +69,7 @@ public class ServletAccueil extends HttpServlet {
 
 		}
 		else {
-			String search = request.getParameter("cat");
+			String search = request.getParameter("filtre");
 			lesArticles = am.getArticleByCategorieSearch(cat, search);
 
 		}
