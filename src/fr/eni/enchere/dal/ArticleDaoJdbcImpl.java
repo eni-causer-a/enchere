@@ -131,7 +131,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
 
 				}
-				pstmtUser.setInt(1,rs.getInt("no_categorie"));
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
 
 				ResultSet rsUser = pstmtUser.executeQuery();
 				while(rsUser.next()) {
