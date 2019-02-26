@@ -17,7 +17,7 @@ import fr.eni.enchere.bo.Utilisateur;
 
 public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
-	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur VALUES(?,?,?,?,?,?,?,?,?,?,0,0);";
+	private static final String INSERT_USER = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,0,0);";
 
 	private static final String GETUSER = "select * from UTILISATEURS where pseudo = ? and mot_de_passe = ? ;";
 	
