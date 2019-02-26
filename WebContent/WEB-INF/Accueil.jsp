@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@page import="fr.eni.enchere.bo.Article"%>
+<%@page import="fr.eni.enchere.bo.Categorie"%>
+<%@page import="java.util.List"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,20 +40,19 @@
 		</div>  
 	</header>
 
-	<h3 class="my-5 text-center">Liste des enchères</h3>
+	<h3 class="my-5 text-center">Liste des enchÃ¨res</h3>
 	<h3>Filtres :</h3>
 	<div class="row">
 		<div class="col-4">
 			<input type="text" name="filtre" placeHolder="Le nom de l'article contient">
 		</div>
 		<div class="col-4">
-			<label>Catégorie :</label>
+			<label>CatÃ©gorie :</label>
 			<select>
-			   <option value="Toutes"> Toutes
-			   <option value="Informatique"> Informatique
-			   <option value="Ameublement"> Ameublement
-			   <option value="Vêtement"> Vêtement
-			   <option value="Sport&Loisirs"> Sport&Loisirs
+				<c:forEach var="categorie" items="${lesCategories}">
+					<option value="${categorie.getLibelle()}">${categorie.getLibelle()}
+				</c:forEach>
+					
 			</select>	
 		</div>
 		<div class="col-4">
@@ -53,36 +61,17 @@
 	</div>
     <div class="row">
         <ul class="list-group col-12">
-        	<li class="list-group-item d-flex justify-content-between align-items-center">PC Gamer pour travailler
+           	<c:forEach var="article" items="${lesArticles}">
+           		<li class="list-group-item d-flex justify-content-between align-items-center">${article.getNomArticle()}
 	        	<div>  
-                    <div class="col-12">Prix : 210 points</div>      
-                    <div class="col-12">Fin de l'enchère : 10/08/2018</div>
-                    <div class="col-12">Vendeur : jojo44</div>
+                    <div class="col-12">Prix : ${article.getPrixVente()} points</div>      
+                    <div class="col-12">Fin de l'enchÃ¨re : ${article.getDateFinEncheres()}</div>
+                    <div class="col-12">Vendeur : ${article.getProprietaire().getNom()}</div>
 	        	</div> 
-           	</li>
-           	<li class="list-group-item d-flex justify-content-between align-items-center">Rocket stove pour riz et pâtes
-	        	<div>  
-                    <div class="col-12">Prix : 185 points</div>      
-                    <div class="col-12">Fin de l'enchère : 09/10/2018</div>
-                    <div class="col-12">Vendeur : NineJea</div>
-	        	</div> 
-           	</li>
-        
-        
-        
-        
-        
-            <!--  
-			<c:forEach var="article" items="${listePanier}">
-				<li class="list-group-item d-flex justify-content-between align-items-center">${panier.nomPanier}
-	                <div>
-	                    <a href="<%=request.getContextPath()%>/ServletPanier?id=${panier.idPanier}"><i class="material-icons">shopping_cart</i></a>
-	                    <a href="#supprimer" class="badge text-danger" title="Supprimer"><i class="material-icons">delete</i></a>
-	                </div>
-            	</li>
-           	</c:forEach>
-			
-			-->
+           		</li>
+           </c:forEach>
+          
+		
 		</ul>
 	</div>
 </div>
