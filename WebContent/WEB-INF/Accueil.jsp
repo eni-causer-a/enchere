@@ -42,23 +42,25 @@
 
 	<h3 class="my-5 text-center">Liste des enchères</h3>
 	<h3>Filtres :</h3>
-	<div class="row">
-		<div class="col-4">
-			<input type="text" name="filtre" placeHolder="Le nom de l'article contient">
+	<form method="post" action="<%=request.getContextPath()%>/Accueil">
+		<div class="row">
+			<div class="col-4">
+				<input type="text" name="filtre" placeHolder="Le nom de l'article contient">
+			</div>
+			<div class="col-4">
+				<label>Catégorie :</label>
+				<select name="categorie")>
+					<c:forEach var="categorie" items="${lesCategories}">
+						<option value="${categorie.getLibelle()}">${categorie.getLibelle()}
+					</c:forEach>
+						
+				</select>	
+			</div>
+			<div class="col-4">
+				<button>Rechercher</button>
+			</div>	
 		</div>
-		<div class="col-4">
-			<label>Catégorie :</label>
-			<select>
-				<c:forEach var="categorie" items="${lesCategories}">
-					<option value="${categorie.getLibelle()}">${categorie.getLibelle()}
-				</c:forEach>
-					
-			</select>	
-		</div>
-		<div class="col-4">
-			<button>Rechercher</button>
-		</div>
-	</div>
+	</form>
     <div class="row">
         <ul class="list-group col-12">
            	<c:forEach var="article" items="${lesArticles}">
