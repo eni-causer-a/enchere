@@ -19,33 +19,58 @@
 </head>
 <body class="container">
 	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="container text-center text-white">
-	        <h5 class="my-5 text-left">ENI-Encheres</h5>       
-	    </div>
+	    <div class="row">
+	   		<div class="col-6">	
+	   			<div class="container text-center text-white">
+	   				<h3>ENI-Encheres</h3>
+	   			</div>
+		</div>  
 	</header>
-
-	<div>
-	    <h5 class="my-5 text-center">Liste des enchères</h5>
+	<h3 class="my-5 text-center">Connexion</h3>
+	<div class="container">
 		<div class="row">
-			<h3>Filtres :</h3>
-			<div class="col-12">
-				<div>
-					<label>Identifiant :</label>
-					<input type="text" name="Identifiant">
-				</div>
-				<div>
-					<label>Mot de passe :</label>
-					<input type="text" name="MotDePasse">
-				</div>
-				<button>Connexion</button>
-				<div>
-				  <input type="checkbox" id="SeSouvenirDeMoi" name="SeSouvenirDeMoi"
-				         checked>
-				  <label for="SeSouvenirDeMoi">Se souvenir de moi</label>
-				</div>
+			<div class="col-3"></div>
+			<div class="col-6">
+		  		<label classe="pr-5" for="Identifiant">Identifiant :</label>
+		  		<input type="text" name="Identifiant">
 			</div>
-			<button>Rechercher</button>
+			<div class="col-3"></div>
+			<div class="col-3"></div>
+			<div class="col-6">
+			  	<label classe="pl-5" for="MotDePasse">Mot de passe :</label>
+			  	<input type="text" name="MotDePasse">
+			</div>
+			<div class="col-15"></div>
 		</div>
+		<div class="row">
+			<div class="col-4"></div>
+			<div class="col-2">
+				<button>Connexion</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-4"></div>
+			<div class="col-2">
+				<input type="checkbox" id="SeSouvenirDeMoi" name="SeSouvenirDeMoi" checked>
+				<label for="SeSouvenirDeMoi">Se souvenir de moi</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-4"></div>
+			<div class="col-2">
+				<a href="#MotDePasseOublie">Mot de passe oublié</a> <!-- <%=request.getContextPath()%>/ServletConnexion -->
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-4"></div>
+		<div class="col-2">
+			<button>Créer un compte</button>
+		</div>
+	</div>
+
+
 
 
     <!-- Footer -->
