@@ -32,26 +32,33 @@
 	</header>
 	<h3 class="my-5 text-center">Connexion</h3>
 	<div class="container">
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-		  		<label classe="pr-5" for="Identifiant">Identifiant :</label>
-		  		<input type="text" name="Identifiant">
+		<form method="post" action="<%=request.getContextPath()%>/ServletConnexion">
+			<div class="row">
+				<div class="col-4"></div>
+				<div class="col-2">
+			  		<label>Identifiant :</label>
+			  	</div>
+			  	<div class="col-2">
+			  		<input type="text" name="Identifiant">
+				</div>
+				<div class="col-4"></div>
+				<div class="w-100"></div>
+				<div class="col-4"></div>
+				<div class="col-2">
+				  	<label>Mot de passe :</label>
+				</div>
+				<div class="col-2">
+				  	<input type="password" name="MotDePasse">
+				</div>
+				<div class="col-4"></div>
 			</div>
-			<div class="col-3"></div>
-			<div class="col-3"></div>
-			<div class="col-6">
-			  	<label classe="pl-5" for="MotDePasse">Mot de passe :</label>
-			  	<input type="text" name="MotDePasse">
+			<div class="row">
+				<div class="col-4"></div>
+				<div class="col-2">
+					<button>Connexion</button>
+				</div>
 			</div>
-			<div class="col-15"></div>
-		</div>
-		<div class="row">
-			<div class="col-4"></div>
-			<div class="col-2">
-				<button>Connexion</button>
-			</div>
-		</div>
+		</form>
 		<div class="row">
 			<div class="col-4"></div>
 			<div class="col-2">

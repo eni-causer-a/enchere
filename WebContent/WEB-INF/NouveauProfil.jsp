@@ -97,14 +97,14 @@
 			  		<label>Mot de passe :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="motDePasse">
+					<input type="password" name="motDePasse">
 				</div>
 				<div class="col"></div>
 			  	<div class="col">
 			  		<label>Confirmation :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="confirmationMotDePasse">
+					<input type="password" name="confirmationMotDePasse">
 				</div>
 				<div class="col"></div>
 			</div>

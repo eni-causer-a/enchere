@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.enchere.bll.UtilisateurManager;
+import fr.eni.enchere.bo.Utilisateur;
+
 /**
  * Servlet implementation class ServletConnexion
  */
@@ -39,7 +42,18 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String id=request.getParameter("Identifiant");
+		String mdp=request.getParameter("MotDePasse");
+		
+		UtilisateurManager utilisateurManager=new UtilisateurManager();
+		Utilisateur utilisateur=utilisateurManager.getUtilisateur(id,mdp);
+		System.out.println(utilisateur);
+		if(utilisateur==null) {
+			response.sendRedirect(request.getContextPath()+"/ServletConnexion");
+			
+		}else {
+			response.sendRedirect(request.getContextPath()+"/Accueil");
+		}
 	}
 
 }
