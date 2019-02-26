@@ -16,6 +16,7 @@ public interface UtilisateurDao {
 	public List<Article> getListAchat(Utilisateur user);
 
 	
-	public void updateUser(Utilisateur utilisateur);
+	public void updateUser(Utilisateur user);
 
+	public void deleteUser(Utilisateur user);
 }
