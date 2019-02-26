@@ -29,6 +29,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	private static final String GETBYCAT = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie == c.no_categorie) where c.libelle = ?";
 	private static final String GETBYCATSEARCH = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie == c.no_categorie) where c.libelle = ? and av.nom_article like %?%";
 	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like %?%";
+	
+	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
 
 	
 	public void insert(Article article) {
@@ -251,4 +253,19 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		return listeArticleByCat;
 	}
 
+	@Override
+	public void deleteArticle(Article article) {
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtUser = cnx.prepareStatement(DELETEARTICLE);)
+			{
+				pstmtUser.setInt(1, article.getNoArticle());
+
+				ResultSet rs = pstmtUser.executeQuery();
+				
+			}//Fermeture automatique de la connexion
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
+	
 }

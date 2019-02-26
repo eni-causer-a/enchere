@@ -10,6 +10,6 @@ public interface ArticleDao {
 	public void getEtat(Article article) throws ParseException;
 	public List<Article> getArticleEnCours();
 	public List<Article> getArticleByCategorieSearch(String categorie, String search);
-
+	public void deleteArticle(Article article);
 
 }
