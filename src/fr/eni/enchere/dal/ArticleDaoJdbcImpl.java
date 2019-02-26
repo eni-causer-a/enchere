@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.EtatVente;
@@ -53,6 +54,18 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			e.printStackTrace();
 		}
 				
+	}
+
+	@Override
+	public List<Article> getArticleEnCours() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Article> getArticleByCategorieSearch(String categorie, String search) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

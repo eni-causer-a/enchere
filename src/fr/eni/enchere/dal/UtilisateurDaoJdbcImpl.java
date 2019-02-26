@@ -172,6 +172,13 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void deleteUser(Utilisateur user) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
