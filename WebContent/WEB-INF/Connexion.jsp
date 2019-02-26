@@ -24,6 +24,10 @@
 	   			<div class="container text-center text-white">
 	   				<h3>ENI-Encheres</h3>
 	   			</div>
+	   		</div>
+	   		<div class="col-6">
+	        	<a href="<%=request.getContextPath()%>/ServletNouveauProfil">Créer un compte </a>
+	       	</div>
 		</div>  
 	</header>
 	<h3 class="my-5 text-center">Connexion</h3>
@@ -62,17 +66,6 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="row">
-		<div class="col-4"></div>
-		<div class="col-2">
-			<button>Créer un compte</button>
-		</div>
-	</div>
-
-
-
-
     <!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">
     	

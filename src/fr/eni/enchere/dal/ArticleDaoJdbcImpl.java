@@ -14,18 +14,17 @@ import java.util.List;
 
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
-import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.EtatVente;
 import fr.eni.enchere.bo.Utilisateur;
 
 public class ArticleDaoJdbcImpl implements ArticleDao{
 
 	private static final String GETETAT = "select date_debut_encheres, date_fin_encheres from ARTICLES_VENDUS where no_article = ? "; 
-	private static final String GETUSER = "select * from UTILSIATEURS where no_utilisateur = ? ;";
+	private static final String GETUSER = "select * from UTILISATEURS where no_utilisateur = ? ;";
 	private static final String INSERTARTICLE = " insert into ARTICLES_VENDUS values(?,?,?,?,?,?,?,?)";
 	private static final String GETCATEGORIE = "select * from CATEGORIES where no_categorie = ?";
 	
-	private static final String GETARTCILEENCOURS = "select * from ARTICLES_VENDUS where date_fin_encheres - sysdate() > 0;";
+	private static final String GETARTCILEENCOURS = "select * from ARTICLES_VENDUS where cast(date_fin_encheres AS DATETIME) - GETDATE() > 0;";
 	private static final String GETBYCAT = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie == c.no_categorie) where c.libelle = ?";
 	private static final String GETBYCATSEARCH = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie == c.no_categorie) where c.libelle = ? and av.nom_article like %?%";
 	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like %?%";
@@ -43,8 +42,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					Utilisateur user = article.getProprietaire();
 					pstmtArticle.setString(1, article.getNomArticle());
 					pstmtArticle.setString(2, article.getDescription());
-					pstmtArticle.setDate(3, (java.sql.Date) article.getDateDebutEncheres());
-					pstmtArticle.setDate(4, (java.sql.Date) article.getDateFinEncheres());
+					pstmtArticle.setDate(3,new java.sql.Date( article.getDateDebutEncheres().getTime()));
+					pstmtArticle.setDate(4, new java.sql.Date(article.getDateFinEncheres().getTime()));
 					pstmtArticle.setInt(5, article.getMiseAPrix());
 					pstmtArticle.setInt(6, article.getPrixVente());
 					pstmtArticle.setInt(7, categorie.getNoCategorie());
@@ -132,11 +131,11 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
 
 				}
-				pstmtUser.setInt(1,rs.getInt("no_categorie"));
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
 
 				ResultSet rsUser = pstmtUser.executeQuery();
 				while(rsUser.next()) {
-					user = new Utilisateur(rsUser.getInt("noUtilisateur"),
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
 							rsUser.getString("pseudo"),
 							rsUser.getString("Nom"), 
 							rsUser.getString("Prenom"),
@@ -151,7 +150,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							);
 
 				}
-				Article article = new Article(rs.getInt("noArticle"),
+				Article article = new Article(rs.getInt("no_article"),
 										rs.getString("nom_article"), 
 										rs.getString("description"), 
 										rs.getDate("date_debut_encheres"),

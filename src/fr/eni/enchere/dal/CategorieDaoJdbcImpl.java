@@ -26,6 +26,7 @@ public class CategorieDaoJdbcImpl implements CategorieDao {
 			{
 				Categorie categorie = new Categorie(rs.getInt("no_categorie"),
 										rs.getString("libelle"));
+
 				listeCategorie.add(categorie);
 			}
 		}//Fermeture automatique de la connexion

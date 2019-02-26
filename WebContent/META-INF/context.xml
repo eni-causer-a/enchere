@@ -6,7 +6,11 @@
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		type="javax.sql.DataSource"
 		
+<<<<<<< HEAD
 		url="jdbc:sqlserver://10.51.101.8;databasename=ENCHERES"
+=======
+		url="jdbc:sqlserver://10.51.101.8;databasename=encheres"
+>>>>>>> branch 'master' of https://github.com/eni-causer-a/enchere
 		username="sa"
 		password="Pa$$w0rd"
 		
