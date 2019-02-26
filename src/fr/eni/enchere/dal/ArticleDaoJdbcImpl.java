@@ -25,9 +25,9 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	private static final String GETCATEGORIE = "select * from CATEGORIES where no_categorie = ?";
 	
 	private static final String GETARTCILEENCOURS = "select * from ARTICLES_VENDUS where cast(date_fin_encheres AS DATETIME) - GETDATE() > 0;";
-	private static final String GETBYCAT = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie == c.no_categorie) where c.libelle = ?";
-	private static final String GETBYCATSEARCH = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie == c.no_categorie) where c.libelle = ? and av.nom_article like %?%";
-	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like %?%";
+	private static final String GETBYCAT = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ?";
+	private static final String GETBYCATSEARCH = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ? and av.nom_article like %?%";
+	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like '?'";
 	
 	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
 
@@ -184,7 +184,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		if(categorie != null && search != null) {
 			 req = GETBYCATSEARCH;
 		}
-		else if(categorie == null && search != null) {
+		else if(categorie.equalsIgnoreCase("Toutes") && search != null) {
 			req = GETBYSEARCH;
 		}
 		else if(categorie != null && search == null) {
@@ -194,14 +194,23 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			req = GETARTCILEENCOURS;
 		}
 		
-		
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtArticle = cnx.prepareStatement(req);
 				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
 				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
 			{
+			if(req == GETBYCATSEARCH ) {
+				pstmtArticle.setString(1, categorie);
+				pstmtArticle.setString(2, "%"+search+"%");
 
-			pstmtUser.setString(1, categorie);
+			}
+			else if(req == GETBYSEARCH) {
+				pstmtArticle.setString(1, "%"+search+"%");
+			}
+			else if(req == GETBYCAT) {
+				pstmtArticle.setString(1, categorie);
+			}
+			
 
 			ResultSet rs = pstmtArticle.executeQuery();
 			while(rs.next())
@@ -218,7 +227,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 
 				ResultSet rsUser = pstmtUser.executeQuery();
 				while(rsUser.next()) {
-					user = new Utilisateur(rsUser.getInt("noUtilisateur"),
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
 							rsUser.getString("pseudo"),
 							rsUser.getString("Nom"), 
 							rsUser.getString("Prenom"),
@@ -233,7 +242,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							);
 
 				}
-				Article article = new Article(rs.getInt("noArticle"),
+				Article article = new Article(rs.getInt("no_article"),
 										rs.getString("nom_article"), 
 										rs.getString("description"), 
 										rs.getDate("date_debut_encheres"),
@@ -260,7 +269,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			{
 				pstmtUser.setInt(1, article.getNoArticle());
 
-				ResultSet rs = pstmtUser.executeQuery();
+				pstmtUser.executeQuery();
 				
 			}//Fermeture automatique de la connexion
 			catch (SQLException e) {
