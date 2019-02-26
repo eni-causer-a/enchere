@@ -180,6 +180,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		Categorie uneCategorie = null;
 		Utilisateur user = null;
 		String req = null;
+		
 		if(categorie != null && search != null) {
 			 req = GETBYCATSEARCH;
 		}

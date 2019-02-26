@@ -25,31 +25,62 @@
 	</header>
 
 	<div>
-	    <h5 class="my-5 text-center">Mon Profil</h5>
-		<div class="row">
-			<div class="col-12">
-				<label>Pseudo :</label>
-				<input type="text" name="pseudo">
-				<label>Prénom :</label>
-				<input type="text" name="prenom">
-				<label>Telephone :</label>
-				<input type="text" name="telephone">
-				<label>Code Postal :</label>
-				<input type="text" name="codePostal">
-				<label>Mot de passe :</label>MotDePasse">
+		<h5 class="my-5 text-center">Mon Profil</h5>
+	    <div class="row">
+			<div class="col">
+				<div class="col-6">
+		  			<label>Pseudo :</label>
+		  		</div>
+		  		<div class="col-6">
+					<input type="text" name="pseudo">
+				</div>
 			</div>
-			<div class="col-12">
-				<label>Nom :</label>
+		  	<div class="col">
+		  	<div class="col-6">
+		  		<label>Nom :</label>
+		  	</div>
+		  	<div class="col-6">
 				<input type="text" name="nom">
-				<label>Email :</label>
+			</div>
+			</div>
+		  	<div class="w-100"></div>
+		  	<div class="col">
+		  		<label>Prénom :</label>
+				<input type="text" name="prenom">
+			</div>
+		  	<div class="col">
+		  		<label>Email :</label>
 				<input type="text" name="email">
-				<label>Rue :</label>
+			</div>
+			<div class="w-100"></div>
+		  	<div class="col">
+		  		<label>Telephone :</label>
+				<input type="text" name="telephone">
+			</div>
+		  	<div class="col">
+		  		<label>Rue :</label>
 				<input type="text" name="rue">
-				<label>Ville :</label>
+			</div>
+			<div class="w-100"></div>
+		  	<div class="col">
+		  		<label>Code Postal :</label>
+				<input type="text" name="codePostal">
+			</div>
+		  	<div class="col">
+		  		<label>Ville :</label>
 				<input type="text" name="ville">
-				<label>Confirmation :</label>
+			</div>
+			<div class="w-100"></div>
+		  	<div class="col">
+		  		<label>Mot de passe :</label>MotDePasse">
+				<input type="text" name="motDePasse">
+			</div>
+		  	<div class="col">
+		  		<label>Confirmation :</label>
 				<input type="text" name="confirmationMotDePasse">
 			</div>
+		</div>
+		
 			<div>
 			 <button>Créer</button>
 			 <button>Annuler</button>

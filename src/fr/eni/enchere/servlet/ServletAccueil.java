@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import fr.eni.enchere.bll.ArticleManager;
 import fr.eni.enchere.bll.CategorieManager;
 import fr.eni.enchere.bo.Article;
@@ -57,8 +59,29 @@ public class ServletAccueil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		String cat = request.getParameter("categorie");
+		String search = request.getParameter("filtre");
+
+		ArticleManager am = new ArticleManager(new ArticleDaoJdbcImpl());
+		List<Article> lesArticles = null;
+		if(StringUtils.isEmpty(cat)) {
+			lesArticles = am.getArticleByCategorieSearch(null, search);
+
+		}
+		else {
+			lesArticles = am.getArticleByCategorieSearch(cat, search);
+
+		}
+		request.setAttribute("lesArticles", lesArticles);
+
+		CategorieManager cm = new CategorieManager();
+		List<Categorie> lesCategories = null;
+		lesCategories = cm.getListCategorie();
+		request.setAttribute("lesCategories", lesCategories);
 		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		rd.forward(request, response);
 	}
 
 }
