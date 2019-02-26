@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import fr.eni.enchere.bll.ArticleManager;
 import fr.eni.enchere.bll.CategorieManager;
 import fr.eni.enchere.bo.Article;
@@ -63,7 +65,14 @@ public class ServletAccueil extends HttpServlet {
 
 		ArticleManager am = new ArticleManager(new ArticleDaoJdbcImpl());
 		List<Article> lesArticles = null;
-		lesArticles = am.getArticleByCategorieSearch(cat, search);
+		if(StringUtils.isEmpty(cat)) {
+			lesArticles = am.getArticleByCategorieSearch(null, search);
+
+		}
+		else {
+			lesArticles = am.getArticleByCategorieSearch(cat, search);
+
+		}
 		request.setAttribute("lesArticles", lesArticles);
 
 		CategorieManager cm = new CategorieManager();

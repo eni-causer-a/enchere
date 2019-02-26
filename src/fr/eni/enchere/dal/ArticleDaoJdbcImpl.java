@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.EtatVente;
@@ -183,13 +181,13 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		Utilisateur user = null;
 		String req = null;
 		
-		if(StringUtils.isNotEmpty(categorie) && StringUtils.isNotEmpty(search)) {
+		if(categorie != null && search != null) {
 			 req = GETBYCATSEARCH;
 		}
-		else if(StringUtils.isEmpty(categorie) && StringUtils.isNotEmpty(search)) {
+		else if(categorie == null && search != null) {
 			req = GETBYSEARCH;
 		}
-		else if(StringUtils.isNotEmpty(categorie) && StringUtils.isEmpty(search)) {
+		else if(categorie != null && search == null) {
 			req = GETBYCAT;
 		}
 		else {
