@@ -10,12 +10,13 @@ public interface UtilisateurDao {
 
 	
 	public void insert(Utilisateur utilisateur);
-	public Utilisateur getUtilisateur(String pseudo, String mdp);
+	public Utilisateur getUser(String pseudo, String mdp);
 	public List<Article> getListVente(Utilisateur user);
 	
 	public List<Article> getListAchat(Utilisateur user);
 
 	
-	public void updateUser(Utilisateur utilisateur);
+	public void updateUser(Utilisateur user);
 
+	public void deleteUser(Utilisateur user);
 }
