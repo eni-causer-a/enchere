@@ -32,4 +32,7 @@ public class UtilisateurManager {
 		return null;
 	}
 	
+	public Utilisateur findUserById(int id) {
+		return utilisateurDao.findUserById(id);
+	}
 }
