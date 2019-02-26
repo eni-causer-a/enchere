@@ -31,6 +31,7 @@ public class ServletConnexion extends HttpServlet {
 		// TODO Auto-generated method stub
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/**
