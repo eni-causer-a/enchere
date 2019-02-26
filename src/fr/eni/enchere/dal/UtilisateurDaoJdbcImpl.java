@@ -31,6 +31,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String DELETEUSER = "delete from UTILISATEURS where no_utilisateur = ? ;";
 	
+	private static final String FINDUSERBYID = "SELECT * FROM UTILISATEURS WHERE id = ? ;";
+	
 	public void insert(Utilisateur user) {
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmtUser = cnx.prepareStatement(INSERT_USER,Statement.RETURN_GENERATED_KEYS))
@@ -192,6 +194,45 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+	}
+
+
+	@Override
+	public Utilisateur findUserById(int id) {
+Utilisateur user = null;
+		
+		
+		try(Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pstmtUser = cnx.prepareStatement(FINDUSERBYID);)
+		{
+			pstmtUser.setInt(1, id);
+
+			ResultSet rs = pstmtUser.executeQuery();
+			while(rs.next())
+			{
+				if(rs.getString("pseudo")!=null)
+				{
+					user = new Utilisateur(rs.getInt("noUtilisateur"),
+									rs.getString("pseudo"),
+									rs.getString("Nom"), 
+									rs.getString("Prenom"),
+									rs.getString("email"),
+									rs.getString("telephone"),
+									rs.getString("rue"),
+									rs.getString("code_postal"),
+									rs.getString("ville"),
+									rs.getString("mot_de_passe"),
+									rs.getInt("credit"),
+									rs.getBoolean("administrateur")
+									);
+				}
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return user;
 	}
 	
 	

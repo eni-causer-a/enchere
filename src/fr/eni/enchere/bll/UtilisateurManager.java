@@ -15,10 +15,6 @@ public class UtilisateurManager {
 		this.utilisateurDao = DAOFactory.getUtilisateurDao();
 	}
 	
-	public UtilisateurManager(UtilisateurDao utilisateurDao) {
-		this.utilisateurDao = utilisateurDao;
-	}
-	
 	public void createUtilisateur(Utilisateur user) {
 		if (user != null) {
 			utilisateurDao.insert(user);
@@ -36,4 +32,7 @@ public class UtilisateurManager {
 		return null;
 	}
 	
+	public Utilisateur findUserById(int id) {
+		return utilisateurDao.findUserById(id);
+	}
 }

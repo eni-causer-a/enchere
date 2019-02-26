@@ -13,9 +13,10 @@ public class ArticleManager {
 		this.articleDao = DAOFactory.getArticleDao();
 	}
 	
-	
-	public ArticleManager(ArticleDao articleDao) {
-		this.articleDao = articleDao;
+	public void insert(Article article) {
+		if (article != null) {
+			this.articleDao.insert(article);
+		}
 	}
 
 	public List<Article> getArticleEnCours() {
@@ -25,5 +26,11 @@ public class ArticleManager {
 
 	public List<Article> getArticleByCategorieSearch(String categorie, String search) {
 		return articleDao.getArticleByCategorieSearch(categorie, search);   
+	}
+	
+	public void deleteArticle(Article article) {
+		if (article != null) {
+			articleDao.deleteArticle(article);
+		}
 	}
 }
