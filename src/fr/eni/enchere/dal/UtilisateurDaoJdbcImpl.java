@@ -31,7 +31,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String DELETEUSER = "delete from UTILISATEURS where no_utilisateur = ? ;";
 	
-	private static final String FINDUSERBYID = "SELECT * FROM UTILISATEURS WHERE id = ? ;";
+	private static final String FINDUSERBYID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ? ;";
 	
 	public void insert(Utilisateur user) {
 		try(Connection cnx = ConnectionProvider.getConnection();
@@ -82,7 +82,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 			{
 				if(rs.getString("pseudo")!=null)
 				{
-					user = new Utilisateur(rs.getInt("noUtilisateur"),
+					user = new Utilisateur(rs.getInt("no_utilisateur"),
 									rs.getString("pseudo"),
 									rs.getString("Nom"), 
 									rs.getString("Prenom"),
@@ -212,7 +212,7 @@ Utilisateur user = null;
 			{
 				if(rs.getString("pseudo")!=null)
 				{
-					user = new Utilisateur(rs.getInt("noUtilisateur"),
+					user = new Utilisateur(rs.getInt("no_utilisateur"),
 									rs.getString("pseudo"),
 									rs.getString("Nom"), 
 									rs.getString("Prenom"),

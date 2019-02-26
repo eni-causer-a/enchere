@@ -38,7 +38,13 @@ public class ServletNouveauProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		if(request.getParameter("boutonAnnuler")!=null) {
+			response.sendRedirect(request.getContextPath()+"/Accueil");
+		}
+		else {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 }
