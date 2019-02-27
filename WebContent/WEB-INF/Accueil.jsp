@@ -41,7 +41,7 @@
 	   		</c:if>
 	   		<c:if test="${utilisateur!=null}">
 	   			
-	        	<div class="col-1"><a href="#Enchere">Enchères</a></div>
+	        	<div class="col-1"></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente">Vendre un article</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil">Mon profil</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/Deconnexion">Déconnexion</a></div>
