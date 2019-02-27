@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,6 +17,7 @@ import fr.eni.enchere.bll.ArticleManager;
 import fr.eni.enchere.bll.CategorieManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
+import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.ArticleDaoJdbcImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -50,6 +52,9 @@ public class ServletAccueil extends HttpServlet {
 		lesCategories = cm.getListCategorie();
 		request.setAttribute("lesCategories", lesCategories);
 		
+		HttpSession session= request.getSession();
+		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		request.setAttribute("utilisateur", utilisateur);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);

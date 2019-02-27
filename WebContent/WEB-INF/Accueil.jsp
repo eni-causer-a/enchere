@@ -34,13 +34,28 @@
 	   				<h3>ENI-Encheres</h3>
 	   			</div>
 	   		</div>
-	   		<div class="col-6">
-	        	<a href="<%=request.getContextPath()%>/ServletConnexion">S'inscrire - Se connecter</a>
-	       	</div>
+	   		<c:if test="${utilisateur==null}">
+		   		<div class="col-6">
+		        	<a href="<%=request.getContextPath()%>/ServletConnexion">S'inscrire - Se connecter</a>
+		       	</div>
+	   		</c:if>
+	   		<c:if test="${utilisateur!=null}">
+	   			
+	        	<div class="col-1"><a href="#Enchere">Enchères</a></div>
+	        	<div class="col-1"><a href="#VendreUnArticle">Vendre un article</a></div>
+	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil">Mon profil</a></div>
+	        	<div class="col-1"><a href="<%=request.getContextPath()%>/Deconnexion">Déconnexion</a></div>
+		       	
+	   		</c:if>
+	   		
 		</div>  
 	</header>
-
 	<h3 class="my-5 text-center">Liste des enchères</h3>
+	<c:if test="${utilisateur!=null}">
+		<div class="row">
+			
+		</div>
+	</c:if>
 	<h3>Filtres :</h3>
 	<form method="post" action="<%=request.getContextPath()%>/Accueil">
 		<div class="row">

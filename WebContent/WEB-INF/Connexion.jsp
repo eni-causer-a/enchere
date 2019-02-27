@@ -53,25 +53,26 @@
 				<div class="col-4"></div>
 			</div>
 			<div class="row">
-				<div class="col-4"></div>
+				<div class="col-6"></div>
 				<div class="col-2">
 					<button>Connexion</button>
 				</div>
-			</div>
-		</form>
-		<div class="row">
-			<div class="col-4"></div>
+				<div class="col-5"></div>
+			<div class="w-100"></div>
+			<div class="col-5"></div>
 			<div class="col-2">
 				<input type="checkbox" id="SeSouvenirDeMoi" name="SeSouvenirDeMoi" checked>
 				<label for="SeSouvenirDeMoi">Se souvenir de moi</label>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-4"></div>
+			<div class="col-5"></div>
+			<div class="w-100"></div>
+			<div class="col-5"></div>
 			<div class="col-2">
 				<a href="#MotDePasseOublie">Mot de passe oublié</a> <!-- <%=request.getContextPath()%>/ServletConnexion -->
 			</div>
+			<div class="col-5"></div>
 		</div>
+		</form>
 	</div>
     <!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">
