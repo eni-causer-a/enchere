@@ -42,7 +42,7 @@
 	   		<c:if test="${utilisateur!=null}">
 	   			
 	        	<div class="col-1"><a href="#Enchere">Enchères</a></div>
-	        	<div class="col-1"><a href="#VendreUnArticle">Vendre un article</a></div>
+	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente">Vendre un article</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil">Mon profil</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/Deconnexion">Déconnexion</a></div>
 		       	
@@ -67,7 +67,7 @@
 		<div class="row">
 			<div class="col-3">
 				<c:if test="${groupe1==value1}">
-					<input type="checkbox" value="value1" name="param11">Enchères ouvertes</input>
+					<input type="checkbox" value="value1" name="param11">Enchères ouvertes
 				</c:if>
 			</div>
 			<div class="col-3">
