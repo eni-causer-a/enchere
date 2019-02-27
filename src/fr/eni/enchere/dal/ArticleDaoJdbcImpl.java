@@ -241,11 +241,18 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		Utilisateur user = null;
 		String req = null;
 		
-		if(categorie != null && search != null) {
-			 req = GETBYCATSEARCH;
-		}
-		else if(categorie.equalsIgnoreCase("Toutes") && search != null) {
+		if(categorie.equalsIgnoreCase("Toutes") && search != null) {
 			req = GETBYSEARCH;
+		}
+		else if(categorie.equalsIgnoreCase("Toutes") && search == null) {
+			List<Article> listeArticle = new ArrayList<Article>();
+
+			listeArticle = getArticleEnCours();
+			return listeArticle;
+		}
+		else if(categorie != null && search != null) {
+			
+			req = GETBYCATSEARCH;
 		}
 		else if(categorie != null && search == null) {
 			req = GETBYCAT;
@@ -253,6 +260,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		else {
 			req = GETARTCILEENCOURS;
 		}
+		
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtArticle = cnx.prepareStatement(req);
@@ -283,7 +291,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				 uneCategorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
 
 				}
-				pstmtUser.setInt(1,rs.getInt("no_categorie"));
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
 
 				ResultSet rsUser = pstmtUser.executeQuery();
 				while(rsUser.next()) {
