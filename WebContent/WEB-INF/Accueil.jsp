@@ -153,24 +153,24 @@ function active1(radio) {
     	document.getElementsByName("param21")[0].disabled = true;
     	document.getElementsByName("param21")[0].disabled = true;
    }*/
-function activeDesactive(radio,id) {
-    if(radio.checked && id==1) {
-    	document.getElementsByName("param11")[0].disabled = false;
-    	document.getElementsByName("param12")[0].disabled = false;
-    	document.getElementsByName("param13")[0].disabled = false;
-    	document.getElementsByName("param21")[0].disabled = true;
-    	document.getElementsByName("param22")[0].disabled = true;
-    	document.getElementsByName("param23")[0].disabled = true;
-    }
-    else if(radio.checked && id==2){
-    	document.getElementsByName("param11")[0].disabled = true;
-    	document.getElementsByName("param12")[0].disabled = true;
-    	document.getElementsByName("param13")[0].disabled = true;
-    	document.getElementsByName("param21")[0].disabled = false;
-    	document.getElementsByName("param22")[0].disabled = false;
-    	document.getElementsByName("param23")[0].disabled = false;
-    }
-}
+	function activeDesactive(radio,id) {
+	    if(radio.checked && id==1) {
+	    	document.getElementsByName("param11")[0].disabled = false;
+	    	document.getElementsByName("param12")[0].disabled = false;
+	    	document.getElementsByName("param13")[0].disabled = false;
+	    	document.getElementsByName("param21")[0].disabled = true;
+	    	document.getElementsByName("param22")[0].disabled = true;
+	    	document.getElementsByName("param23")[0].disabled = true;
+	    }
+	    else if(radio.checked && id==2){
+	    	document.getElementsByName("param11")[0].disabled = true;
+	    	document.getElementsByName("param12")[0].disabled = true;
+	    	document.getElementsByName("param13")[0].disabled = true;
+	    	document.getElementsByName("param21")[0].disabled = false;
+	    	document.getElementsByName("param22")[0].disabled = false;
+	    	document.getElementsByName("param23")[0].disabled = false;
+	    }
+	}
 
 </script>
 

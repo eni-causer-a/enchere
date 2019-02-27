@@ -16,7 +16,6 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES VALUES(?,?,?,?);";
 	
 	private static final String LASTENCHERE = "select top 1 * from encheres where no_article = 2 order by montant_enchere DESC ;";
-	private static final String GETUSER = "select * from user where no_utilisateur = ?  ;";
 
 	@Override
 	public void insert(Enchere enchere) {
@@ -30,10 +29,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 				pstmtEnchere.setDate(3, (Date) enchere.getDateEnchere());
 				pstmtEnchere.setInt(4, enchere.getMontant_enchere());
 			
-			
-			
 				pstmtEnchere.executeUpdate();
-				
 				
 			}
 				
@@ -49,20 +45,17 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtUser = cnx.prepareStatement(LASTENCHERE);)
 			{
-			Utilisateur user = getUser(article.getProprietaire().getNoUtilisateur());
+			Utilisateur user = DAOFactory.getUtilisateurDao().findUserById(article.getProprietaire().getNoUtilisateur());
 				pstmtUser.setInt(1, article.getNoArticle());
 
 				ResultSet rs = pstmtUser.executeQuery();
-				while(rs.next())
+				if(rs.next())
 				{
-					if(rs.getString("pseudo")!=null)
-					{
-						enchere = new Enchere(user,
-										rs.getDate("date_enchere"),
-										rs.getInt("montant_enchere"), 
-										article
-										);
-					}
+					enchere = new Enchere(user,
+									rs.getDate("date_enchere"),
+									rs.getInt("montant_enchere"), 
+									article
+									);
 				}
 			}//Fermeture automatique de la connexion
 			catch (SQLException e) {
@@ -70,46 +63,6 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 			}
 					
 			return enchere;
-	}
-	
-	private Utilisateur getUser(int id) {
-		Utilisateur user = null;
-		
-		
-		try(Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER);)
-		{
-			pstmtUser.setInt(1, id);
-
-			ResultSet rs = pstmtUser.executeQuery();
-			while(rs.next())
-			{
-				if(rs.getString("pseudo")!=null)
-				{
-					user = new Utilisateur(rs.getInt("noUtilisateur"),
-									rs.getString("pseudo"),
-									rs.getString("Nom"), 
-									rs.getString("Prenom"),
-									rs.getString("email"),
-									rs.getString("telephone"),
-									rs.getString("rue"),
-									rs.getString("code_postal"),
-									rs.getString("ville"),
-									rs.getString("mot_de_passe"),
-									rs.getInt("credit"),
-									rs.getBoolean("administrateur")
-									);
-				}
-			}
-		}//Fermeture automatique de la connexion
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-				
-		return user;
-	}
-	
-	
-	
+	}	
 	
 }
