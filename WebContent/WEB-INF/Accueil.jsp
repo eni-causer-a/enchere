@@ -52,7 +52,43 @@
 	</header>
 	<h3 class="my-5 text-center">Liste des enchères</h3>
 	<c:if test="${utilisateur!=null}">
+		
+		<fieldset id="group1">
+			<div class="row">
+				<div class="col-3">
+			    	<input type="radio" value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>Achats
+			    </div>
+			    <div class="col-3">
+			    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);">Mes Ventes
+			    </div>
+			</div>
+		</fieldset>
+			
 		<div class="row">
+			<div class="col-3">
+				<c:if test="${groupe1==value1}">
+					<input type="checkbox" value="value1" name="param11">Enchères ouvertes</input>
+				</c:if>
+			</div>
+			<div class="col-3">
+				<input type="checkbox" value="value2" name="param21" disabled>Mes ventes en cours
+			</div>
+			<div class="w-100"></div>
+			<div class="col-3">
+				<input type="checkbox" value="value2" name="param12">Mes enchères en cours
+			</div>
+			<div class="col-3">
+				<input type="checkbox" value="value2" name="param22" disabled>Ventes non débutées
+			</div>
+			<div class="w-100"></div>
+			<div class="col-3">
+				<input type="checkbox" value="value2" name="param13">Mes enchères remportées
+			</div>
+			<div class="col-3">
+				<input type="checkbox" value="value2" name="param23" disabled>Ventes terminées
+			</div>
+			
+			
 			
 		</div>
 	</c:if>
@@ -105,4 +141,37 @@
     <script src="../../../vendor/jquery/jquery.min.js"></script>
     <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<script type='text/javascript'>
+ /*
+function active1(radio) {
+	if(radio.checked) {
+    	document.getElementsByName("param11")[0].disabled = false;
+    	document.getElementsByName("param12")[0].disabled = false;
+    	document.getElementsByName("param13")[0].disabled = false;
+    	document.getElementsByName("param21")[0].disabled = true;
+    	document.getElementsByName("param21")[0].disabled = true;
+    	document.getElementsByName("param21")[0].disabled = true;
+   }*/
+function activeDesactive(radio,id) {
+    if(radio.checked && id==1) {
+    	document.getElementsByName("param11")[0].disabled = false;
+    	document.getElementsByName("param12")[0].disabled = false;
+    	document.getElementsByName("param13")[0].disabled = false;
+    	document.getElementsByName("param21")[0].disabled = true;
+    	document.getElementsByName("param22")[0].disabled = true;
+    	document.getElementsByName("param23")[0].disabled = true;
+    }
+    else if(radio.checked && id==2){
+    	document.getElementsByName("param11")[0].disabled = true;
+    	document.getElementsByName("param12")[0].disabled = true;
+    	document.getElementsByName("param13")[0].disabled = true;
+    	document.getElementsByName("param21")[0].disabled = false;
+    	document.getElementsByName("param22")[0].disabled = false;
+    	document.getElementsByName("param23")[0].disabled = false;
+    }
+}
+
+</script>
+
 </html>
