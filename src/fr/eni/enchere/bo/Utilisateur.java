@@ -19,6 +19,57 @@ public class Utilisateur {
 	
 	private List<Article> articlesEnVente;
 	
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administareur) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostale = codePostale;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administareur = administareur;
+		this.articlesEnVente = new ArrayList<Article>();
+	}
+	public Utilisateur( String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostale, String ville, String motDePasse) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostale = codePostale;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		
+	}
+	
+	public Utilisateur( String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostale, String ville) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostale = codePostale;
+		this.ville = ville;
+		
+	}
+	
+	public Utilisateur() {
+		super();
+		this.articlesEnVente = new ArrayList<Article>();
+	}
+	
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
@@ -98,41 +149,8 @@ public class Utilisateur {
 	public void setArticlesEnVente(List<Article> articlesEnVente) {
 		this.articlesEnVente = articlesEnVente;
 	}
-	public Utilisateur() {
-		super();
-		this.articlesEnVente = new ArrayList<Article>();
-	}
 	
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administareur) {
-		super();
-		this.noUtilisateur = noUtilisateur;
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostale = codePostale;
-		this.ville = ville;
-		this.motDePasse = motDePasse;
-		this.credit = credit;
-		this.administareur = administareur;
-		this.articlesEnVente = new ArrayList<Article>();
-	}
-	public Utilisateur( String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostale, String ville, String motDePasse) {
-		super();
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostale = codePostale;
-		this.ville = ville;
-		this.motDePasse = motDePasse;
-		
-	}
+	
+	
 
 }

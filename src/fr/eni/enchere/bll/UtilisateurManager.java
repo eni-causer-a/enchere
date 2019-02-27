@@ -36,4 +36,8 @@ public class UtilisateurManager {
 	public Utilisateur findUserById(int id) {
 		return utilisateurDao.findUserById(id);
 	}
+	
+	public void update(Utilisateur user) {
+		utilisateurDao.updateUser(user);
+	}
 }
