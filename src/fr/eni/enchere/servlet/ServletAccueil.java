@@ -56,6 +56,8 @@ public class ServletAccueil extends HttpServlet {
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
 		
+		session.setAttribute("lesCategories",lesCategories);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 	}
