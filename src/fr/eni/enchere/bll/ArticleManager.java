@@ -33,4 +33,8 @@ public class ArticleManager {
 			articleDao.deleteArticle(article);
 		}
 	}
+	
+	public Article getArticleById(int id) {
+		return this.articleDao.getArticleById(id);
+	}
 }

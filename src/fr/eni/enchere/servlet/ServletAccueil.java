@@ -62,7 +62,7 @@ public class ServletAccueil extends HttpServlet {
 
 		//String cat = request.getParameter("categorie");
 		String cat = request.getParameter("categorie");
-		ArticleManager am = new ArticleManager(new ArticleDaoJdbcImpl());
+		ArticleManager am = new ArticleManager();
 		List<Article> lesArticles = null;
 		if(StringUtils.isEmpty(request.getParameter("filtre"))) {
 			lesArticles = am.getArticleByCategorieSearch(cat, null);

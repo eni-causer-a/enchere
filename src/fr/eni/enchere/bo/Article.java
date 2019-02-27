@@ -13,6 +13,8 @@ public class Article {
 	private EtatVente etatVente;
 	private Categorie categorie;
 	private Utilisateur proprietaire;
+	private Retrait retrait;
+	private boolean retire;
 	
 	public int getNoArticle() {
 		return noArticle;
@@ -68,14 +70,24 @@ public class Article {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
 	public Utilisateur getProprietaire() {
 		return proprietaire;
 	}
 	public void setProprietaire(Utilisateur proprietaire) {
 		this.proprietaire = proprietaire;
 	}
-	
+	public Retrait getRetrait() {
+		return retrait;
+	}
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+	public boolean isRetire() {
+		return retire;
+	}
+	public void setRetire(boolean retire) {
+		this.retire = retire;
+	}
 	public Article() {
 		super();
 	}
@@ -93,6 +105,7 @@ public class Article {
 		this.etatVente = etatVente;
 		this.categorie = categorie;
 		this.proprietaire = proprietaire;
+		this.retire = false;
 	}
 	
 	public Article(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
@@ -107,6 +120,7 @@ public class Article {
 		this.prixVente = prixVente;
 		this.categorie = categorie;
 		this.proprietaire = proprietaire;
+		this.retire = false;
 	}
 	
 }

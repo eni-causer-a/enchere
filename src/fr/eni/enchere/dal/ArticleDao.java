@@ -12,5 +12,6 @@ public interface ArticleDao {
 	public List<Article> getArticleEnCours();
 	public List<Article> getArticleByCategorieSearch(String categorie, String search);
 	public void deleteArticle(Article article);
+	public Article getArticleById(int id);
 
 }

@@ -15,6 +15,7 @@ import java.util.List;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.EtatVente;
+import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.bo.Utilisateur;
 
 public class ArticleDaoJdbcImpl implements ArticleDao{
@@ -28,6 +29,26 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	private static final String GETBYCAT = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ?";
 	private static final String GETBYCATSEARCH = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ? and av.nom_article like %?%";
 	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like '?'";
+	private static final String GET_ARTCILE_BY_ID = "select ARTICLES_VENDUS.no_article as no_article,\r\n" + 
+			"ARTICLES_VENDUS.nom_article as nom_article,\r\n" + 
+			"ARTICLES_VENDUS.description as description,\r\n" + 
+			"ARTICLES_VENDUS.date_debut_encheres as date_debut_encheres,\r\n" + 
+			"ARTICLES_VENDUS.date_fin_encheres as date_fin_encheres,\r\n" + 
+			"ARTICLES_VENDUS.prix_initial as prix_initial,\r\n" + 
+			"ARTICLES_VENDUS.prix_vente as prix_vente,\r\n" + 
+			"ARTICLES_VENDUS.no_gagnant as no_gagnant,\r\n" + 
+			"ARTICLES_VENDUS.retire as retire,\r\n" + 
+			"ARTICLES_VENDUS.no_utilisateur as no_utilisateur,\r\n" + 
+			"CATEGORIES.no_categorie as no_categorie,\r\n" + 
+			"CATEGORIES.libelle as libelle_categorie,\r\n" + 
+			"RETRAITS.rue as rue_retrait,\r\n" + 
+			"RETRAITS.code_postal as code_postal_retrait,\r\n" + 
+			"RETRAITS.ville as ville_retrait\r\n" + 
+			" from ARTICLES_VENDUS\r\n" + 
+			"LEFT JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie\r\n" + 
+			"LEFT JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n" + 
+			"LEFT JOIN RETRAITS ON ARTICLES_VENDUS.no_article = RETRAITS.no_article\r\n" + 
+			" where ARTICLES_VENDUS.no_article = ?;";
 	
 	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
 
@@ -65,7 +86,46 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				}
 	}
 	
-	
+	public Article getArticleById(int id) {
+		Article art = null;
+		
+		try(Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement ps = cnx.prepareStatement(GET_ARTCILE_BY_ID);)
+		{
+			ps.setInt(1, id);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				Retrait retrait = new Retrait();
+				Categorie categorie = new Categorie();
+				
+				categorie.setNoCategorie(rs.getInt("no_categorie"));
+				categorie.setLibelle(rs.getString("libelle_categorie"));
+				
+				retrait.setRue(rs.getString("rue_retrait"));
+				retrait.setCode_postale(rs.getString("code_postale_retrait"));
+				retrait.setVille(rs.getString("ville_retrait"));
+				
+				art = new Article();
+				art.setNoArticle(rs.getInt("no_article"));
+				art.setNomArticle(rs.getString("nom_article"));
+				art.setDescription(rs.getString("description"));
+				art.setDateDebutEncheres(new java.sql.Date(rs.getDate("date_debut_encheres").getTime()));
+				art.setDateFinEncheres(new java.sql.Date(rs.getDate("date_fin_encheres").getTime()));
+				art.setMiseAPrix(rs.getInt("prix_initial"));
+				art.setPrixVente(rs.getInt("prix_vente"));
+				
+				art.setCategorie(categorie);
+				art.setRetrait(retrait);
+			}
+			
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return art;
+	}
 	
 	public void getEtat(Article article) throws ParseException {
 		Utilisateur user = null;
