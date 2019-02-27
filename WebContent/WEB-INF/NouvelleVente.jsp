@@ -76,7 +76,7 @@
 			  		<label>Mise à prix :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="number" min="0" value="50" name="miseAPrix">
+					<input type="number" min="0" name="miseAPrix">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -109,7 +109,7 @@
 			  		<label>Rue :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="rue">
+					<input type="text" name="rue" value="${utilisateur.getRue()}">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -118,7 +118,7 @@
 			  		<label>Code postal :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="codePostal">
+					<input type="text" name="codePostal" value="${utilisateur.getCodePostale()}">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -127,7 +127,7 @@
 			  		<label>Ville :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="ville">
+					<input type="text" name="ville" value="${utilisateur.getVille()}">
 				</div>
 				<div class="col"></div>
 			</div>
