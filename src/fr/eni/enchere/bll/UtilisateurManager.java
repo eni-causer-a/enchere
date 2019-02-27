@@ -16,6 +16,7 @@ public class UtilisateurManager {
 	}
 	
 	public void createUtilisateur(Utilisateur user) {
+		//Verification de la non nullité des valeurs
 		if (user != null) {
 			utilisateurDao.insert(user);
 		}

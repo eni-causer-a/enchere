@@ -33,37 +33,52 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String FINDUSERBYID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ? ;";
 	
+	private static final String GET_USER_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo LIKE ?;";
+	
 	public void insert(Utilisateur user) {
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmtUser = cnx.prepareStatement(INSERT_USER,Statement.RETURN_GENERATED_KEYS))
 			{
-			Utilisateur userVerif = getUser(user.getPseudo(),user.getNom());
-			
-			if(userVerif == null) {
-			pstmtUser.setString(1, user.getPseudo());
-			pstmtUser.setString(2, user.getNom());
-			pstmtUser.setString(3, user.getPrenom());
-			pstmtUser.setString(4, user.getEmail());
-			pstmtUser.setString(5, user.getTelephone());
-			pstmtUser.setString(6, user.getRue());
-			pstmtUser.setString(7, user.getCodePostale());
-			pstmtUser.setString(8, user.getVille());
-			pstmtUser.setString(9, user.getMotDePasse());
-			
-			
-			pstmtUser.executeUpdate();
+						
+			if(!pseudoTaken(user.getPseudo())) {
+				pstmtUser.setString(1, user.getPseudo());
+				pstmtUser.setString(2, user.getNom());
+				pstmtUser.setString(3, user.getPrenom());
+				pstmtUser.setString(4, user.getEmail());
+				pstmtUser.setString(5, user.getTelephone());
+				pstmtUser.setString(6, user.getRue());
+				pstmtUser.setString(7, user.getCodePostale());
+				pstmtUser.setString(8, user.getVille());
+				pstmtUser.setString(9, user.getMotDePasse());
+				
+				pstmtUser.execute();
 				ResultSet rs = pstmtUser.getGeneratedKeys();
 				if(rs.next())
 				{
 					user.setNoUtilisateur(rs.getInt(1));
 				}
-				
 			}
 				
 			}//Fermeture automatique de la connexion
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+	}
+	
+	private boolean pseudoTaken(String pseudo) {
+		try(Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pstmtUser = cnx.prepareStatement(GET_USER_BY_PSEUDO);)
+		{
+			pstmtUser.setString(1, pseudo);
+
+			ResultSet rs = pstmtUser.executeQuery();
+			return rs.next();
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 	
 	
@@ -199,7 +214,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 
 	@Override
 	public Utilisateur findUserById(int id) {
-Utilisateur user = null;
+		Utilisateur user = null;
 		
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
@@ -234,15 +249,6 @@ Utilisateur user = null;
 				
 		return user;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

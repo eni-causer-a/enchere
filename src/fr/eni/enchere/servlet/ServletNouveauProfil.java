@@ -48,9 +48,9 @@ public class ServletNouveauProfil extends HttpServlet {
 			if(request.getParameter("motDePasse").equalsIgnoreCase(request.getParameter("confirmationMotDePasse"))) {
 				System.out.println("ok");
 
-			UtilisateurManager um = new UtilisateurManager();
-			Utilisateur user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasse"));
-			um.createUtilisateur(user);
+				UtilisateurManager um = new UtilisateurManager();
+				Utilisateur user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasse"));
+				um.createUtilisateur(user);
 			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
