@@ -34,6 +34,11 @@ public class Retrait {
 		this.code_postale = code_postale;
 		this.ville = ville;
 	}
+	@Override
+	public String toString() {
+		return "Retrait [rue=" + rue + ", code_postale=" + code_postale + ", ville=" + ville + "]";
+	}
+	
 	
 	
 }

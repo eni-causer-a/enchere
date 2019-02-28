@@ -17,42 +17,71 @@
 </head>
 <body class="container">
 	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="container text-center text-white">
-	        <h5 class="my-5 text-left">ENI-Encheres</h5>       
-	    </div>
+	    <<div class="row">
+	   		<div class="col-6">	
+	   			<div class="container text-center text-white">
+	   				<h3>ENI-Encheres</h3>
+	   			</div>
+	   		</div>
+	   	</div>
 	</header>
 	<h5 class="my-5 text-center">Informations Profil</h5>
-	<div class="col-12">
-			<label>Pseudo :</label>
-			${user.pseudo}
-			<br>
-			<label>Nom :</label>
-			${user.nom}
-			<br>
-			<label>Prénom :</label>
-			${user.prenom}
-			<br>
-			<label>Email :</label>
-			${user.email}
-			<br>
-			<label>Telephone :</label>
-			${user.telephone}
-			<br>
-			<label>Rue :</label>
-			${user.rue}
-			<br>
-			<label>Code Postal :</label>
-			${user.codePostale}
-			<br>
-			<label>Ville :</label>
-			${user.ville}
-		</div>
+	<div class="row">
+			<div class="col-4"></div>
+			<div class="col-2"><label>Pseudo :</label></div>
+			<div class="col-2">${user.pseudo}</div>
+			<div class="col"></div>		
+		<div class="w-100"></div>
+			<div class="col-4"></div>
+			<div class="col-2"><label>Nom :</label></div>
+			<div class="col-2">${user.nom}</div>
+			<div class="col"></div>		
+		<div class="w-100"></div>
+			<div class="col-4"></div>
+			<div class="col-2"><label>Prénom :</label></div>
+			<div class="col-2">${user.prenom}</div>
+			<div class="col"></div>	
+		<div class="w-100"></div>
+			<div class="col-4"></div>
+			<div class="col-2"><label>Email :</label></div>
+			<div class="col-2">${user.email}</div>
+			<div class="col"></div>	
+		<div class="w-100"></div>
+			<div class="col-4"></div>
+			<div class="col-2"><label>Telephone :</label></div>
+			<div class="col-2">${user.telephone}</div>
+			<div class="col"></div>	
+		<div class="w-100"></div>
+			<div class="col-4"></div>
+			<div class="col-2"><label>Rue :</label></div>
+			<div class="col-2">${user.rue}</div>
+			<div class="col"></div>	
+		<div class="w-100"></div>
+			<div class="col-4"></div>
+			<div class="col-2"><label>Code Postal :</label></div>
+			<div class="col-2">${user.codePostale}</div>
+			<div class="col"></div>	
+		<div class="w-100"></div>
+			<div class="col-4"></div>
+			<div class="col-2"><label>Ville :</label></div>
+			<div class="col-2">${user.ville}</div>
+			<div class="col"></div>	
+	</div>
 		
 		<c:if test="${sessionScope.Utilisateur.getNoUtilisateur() == user.getNoUtilisateur()}">
-		<form action="modifProfil">
-			<button>Modifier</button>
-		</form>
+			<form action="modifProfil">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col"><button>Modifier</button></div>
+				<div class="col"></div>
+				</div>
+			</form>
 		</c:if>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col"><a href="<%=request.getContextPath()%>/Accueil">Retour vers l'accueil</a></div>
+			<div class="col"></div>
+		</div>
 			
 	<!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">

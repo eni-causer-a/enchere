@@ -115,7 +115,7 @@
     <div class="row">
         <ul class="list-group col-12">
            	<c:forEach var="article" items="${lesArticles}">
-           		<li class="list-group-item d-flex justify-content-between align-items-center">${article.getNomArticle()}
+           		<li class="list-group-item d-flex justify-content-between align-items-center"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a>
 	        	<div>  
                     <div class="col-12">Prix : ${article.getPrixVente()} points</div>      
                     <div class="col-12">Fin de l'enchère : ${article.getDateFinEncheres()}</div>
@@ -127,13 +127,13 @@
 		
 		</ul>
 	</div>
-</div>
-	
-	
+
+	<br>
+	<br>
 
     <!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">
-    	
+    
         <!-- /.container -->
     </footer>
 

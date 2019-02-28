@@ -19,9 +19,13 @@
 </head>
 <body class="container">
 	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="container text-center text-white">
-	        <h5 class="my-5 text-left">ENI-Encheres</h5>       
-	    </div>
+	    <div class="row">
+	   		<div class="col-6">	
+	   			<div class="container text-center text-white">
+	   				<h3>ENI-Encheres</h3>
+	   			</div>
+	   		</div>
+	   	</div>
 	</header>
 	
 	<div>
