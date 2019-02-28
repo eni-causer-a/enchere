@@ -33,6 +33,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	private static final String GETBYCAT = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ?";
 	private static final String GETBYCATSEARCH = "select * from ARTICLES_VENDUS av join CATEGORIES c on (av.no_categorie = c.no_categorie) where c.libelle = ? and av.nom_article like %?%";
 	private static final String GETBYSEARCH = "select * from ARTICLES_VENDUS where nom_article like '?'";
+	
 	private static final String GET_ARTCILE_BY_ID = "select ARTICLES_VENDUS.no_article as no_article,\r\n" + 
 			"ARTICLES_VENDUS.nom_article as nom_article,\r\n" + 
 			"ARTICLES_VENDUS.description as description,\r\n" + 
