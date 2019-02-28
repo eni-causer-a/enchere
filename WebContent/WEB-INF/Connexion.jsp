@@ -26,20 +26,20 @@
 	   			</div>
 	   		</div>
 	   		<div class="col-6">
-	        	<a href="<%=request.getContextPath()%>/ServletNouveauProfil">Créer un compte </a>
+	        	<a href="<%=request.getContextPath()%>/NouveauProfil">Créer un compte </a>
 	       	</div>
 		</div>  
 	</header>
 	<h3 class="my-5 text-center">Connexion</h3>
 	<div class="container">
-		<form method="post" action="<%=request.getContextPath()%>/ServletConnexion">
+		<form method="post" action="<%=request.getContextPath()%>/Connexion">
 			<div class="row">
 				<div class="col-4"></div>
 				<div class="col-2">
 			  		<label>Identifiant :</label>
 			  	</div>
 			  	<div class="col-2">
-			  		<input type="text" name="Identifiant">
+			  		<input type="text" name="Identifiant" value="${pseudo}">
 				</div>
 				<div class="col-4"></div>
 				<div class="w-100"></div>

@@ -36,7 +36,7 @@
 	   		</div>
 	   		<c:if test="${utilisateur==null}">
 		   		<div class="col-6">
-		        	<a href="<%=request.getContextPath()%>/ServletConnexion">S'inscrire - Se connecter</a>
+		        	<a href="<%=request.getContextPath()%>/Connexion">S'inscrire - Se connecter</a>
 		       	</div>
 	   		</c:if>
 	   		<c:if test="${utilisateur!=null}">

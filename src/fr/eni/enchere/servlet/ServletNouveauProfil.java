@@ -15,7 +15,7 @@ import fr.eni.enchere.bo.Utilisateur;
 /**
  * Servlet implementation class ServletNouveauProfil
  */
-@WebServlet("/ServletNouveauProfil")
+@WebServlet("/NouveauProfil")
 public class ServletNouveauProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -52,7 +52,7 @@ public class ServletNouveauProfil extends HttpServlet {
 				Utilisateur user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasse"));
 				um.createUtilisateur(user);
 			}
-			response.sendRedirect(request.getContextPath()+"/ServletConnexion");
+			response.sendRedirect(request.getContextPath()+"/Connexion");
 			
 		}
 	}

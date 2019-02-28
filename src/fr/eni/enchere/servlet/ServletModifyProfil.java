@@ -49,19 +49,22 @@ public class ServletModifyProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session= request.getSession(); 
+		UtilisateurManager um = new UtilisateurManager();
 		if(request.getParameter("boutonAnnuler")!=null) {
+			um.delete((Utilisateur) session.getAttribute("Utilisateur"));
+			session.removeAttribute("Utilisateur");
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}
 		else {
 			
 			System.out.println("ok");
-			HttpSession session= request.getSession(); 
 			
-			UtilisateurManager um = new UtilisateurManager();
+			
+			
 			Utilisateur user;
 			user = new Utilisateur();
 			if(request.getParameter("motDePasse").equals("")) {
-				System.out.println("1");
 				user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse());
 			}else {
 
@@ -74,17 +77,16 @@ public class ServletModifyProfil extends HttpServlet {
 					System.out.println("modif");
 					user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasses"));
 				}
-				
 			}
 			
-				
 			user.setNoUtilisateur(((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
 			um.update(user);
 			session.setAttribute("Utilisateur", user);
+			RequestDispatcher rd = request.getRequestDispatcher("/profil?user="+((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
+			rd.forward(request, response);
 			}
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
-			rd.forward(request, response);
+			
 		
 	}
 

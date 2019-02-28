@@ -40,4 +40,8 @@ public class UtilisateurManager {
 	public void update(Utilisateur user) {
 		utilisateurDao.updateUser(user);
 	}
+	
+	public void delete(Utilisateur user) {
+		utilisateurDao.deleteUser(user);
+	}	
 }

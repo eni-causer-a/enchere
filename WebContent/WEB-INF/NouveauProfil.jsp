@@ -30,7 +30,7 @@
 	
 	<div>
 		<h5 class="my-5 text-center">Mon Profil</h5>
-		<form method="post" action="<%=request.getContextPath()%>/ServletNouveauProfil">
+		<form method="post" action="<%=request.getContextPath()%>/NouveauProfil">
 		    <div class="row">
 		    	<div class="col"></div>
 				<div class="col">
