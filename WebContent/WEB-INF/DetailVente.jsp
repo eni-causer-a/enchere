@@ -135,7 +135,6 @@
 	</div>
 
 
-
     <!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">
     	
