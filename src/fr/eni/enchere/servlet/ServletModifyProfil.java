@@ -82,7 +82,7 @@ public class ServletModifyProfil extends HttpServlet {
 			user.setNoUtilisateur(((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
 			um.update(user);
 			session.setAttribute("Utilisateur", user);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/profil?user="+((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
 			rd.forward(request, response);
 			}
 			
