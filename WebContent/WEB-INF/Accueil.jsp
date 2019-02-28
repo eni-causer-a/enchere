@@ -119,7 +119,7 @@
 	        	<div>  
                     <div class="col-12">Prix : ${article.getPrixVente()} points</div>      
                     <div class="col-12">Fin de l'enchère : ${article.getDateFinEncheres()}</div>
-                    <div class="col-12">Vendeur : ${article.getProprietaire().getNom()}</div>
+                    <div class="col-12">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></div>
 	        	</div> 
            		</li>
            </c:forEach>
