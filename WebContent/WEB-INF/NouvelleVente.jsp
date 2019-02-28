@@ -56,7 +56,7 @@
 			  	<div class="col">
 					<select name="categorie")>
 						<c:forEach var="categorie" items="${lesCategories}">
-							<option value="${categorie.getLibelle()}">${categorie.getLibelle()}
+							<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}
 						</c:forEach>		
 					</select>
 				</div>

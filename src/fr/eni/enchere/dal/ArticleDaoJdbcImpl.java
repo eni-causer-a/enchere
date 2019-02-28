@@ -22,7 +22,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 
 	private static final String GETETAT = "select date_debut_encheres, date_fin_encheres from ARTICLES_VENDUS where no_article = ? "; 
 	private static final String GETUSER = "select * from UTILISATEURS where no_utilisateur = ? ;";
-	private static final String INSERTARTICLE = " insert into ARTICLES_VENDUS values(?,?,?,?,?,?,?,?)";
+	private static final String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(nom_article, description, date_debut_encheres,date_fin_encheres,prix_initial, prix_vente,no_utilisateur,no_categorie)\r\n" + 
+			"values(?,?,?,?,?,?,?,?)";
 	private static final String GETCATEGORIE = "select * from CATEGORIES where no_categorie = ?";
 	
 	private static final String GETARTCILEENCOURS = "select * from ARTICLES_VENDUS where cast(date_fin_encheres AS DATETIME) - GETDATE() > 0;";
@@ -55,7 +56,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	
 	public void insert(Article article) {
 		try(Connection cnx = ConnectionProvider.getConnection();
-				PreparedStatement pstmtArticle = cnx.prepareStatement(INSERTARTICLE,Statement.RETURN_GENERATED_KEYS))
+				PreparedStatement pstmtArticle = cnx.prepareStatement(INSERT_ARTICLE,Statement.RETURN_GENERATED_KEYS))
 				{				
 				if(article != null) {
 					
@@ -66,10 +67,9 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					pstmtArticle.setDate(3,new java.sql.Date( article.getDateDebutEncheres().getTime()));
 					pstmtArticle.setDate(4, new java.sql.Date(article.getDateFinEncheres().getTime()));
 					pstmtArticle.setInt(5, article.getMiseAPrix());
-					pstmtArticle.setInt(6, article.getPrixVente());
-					pstmtArticle.setInt(7, categorie.getNoCategorie());
-					pstmtArticle.setInt(8, user.getNoUtilisateur());
-				
+					pstmtArticle.setInt(6, article.getMiseAPrix());
+					pstmtArticle.setInt(7, user.getNoUtilisateur());
+					pstmtArticle.setInt(8, categorie.getNoCategorie());
 				
 					pstmtArticle.executeUpdate();
 					ResultSet rs = pstmtArticle.getGeneratedKeys();
@@ -103,7 +103,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				categorie.setLibelle(rs.getString("libelle_categorie"));
 				
 				retrait.setRue(rs.getString("rue_retrait"));
-				retrait.setCode_postale(rs.getString("code_postale_retrait"));
+				retrait.setCode_postale(rs.getString("code_postal_retrait"));
 				retrait.setVille(rs.getString("ville_retrait"));
 				
 				art = new Article();
