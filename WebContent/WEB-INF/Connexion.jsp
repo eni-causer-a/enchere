@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,13 +35,22 @@
 	<h3 class="my-5 text-center">Connexion</h3>
 	<div class="container">
 		<form method="post" action="<%=request.getContextPath()%>/Connexion">
+			<c:if test="${loginError!=null}">
+					<div class="w-100"></div>
+					<div class="col-4"></div>
+				  	<div class="col">
+				  		<label class="label-danger">${loginError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 			<div class="row">
 				<div class="col-4"></div>
 				<div class="col-2">
 			  		<label>Identifiant :</label>
 			  	</div>
 			  	<div class="col-2">
-			  		<input type="text" name="Identifiant" value="${pseudo}">
+			  		<input type="text" name="Identifiant" value="${Identifiant}" required>
 				</div>
 				<div class="col-4"></div>
 				<div class="w-100"></div>
@@ -48,14 +59,15 @@
 				  	<label>Mot de passe :</label>
 				</div>
 				<div class="col-2">
-				  	<input type="password" name="MotDePasse">
+				  	<input type="password" name="MotDePasse" required>
 				</div>
 				<div class="col-4"></div>
 			</div>
+			<br>
 			<div class="row">
 				<div class="col-6"></div>
 				<div class="col-2">
-					<button>Connexion</button>
+					<button class="btn btn-secondary">Connexion</button>
 				</div>
 				<div class="col-5"></div>
 			<div class="w-100"></div>

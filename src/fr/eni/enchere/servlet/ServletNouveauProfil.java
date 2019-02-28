@@ -41,18 +41,29 @@ public class ServletNouveauProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		if(request.getParameter("boutonAnnuler")!=null) {
-			response.sendRedirect(request.getContextPath()+"/Accueil");
-		}
-		else {
+		if(request.getParameter("boutonCreer")!=null) {
 			if(request.getParameter("motDePasse").equalsIgnoreCase(request.getParameter("confirmationMotDePasse"))) {
 				System.out.println("ok");
 
 				UtilisateurManager um = new UtilisateurManager();
 				Utilisateur user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasse"));
 				um.createUtilisateur(user);
+				response.sendRedirect(request.getContextPath()+"/Connexion");
+			}else {
+				System.out.println(request.getParameter("pseudo"));
+				request.setAttribute("pseudo", request.getParameter("pseudo"));
+				request.setAttribute("nom", request.getParameter("nom"));
+				request.setAttribute("prenom", request.getParameter("prenom"));
+				request.setAttribute("email", request.getParameter("email"));
+				request.setAttribute("telephone", request.getParameter("telephone"));
+				request.setAttribute("rue", request.getParameter("rue"));
+				request.setAttribute("codePostal", request.getParameter("codePostal"));
+				request.setAttribute("ville", request.getParameter("ville"));
+				request.setAttribute("mdpError", "Le mot de passe est diffenrent de Confirmation");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouveauProfil.jsp");
+				rd.forward(request, response);
 			}
-			response.sendRedirect(request.getContextPath()+"/Connexion");
+			
 			
 		}
 	}

@@ -104,7 +104,7 @@
 		  		<label>Vendeur :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="vendeur">${article.getProprietaire().getPseudo()}</label>
+				<a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a>
 			</div>
 			<div class="col"></div>
 		</div>
