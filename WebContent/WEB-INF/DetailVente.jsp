@@ -35,94 +35,103 @@
 	<div>
 		
 		<h5 class="my-5 text-center">Détail vente</h5>
-		<form method="post" action="<%=request.getContextPath()%>/DetailVente">
 		
-		    <div class="row">
-		    	<div class="col"></div>
-				<div class="col">
-			  		<label>PC Gamer pour travailler</label>
-			  	</div>
-			  	<div class="col"></div>
-				<div class="col"></div>
-			  	<div class="w-100"></div>
-			  	<div class="col-3"></div>
-			  	<div class="col-3">
-			  		<label>Description :</label>
-			  	</div>
-			  	<div class="col-3">
-					<label name="description">dsgkjtoghqpohpiqsghoigqsoijfffffffffff yudu dyuduhgqnqgs^gsqp^qjg^jqg^pjg,,kqdgmk,sdgq</label>
-				</div>
-				<div class="col-3"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Catégorie :</label>
-			  	</div>
-			  	<div class="col">
-					<label name="categorie"></label>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Meilleur offre :</label>
-			  	</div>
-			  	<div class="col">
-					<label name="meilleurOffre">210 pts par Bob</label>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Mise à prix :</label>
-			  	</div>
-			  	<div class="col">
-					<label name="miseAPrix">185 points</label>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Fin de l'enchère :</label>
-			  	</div>
-			  	<div class="col">
-					<label name="finEnchere">09/10/2018</label>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Retrait :</label>
-			  	</div>
-			  	<div class="col">
-					<label name="retrait">10 allée des alouettes 44800 Saint Herblain</label>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Vendeur :</label>
-			  	</div>
-			  	<div class="col">
-					<label name="vendeur">jojo44</label>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Ma proposition :</label>
-			  	</div>
-			  	
-			  	<div class="col">
-					<input type="number" min="185" value="185" name="miseAPrix">
-				</div>
-				<div class="col">
-					<button>Enchérir</button>
-				</div>
-				<div class="col"></div>
+		
+	    <div class="row">
+	    	<div class="col"></div>
+			<div class="col">
+		  		<h6>${article.getNomArticle()}</h6>
+		  	</div>
+		  	<div class="col"></div>
+			<div class="col"></div>
+		  	<div class="w-100"></div>
+		  	<div class="col-3"></div>
+		  	<div class="col-3">
+		  		<label>Description :</label>
+		  	</div>
+		  	<div class="col-3">
+				<label name="description">${article.getDescription()}</label>
 			</div>
-		</form>
+			<div class="col-3"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
+		  		<label>Catégorie :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="categorie">${article.getCategorie().getLibelle()}</label>
+			</div>
+			<div class="col"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
+		  		<label>Meilleur offre :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="meilleurOffre">${article.getPrixVente()} points par Bob</label>
+			</div>
+			<div class="col"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
+		  		<label>Mise à prix :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="miseAPrix">${article.getMiseAPrix()} points</label>
+			</div>
+			<div class="col"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
+		  		<label>Fin de l'enchère :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="finEnchere">${article.getDateFinEncheres()}</label>
+			</div>
+			<div class="col"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
+		  		<label>Retrait :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="retrait">${article.getRetrait().getRue()} ${article.getRetrait().getCode_postale()} ${article.getRetrait().getVille()}</label>
+			</div>
+			<div class="col"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
+		  		<label>Vendeur :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="vendeur">${article.getProprietaire().getPseudo()}</label>
+			</div>
+			<div class="col"></div>
+		</div>
+		<c:if test="${utilisateur!=null}">
+			<form method="post" action="<%=request.getContextPath()%>/DetailVente">
+				<div class="row">
+					<div class="col"></div>
+				  	<div class="col">
+				  		<label>Ma proposition :</label>
+				  	</div>
+				  	
+				  	<div class="col">
+						<input type="number" min="${article.getPrixVente()}" value="${article.getPrixVente()}" name="miseAPrix">
+					</div>
+					<div class="col">
+						<button>Enchérir</button>
+					</div>
+					<div class="col"></div>
+				</div>
+			</form>
+		</c:if>
+		<br>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col"><a href="<%=request.getContextPath()%>/Accueil">Retour vers l'accueil</a></div>
+			<div class="col"></div>
+		</div>
 	</div>
 
 

@@ -117,6 +117,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				
 				art.setCategorie(categorie);
 				art.setRetrait(retrait);
+				System.out.println(retrait.toString());
 			}
 			
 		}//Fermeture automatique de la connexion
