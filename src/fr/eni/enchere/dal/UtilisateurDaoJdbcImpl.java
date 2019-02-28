@@ -28,6 +28,19 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	private static final String GETACHATUSER = "select distinct ";
 	
 	private static final String DELETEUSER = "delete from UTILISATEURS where no_utilisateur = ? ;";
+	private static final String DELETE_ARTICLE="delete from ARTICLES_VENDUS \r\n" + 
+			"where no_utilisateur=?\r\n" + 
+			"AND date_fin_encheres > GETDATE();";
+	private static final String DELETE_ENCHERE="delete from ENCHERES\r\n" + 
+			"where no_article=(\r\n" + 
+			"	select no_article from ARTICLES_VENDUS\r\n" + 
+			"	where no_utilisateur=?\r\n" + 
+			"	AND date_fin_encheres > GETDATE());";
+	private static final String DELETE_RETRAIT="delete from RETRAITS\r\n" + 
+			"where no_article=(\r\n" + 
+			"	select no_article from ARTICLES_VENDUS\r\n" + 
+			"	where no_utilisateur=?\r\n" + 
+			"	AND date_fin_encheres > GETDATE());";
 	
 	private static final String FINDUSERBYID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ? ;";
 	
@@ -63,7 +76,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 			}
 	}
 	
-	private boolean pseudoTaken(String pseudo) {
+	@Override
+	public boolean pseudoTaken(String pseudo) {
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmtUser = cnx.prepareStatement(GET_USER_BY_PSEUDO);)
 		{
@@ -196,17 +210,28 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 
 	@Override
 	public void deleteUser(Utilisateur user) {
-		try(Connection cnx = ConnectionProvider.getConnection();
-				PreparedStatement pstmtUser = cnx.prepareStatement(DELETEUSER);)
-			{
-				pstmtUser.setInt(1, user.getNoUtilisateur());
+		try(Connection cnx = ConnectionProvider.getConnection();)
+		{
+			PreparedStatement ps = cnx.prepareStatement(DELETE_ENCHERE);
+			ps.setInt(1, user.getNoUtilisateur());
+			ps.executeUpdate();
+			
+			ps = cnx.prepareStatement(DELETE_RETRAIT);
+			ps.setInt(1, user.getNoUtilisateur());
+			ps.executeUpdate();
+			
+			ps = cnx.prepareStatement(DELETE_ARTICLE);
+			ps.setInt(1, user.getNoUtilisateur());
+			ps.executeUpdate();
 
-				ResultSet rs = pstmtUser.executeQuery();
-				
-			}//Fermeture automatique de la connexion
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+			ps = cnx.prepareStatement(DELETEUSER);
+			ps.setInt(1, user.getNoUtilisateur());
+			ps.executeUpdate();
+			
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 

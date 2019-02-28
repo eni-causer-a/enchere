@@ -16,7 +16,7 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES VALUES(?,?,?,?);";
 	private static final String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=?";
 	
-	private static final String LASTENCHERE = "select top 1 * from encheres where no_article = 2 order by montant_enchere DESC ;";
+	private static final String LASTENCHERE = "select top 1 * from encheres where no_article = ? order by montant_enchere DESC ;";
 
 	@Override
 	public void insert(Enchere enchere) {

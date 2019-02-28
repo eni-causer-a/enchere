@@ -21,4 +21,6 @@ public interface UtilisateurDao {
 	public void deleteUser(Utilisateur user);
 	
 	public Utilisateur findUserById(int id);
+	
+	public boolean pseudoTaken(String pseudo);
 }

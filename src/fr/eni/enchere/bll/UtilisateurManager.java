@@ -37,6 +37,10 @@ public class UtilisateurManager {
 		return utilisateurDao.findUserById(id);
 	}
 	
+	public boolean pseudoIsTaken(String pseudo) {
+		return this.utilisateurDao.pseudoTaken(pseudo);
+	}
+	
 	public void update(Utilisateur user) {
 		utilisateurDao.updateUser(user);
 	}
