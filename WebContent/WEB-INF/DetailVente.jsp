@@ -29,49 +29,46 @@
 	   			</div>
 	   		</div>
 	   	</div>
+	    
 	</header>
 	
 	<div>
-		<h5 class="my-5 text-center">Nouvelle vente</h5>
-		<form method="post" action="<%=request.getContextPath()%>/NouvelleVente">
+		
+		<h5 class="my-5 text-center">Détail vente</h5>
+		<form method="post" action="<%=request.getContextPath()%>/DetailVente">
+		
 		    <div class="row">
 		    	<div class="col"></div>
 				<div class="col">
-			  		<label>Article :</label>
+			  		<label>PC Gamer pour travailler</label>
 			  	</div>
-			  	<div class="col">
-					<input type="text" name="nomArticle">
-				</div>
+			  	<div class="col"></div>
 				<div class="col"></div>
 			  	<div class="w-100"></div>
-			  	<div class="col"></div>
-			  	<div class="col">
+			  	<div class="col-3"></div>
+			  	<div class="col-3">
 			  		<label>Description :</label>
 			  	</div>
-			  	<div class="col">
-					<input type="text" name="description">
+			  	<div class="col-3">
+					<label name="description">dsgkjtoghqpohpiqsghoigqsoijfffffffffff yudu dyuduhgqnqgs^gsqp^qjg^jqg^pjg,,kqdgmk,sdgq</label>
 				</div>
-				<div class="col"></div>
+				<div class="col-3"></div>
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
 			  		<label>Catégorie :</label>
 			  	</div>
 			  	<div class="col">
-					<select name="categorie")>
-						<c:forEach var="categorie" items="${lesCategories}">
-							<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}
-						</c:forEach>		
-					</select>
+					<label name="categorie"></label>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Photo de l'article :</label>
+			  		<label>Meilleur offre :</label>
 			  	</div>
 			  	<div class="col">
-					<button>Uploader</button>
+					<label name="meilleurOffre">210 pts par Bob</label>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -80,16 +77,7 @@
 			  		<label>Mise à prix :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="number" min="0" name="miseAPrix">
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Début de l'enchère :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="date" name="debutEnchere">
+					<label name="miseAPrix">185 points</label>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -98,55 +86,43 @@
 			  		<label>Fin de l'enchère :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="date" name="finEnchere">
+					<label name="finEnchere">09/10/2018</label>
 				</div>
 				<div class="col"></div>
-			</div>
-			<div class="row list-group-item  d-flex">
-				<div class="col-3"></div>
+				<div class="w-100"></div>
+				<div class="col"></div>
+			  	<div class="col">
+			  		<label>Retrait :</label>
+			  	</div>
+			  	<div class="col">
+					<label name="retrait">10 allée des alouettes 44800 Saint Herblain</label>
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				<div class="col"></div>
+			  	<div class="col">
+			  		<label>Vendeur :</label>
+			  	</div>
+			  	<div class="col">
+					<label name="vendeur">jojo44</label>
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				
+				<div class="col"></div>
+			  	<div class="col">
+			  		<label>Ma proposition :</label>
+			  	</div>
+			  	
+			  	<div class="col">
+					<input type="number" min="185" value="185" name="miseAPrix">
+				</div>
 				<div class="col">
-					<h6>Retrait :</h6>
-				</div>
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col">
-			  		<label>Rue :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="rue" value="${utilisateur.getRue()}">
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col">
-			  		<label>Code postal :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="codePostal" value="${utilisateur.getCodePostale()}">
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col">
-			  		<label>Ville :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="ville" value="${utilisateur.getVille()}">
+					<button>Enchérir</button>
 				</div>
 				<div class="col"></div>
 			</div>
-			
-			<div class="row">
-				<div class="col-5"></div>
-				<div class="col-1">
-					<button name="boutonEnregistrer">Enregistrer</button>
-				</div>
-				<div class="col-1">
-					<button name="boutonAnnuler">Annuler</button>
-				</div>
-				<div class="col-5"></div>
-			</div>
-		</form>			
+		</form>
 	</div>
 
 

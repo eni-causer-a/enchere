@@ -23,7 +23,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 
 	private static final String GETCATEGORIE = "select * from CATEGORIES where no_categorie = ?"; 
 	
-	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?,credit=?, administrateur=? where no_utilisateur = ? ; ";
+	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? where no_utilisateur = ? ; ";
 
 	private static final String GETACHATUSER = "select distinct ";
 	

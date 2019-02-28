@@ -41,9 +41,9 @@
 	   		</c:if>
 	   		<c:if test="${utilisateur!=null}">
 	   			
-	        	<div class="col-1"><a href="#Enchere">Enchères</a></div>
+	        	<div class="col-1"></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente">Vendre un article</a></div>
-	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil">Mon profil</a></div>
+	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}">Mon profil</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/Deconnexion">Déconnexion</a></div>
 		       	
 	   		</c:if>
@@ -119,7 +119,7 @@
 	        	<div>  
                     <div class="col-12">Prix : ${article.getPrixVente()} points</div>      
                     <div class="col-12">Fin de l'enchère : ${article.getDateFinEncheres()}</div>
-                    <div class="col-12">Vendeur : ${article.getProprietaire().getNom()}</div>
+                    <div class="col-12">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></div>
 	        	</div> 
            		</li>
            </c:forEach>
