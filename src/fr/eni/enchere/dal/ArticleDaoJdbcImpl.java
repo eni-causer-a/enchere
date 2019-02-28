@@ -146,6 +146,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				
 				art.setCategorie(categorie);
 				art.setRetrait(retrait);
+				art.setProprietaire(proprietaire);
+				
 				System.out.println(retrait.toString());
 			}
 			
