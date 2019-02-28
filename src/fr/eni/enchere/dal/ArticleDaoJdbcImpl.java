@@ -24,6 +24,9 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	private static final String GETUSER = "select * from UTILISATEURS where no_utilisateur = ? ;";
 	private static final String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(nom_article, description, date_debut_encheres,date_fin_encheres,prix_initial, prix_vente,no_utilisateur,no_categorie)\r\n" + 
 			"values(?,?,?,?,?,?,?,?)";
+	private static final String INSERT_RETRAIT = "insert into RETRAITS(no_article,rue,code_postal,ville)"+
+			"values(?,?,?,?);";
+	
 	private static final String GETCATEGORIE = "select * from CATEGORIES where no_categorie = ?";
 	
 	private static final String GETARTCILEENCOURS = "select * from ARTICLES_VENDUS where cast(date_fin_encheres AS DATETIME) - GETDATE() > 0;";
@@ -40,6 +43,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			"ARTICLES_VENDUS.no_gagnant as no_gagnant,\r\n" + 
 			"ARTICLES_VENDUS.retire as retire,\r\n" + 
 			"ARTICLES_VENDUS.no_utilisateur as no_utilisateur,\r\n" + 
+			"UTILISATEURS.pseudo as pseudo_proprietaire,\r\n" + 
 			"CATEGORIES.no_categorie as no_categorie,\r\n" + 
 			"CATEGORIES.libelle as libelle_categorie,\r\n" + 
 			"RETRAITS.rue as rue_retrait,\r\n" + 
@@ -47,21 +51,23 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			"RETRAITS.ville as ville_retrait\r\n" + 
 			" from ARTICLES_VENDUS\r\n" + 
 			"LEFT JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie\r\n" + 
-			"LEFT JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n" + 
 			"LEFT JOIN RETRAITS ON ARTICLES_VENDUS.no_article = RETRAITS.no_article\r\n" + 
+			"LEFT JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n" + 
 			" where ARTICLES_VENDUS.no_article = ?;";
 	
 	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
 
 	
 	public void insert(Article article) {
+		Categorie categorie =  article.getCategorie();
+		Utilisateur user = article.getProprietaire();
+		Retrait retrait = article.getRetrait();
+		
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtArticle = cnx.prepareStatement(INSERT_ARTICLE,Statement.RETURN_GENERATED_KEYS))
 				{				
 				if(article != null) {
 					
-					Categorie categorie =  article.getCategorie();
-					Utilisateur user = article.getProprietaire();
 					pstmtArticle.setString(1, article.getNomArticle());
 					pstmtArticle.setString(2, article.getDescription());
 					pstmtArticle.setDate(3,new java.sql.Date( article.getDateDebutEncheres().getTime()));
@@ -84,6 +90,25 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				catch (SQLException e) {
 					e.printStackTrace();
 				}
+		
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(INSERT_RETRAIT))
+			{
+				if(article != null) {
+					
+					ps.setInt(1, article.getNoArticle());
+					ps.setString(2, retrait.getRue());
+					ps.setString(3, retrait.getCode_postale());
+					ps.setString(4, retrait.getVille());
+				
+					ps.executeUpdate();
+					
+				}
+					
+			}//Fermeture automatique de la connexion
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	public Article getArticleById(int id) {
@@ -98,6 +123,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			if (rs.next()) {
 				Retrait retrait = new Retrait();
 				Categorie categorie = new Categorie();
+				Utilisateur proprietaire = new Utilisateur();
 				
 				categorie.setNoCategorie(rs.getInt("no_categorie"));
 				categorie.setLibelle(rs.getString("libelle_categorie"));
@@ -105,6 +131,9 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				retrait.setRue(rs.getString("rue_retrait"));
 				retrait.setCode_postale(rs.getString("code_postal_retrait"));
 				retrait.setVille(rs.getString("ville_retrait"));
+				
+				proprietaire.setNoUtilisateur(Integer.parseInt(rs.getString("no_utilisateur")));
+				proprietaire.setPseudo(rs.getString("pseudo_proprietaire"));
 				
 				art = new Article();
 				art.setNoArticle(rs.getInt("no_article"));
