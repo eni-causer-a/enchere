@@ -35,6 +35,10 @@ public class ArticleManager {
 	}
 	
 	public Article getArticleById(int id) {
-		return this.articleDao.getArticleById(id);
+		Article res = this.articleDao.getArticleById(id);
+		if (res != null) {
+			res.updateEtat();
+		}
+		return res;
 	}
 }

@@ -14,6 +14,7 @@ import fr.eni.enchere.bo.Utilisateur;
 public class EnchereDaoJdbcImpl implements EnchereDao {
 	
 	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES VALUES(?,?,?,?);";
+	private static final String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=?";
 	
 	private static final String LASTENCHERE = "select top 1 * from encheres where no_article = 2 order by montant_enchere DESC ;";
 
@@ -21,18 +22,29 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 	public void insert(Enchere enchere) {
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmtEnchere = cnx.prepareStatement(INSERT_ENCHERE))
+		{
+		
+			pstmtEnchere.setInt(1, enchere.getUtilisateur().getNoUtilisateur());
+			pstmtEnchere.setInt(2, enchere.getArticle_vendu().getNoArticle());
+			pstmtEnchere.setDate(3, new Date(enchere.getDateEnchere().getTime()));
+			pstmtEnchere.setInt(4, enchere.getMontant_enchere());
+		
+			pstmtEnchere.executeUpdate();
+			
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(UPDATE_ARTICLE))
 			{
 			
-			if(pstmtEnchere == null) {
-				pstmtEnchere.setInt(1, enchere.getUtilisateur().getNoUtilisateur());
-				pstmtEnchere.setInt(2, enchere.getArticle_vendu().getNoArticle());
-				pstmtEnchere.setDate(3, (Date) enchere.getDateEnchere());
-				pstmtEnchere.setInt(4, enchere.getMontant_enchere());
+				ps.setInt(1, enchere.getMontant_enchere());
+				ps.setInt(2, enchere.getArticle_vendu().getNoArticle());
 			
-				pstmtEnchere.executeUpdate();
-				
-			}
-				
+				ps.executeUpdate();
+			
 			}//Fermeture automatique de la connexion
 			catch (SQLException e) {
 				e.printStackTrace();

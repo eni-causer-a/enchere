@@ -109,7 +109,7 @@ public class Article {
 	}
 	
 	public Article(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente,  Categorie categorie,Utilisateur proprietaire) {
+			Date dateFinEncheres, int miseAPrix, int prixVente, Categorie categorie,Utilisateur proprietaire) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -123,4 +123,19 @@ public class Article {
 		this.retire = false;
 	}
 	
+	public void updateEtat() {
+		Date currentDate = new Date();
+		if (this.retire) {
+			this.etatVente = EtatVente.RETRAIT_EFFECTUE;
+		}
+		else if(currentDate.before(this.dateDebutEncheres)) {
+			this.etatVente = EtatVente.CREE;
+		}
+		else if(currentDate.after(this.dateDebutEncheres)&& currentDate.before(dateFinEncheres)) {
+			this.etatVente = EtatVente.EN_COURS;
+		}
+		else if(currentDate.after(this.dateFinEncheres)) {
+			this.etatVente = EtatVente.ENCHERE_TERMINE;
+		}
+	}
 }
