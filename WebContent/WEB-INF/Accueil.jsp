@@ -45,7 +45,7 @@
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente">Vendre un article</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}">Mon profil</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/Deconnexion">Déconnexion</a></div>
-		       	
+		    
 	   		</c:if>
 	   		
 		</div>  
@@ -54,6 +54,7 @@
 	<c:if test="${utilisateur!=null}">
 		
 		<fieldset id="group1">
+		<br>
 			<div class="row">
 				<div class="col-3">
 			    	<input type="radio" value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>Achats
@@ -63,7 +64,6 @@
 			    </div>
 			</div>
 		</fieldset>
-			
 		<div class="row">
 			<div class="col-3">
 				<c:if test="${groupe1==value1}">
@@ -92,6 +92,7 @@
 			
 		</div>
 	</c:if>
+	<br>
 	<h3>Filtres :</h3>
 	<form method="post" action="<%=request.getContextPath()%>/Accueil">
 		<div class="row">
@@ -112,6 +113,7 @@
 			</div>	
 		</div>
 	</form>
+	<br>
     <div class="row">
         <ul class="list-group col-12">
            	<c:forEach var="article" items="${lesArticles}">

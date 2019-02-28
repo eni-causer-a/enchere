@@ -19,17 +19,21 @@
 </head>
 <body class="container">
 	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="container text-center text-white">
-	        <h5 class="my-5 text-left">ENI-Encheres</h5>       
-	    </div>
+	    <div class="row">
+	   		<div class="col-6">	
+	   			<div class="container text-center text-white">
+	   				<h3>ENI-Encheres</h3>
+	   			</div>
+	   		</div>
+	   	</div>
 	</header>
 	
 	<div>
 		<h5 class="my-5 text-center">Mon Profil</h5>
 		<form method="post" action="<%=request.getContextPath()%>/modifProfil">
 		    <div class="row">
-		    	<div class="col"></div>
-				<div class="col">
+		    	<div class="col-1"></div>
+				<div class="col-2">
 			  		<label>Pseudo :</label>
 			  	</div>
 			  	<div class="col">
@@ -44,8 +48,8 @@
 				</div>
 				<div class="col"></div>
 			  	<div class="w-100"></div>
-			  	<div class="col"></div>
-			  	<div class="col">
+			  	<div class="col-1"></div>
+			  	<div class="col-2">
 			  		<label>Prénom :</label>
 			  	</div>
 			  	<div class="col">
@@ -60,8 +64,8 @@
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
+				<div class="col-1"></div>
+			  	<div class="col-2">
 			  		<label>Téléphone :</label>
 			  	</div>
 			  	<div class="col">
@@ -76,8 +80,8 @@
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
+				<div class="col-1"></div>
+			  	<div class="col-2">
 			  		<label>Code Postal :</label>
 			  	</div>
 			  	<div class="col">
@@ -92,24 +96,22 @@
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
-				<div class="col"></div>
-				<div class="col">
+				<div class="col-1"></div>
+				<div class="col-2">
 			  		<label>Mot de passe actuel :</label>
 			  	</div>
 			  	<div class="col">
 					<input type="password" name="motDePasse">
 				</div>
 				<div class="col"></div>
+				<div class="col"></div>
 			  	<div class="col">
 			  		
 			  	</div>
-			  	<div class="col">
-					<input type="hidden" name="tg">
-				</div>
-				<div class="col"></div>
+			  
 				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
+				<div class="col-1"></div>
+			  	<div class="col-2">
 			  		<label>Nouveau Mot de passe :</label>
 			  	</div>
 			  	<div class="col">
@@ -125,12 +127,13 @@
 				<div class="col"></div>
 			</div>
 			<div class="row">
-				<div class="col-5"></div>
+				<div class="col-4"></div>
 				<div class="col-1">
-					<button name="boutonCreer">Enregistrer</button>
+					<button name="boutonCreer" class="btn btn-secondary">Enregistrer</button>
 				</div>
+				<div class="col-1"></div>
 				<div class="col-3">
-					<button name="boutonAnnuler">Supprimer mon compte</button>
+					<button name="boutonAnnuler" class="btn btn-secondary">Supprimer mon compte</button>
 				</div>
 				<div class="col-5"></div>
 			</div>

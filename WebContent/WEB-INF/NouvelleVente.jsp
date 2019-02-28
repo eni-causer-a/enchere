@@ -40,7 +40,7 @@
 			  		<label>Article :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="nomArticle">
+					<input type="text" name="nomArticle" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="w-100"></div>
@@ -71,7 +71,7 @@
 			  		<label>Photo de l'article :</label>
 			  	</div>
 			  	<div class="col">
-					<button>Uploader</button>
+					<input type="button" value="Uploader">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -89,7 +89,7 @@
 			  		<label>Début de l'enchère :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="date" name="debutEnchere">
+					<input type="date" name="debutEnchere" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -98,10 +98,11 @@
 			  		<label>Fin de l'enchère :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="date" name="finEnchere">
+					<input type="date" name="finEnchere" required>
 				</div>
 				<div class="col"></div>
 			</div>
+			<br>
 			<div class="row list-group-item  d-flex">
 				<div class="col-3"></div>
 				<div class="col">
@@ -113,7 +114,7 @@
 			  		<label>Rue :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="rue" value="${utilisateur.getRue()}">
+					<input type="text" name="rue" value="${utilisateur.getRue()}" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -122,7 +123,7 @@
 			  		<label>Code postal :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="codePostal" value="${utilisateur.getCodePostale()}">
+					<input type="text" name="codePostal" value="${utilisateur.getCodePostale()}" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -131,23 +132,27 @@
 			  		<label>Ville :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="ville" value="${utilisateur.getVille()}">
+					<input type="text" name="ville" value="${utilisateur.getVille()} required">
 				</div>
 				<div class="col"></div>
 			</div>
-			
+			<br>
 			<div class="row">
-				<div class="col-5"></div>
+				<div class="col-4"></div>
 				<div class="col-1">
-					<button name="boutonEnregistrer">Enregistrer</button>
+					<button name="boutonEnregistrer" class="btn btn-secondary">Enregistrer</button>
 				</div>
+				<div class="col-1"></div>
 				<div class="col-1">
-					<button name="boutonAnnuler">Annuler</button>
+					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler">Annuler</a>
 				</div>
 				<div class="col-5"></div>
 			</div>
+			
 		</form>			
 	</div>
+	<br>
+	<br>
 
 
 
