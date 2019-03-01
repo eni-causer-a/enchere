@@ -7,6 +7,9 @@
 <head>
 <title>Profil</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link href="css/custom.css" rel="stylesheet">
+
 <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -20,7 +23,7 @@
 	    <<div class="row">
 	   		<div class="col-6">	
 	   			<div class="container text-center text-white">
-	   				<h3>ENI-Encheres</h3>
+	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
 	   			</div>
 	   		</div>
 	   	</div>
@@ -78,12 +81,8 @@
 				</div>
 			</form>
 		</c:if>
-		<br>
-		<div class="row">
-			<div class="col"></div>
-			<div class="col"><a href="<%=request.getContextPath()%>/Accueil">Retour vers l'accueil</a></div>
-			<div class="col"></div>
-		</div>
+	
+		
 			
 	<!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">
