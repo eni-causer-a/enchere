@@ -52,6 +52,8 @@
 	   		
 		</div>  
 	</header>
+	<form method="post" action="<%=request.getContextPath()%>/Accueil">
+	
 	<h3 class="my-5 text-center">Liste des enchères</h3>
 	<c:if test="${utilisateur!=null}">
 		
@@ -73,30 +75,30 @@
 		<div class="row">
 			<div class="col-3">
 				<c:if test="${groupe1==value1}">
-					<input type="checkbox" value="value1" name="param11"/>
+					<input type="checkbox" value="param11" name="param11"/>
 					<label id="param111">Enchères ouvertes</label>
 				</c:if>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param21"  disabled/>
+				<input type="checkbox" value="param21" name="param21"  disabled/>
 				<label style="color: #ccc;" id="param211">Mes ventes en cours</label>
 			</div>
 			<div class="w-100"></div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param12"/>
+				<input type="checkbox" value="param12" name="param12"/>
 				<label id="param121">Mes enchères en cours</label>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param22" disabled/>
+				<input type="checkbox" value="param22" name="param22" disabled/>
 				<label style="color: #ccc;" id="param221">Ventes non débutées</label>
 			</div>
 			<div class="w-100"></div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param13" />
+				<input type="checkbox" value="param13" name="param13" />
 				<label id="param131">Mes enchères remportées</label>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param23" disabled/>
+				<input type="checkbox" value="param23" name="param23" disabled/>
 				<label style="color: #ccc;" id="param231">Ventes terminées</label>
 			</div>
 			
@@ -106,7 +108,6 @@
 	</c:if>
 	<br>
 	<h3>Filtres :</h3>
-	<form method="post" action="<%=request.getContextPath()%>/Accueil">
 		<div class="row">
 			<div class="col-4">
 				<input type="text" name="filtre" placeHolder="Le nom de l'article contient">
@@ -122,7 +123,8 @@
 			</div>
 			<div class="col-4">
 				<button class="btn btn-secondary">Rechercher</button>
-			</div>	
+			</div>
+	
 		</div>
 	</form>
 	<br>
