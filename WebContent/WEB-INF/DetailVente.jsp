@@ -141,7 +141,7 @@
 			<div class="row">
 				<div class="col-4"></div>
 			  	<div class="col-2">
-			  		<a href="<%=request.getContextPath()%>/ModifieVente" class="btn btn-secondary">Modifier vente</a>
+			  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Modifier vente</a>
 			  	</div>
 				<div class="col"></div>
 			</div>

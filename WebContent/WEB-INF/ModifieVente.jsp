@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,123 +30,133 @@
 	   			</div>
 	   		</div>
 	   	</div>
-	    
 	</header>
 	
 	<div>
-		
-		<h5 class="my-5 text-center">Détail vente</h5>
-		
-		
-	    <div class="row">
-	    	<div class="col"></div>
-			<div class="col">
-		  		<h6>${article.getNomArticle()}</h6>
-		  	</div>
-		  	<div class="col"></div>
-			<div class="col"></div>
-		  	<div class="w-100"></div>
-		  	<div class="col-3"></div>
-		  	<div class="col-3">
-		  		<label>Description :</label>
-		  	</div>
-		  	<div class="col-3">
-				<label name="description">${article.getDescription()}</label>
-			</div>
-			<div class="col-3"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label>Catégorie :</label>
-		  	</div>
-		  	<div class="col">
-				<label name="categorie">${article.getCategorie().getLibelle()}</label>
-			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label>Meilleur offre :</label>
-		  	</div>
-		  	<div class="col">
-				<label name="meilleurOffre">${article.getPrixVente()} points par ${article.proprietaire.pseudo}  </label>
-			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label>Mise à prix :</label>
-		  	</div>
-		  	<div class="col">
-				<label name="miseAPrix">${article.getMiseAPrix()} points</label>
-			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label>Fin de l'enchère :</label>
-		  	</div>
-		  	<div class="col">
-				<label name="finEnchere">${article.getDateFinEncheres()}</label>
-			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label>Retrait :</label>
-		  	</div>
-		  	<div class="col">
-				<label name="retrait">${article.getRetrait().getRue()} ${article.getRetrait().getCode_postale()} ${article.getRetrait().getVille()}</label>
-			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label>Vendeur :</label>
-		  	</div>
-		  	<div class="col">
-				<a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a>
-			</div>
-			<div class="col"></div>
-		</div>
-		<c:if test="${utilisateur!=null and utilisateur.getPseudo()!=article.getProprietaire().getPseudo()}">
-			<form method="post" action="<%=request.getContextPath()%>/DetailVente?idArticle=<%=request.getParameter("idArticle")%>">
-			<c:if test="${Utilisateur.pseudo != article.proprietaire.pseudo}">
-				<div class="row">
-					<div class="col"></div>
-				  	<div class="col">
-				  		<label>Ma proposition :</label>
-				  	</div>
-				  	
-				  	<div class="col">
-						<input type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
-					</div>
-					<div class="col">
-						<button>Enchérir</button>
-					</div>
-					<div class="col"></div>
+		<h5 class="my-5 text-center">Modifier la vente</h5>
+		<form method="post" action="<%=request.getContextPath()%>/NouvelleVente">
+		    <div class="row">
+		    	<div class="col"></div>
+				<div class="col">
+			  		<label>Article :</label>
+			  	</div>
+			  	<div class="col">
+					<input type="text" name="nomArticle" value="${article.getNomArticle()}" required>
 				</div>
-			</c:if>
-			<c:if test="${Utilisateur.pseudo == article.proprietaire.pseudo}">
-				
-				<button>Modifier</button>
-				
-			</c:if>
-			</form>
-		</c:if>
-		
-		<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo()}">
+				<div class="col"></div>
+			  	<div class="w-100"></div>
+			  	<div class="col"></div>
+			  	<div class="col">
+			  		<label>Description :</label>
+			  	</div>
+			  	<div class="col">
+					<input type="text" name="description" value="${article.getDescription()}">
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				<div class="col"></div>
+			  	<div class="col">
+			  		<label>Catégorie :</label>
+			  	</div>
+			  	<div class="col">
+					<select name="categorie")>
+						<c:forEach var="categorie" items="${lesCategories}">
+							<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}
+						</c:forEach>		
+					</select>
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				<div class="col"></div>
+			  	<div class="col">
+			  		<label>Photo de l'article :</label>
+			  	</div>
+			  	<div class="col">
+					<input type="button" value="Uploader">
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				<div class="col"></div>
+			  	<div class="col">
+			  		<label>Mise à prix :</label>
+			  	</div>
+			  	<div class="col">
+					<input type="number" min="0" name="miseAPrix" value="${article.getMiseAPrix()}" required>
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				<div class="col-3"></div>
+			  	<div class="col-3">
+			  		<label>Début de l'enchère :</label>
+			  	</div>
+			  	
+			  	<div class="col-5">
+					<label>Le  </label>  <input type="date" name="debutEnchere" required> <label>  à  </label> <input type="time" name="debutEnchereTime" required>
+				</div> 
+				<div class="col-1"></div>
+			
+				<div class="w-100"></div>
+				<div class="col-3"></div>
+			  	<div class="col-3">
+			  		<label>Fin de l'enchère :</label>
+			  	</div>
+			  	<div class="col-5">
+					<label>Le  </label>  <input type="date" name="finEnchere" required> <label>  à  </label> <input type="time" name="finEnchereTime" required>
+				</div>
+				<div class="col-1"></div>
+			</div>
+			<br>
+			<div class="row list-group-item  d-flex">
+				<div class="col-3"></div>
+				<div class="col">
+					<h6>Retrait :</h6>
+				</div>
+				<div class="w-100"></div>
+				<div class="col-4"></div>
+			  	<div class="col">
+			  		<label>Rue :</label>
+			  	</div>
+			  	<div class="col">
+					<input type="text" name="rue" value="${article.getRetrait().getRue()}" required>
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				<div class="col-4"></div>
+			  	<div class="col">
+			  		<label>Code postal :</label>
+			  	</div>
+			  	<div class="col">
+					<input type="text" name="codePostal" value="${article.getRetrait().getCode_postale()}" required>
+				</div>
+				<div class="col"></div>
+				<div class="w-100"></div>
+				<div class="col-4"></div>
+			  	<div class="col">
+			  		<label>Ville :</label>
+			  	</div>
+			  	<div class="col">
+					<input type="text" name="ville" value="${article.getRetrait().getVille()}" required">
+				</div>
+				<div class="col"></div>
+			</div>
 			<br>
 			<div class="row">
 				<div class="col-4"></div>
-			  	<div class="col-2">
-			  		<a href="#ModifierVente" class="btn btn-secondary">Modifier vente</a>
-			  	</div>
-				<div class="col"></div>
+				<div class="col-1">
+					<button name="boutonEnregistrer" class="btn btn-secondary">Enregistrer</button>
+				</div>
+				<div class="col-1"></div>
+				<div class="col-1">
+					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler">Annuler</a>
+				</div>
+				<div class="col-5"></div>
 			</div>
-		
-		</c:if>
+			
+		</form>			
 	</div>
+	<br>
+	<br>
+
 
 
     <!-- Footer -->
