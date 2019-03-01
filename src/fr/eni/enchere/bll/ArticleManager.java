@@ -117,4 +117,10 @@ public class ArticleManager {
 		return articleDao.trieWithSearch(search, article);
 	}
 	
+	public void updateArticle(Article art) {
+		if (art != null) {
+			articleDao.updateArticle(art);
+		}
+	}
+	
 }

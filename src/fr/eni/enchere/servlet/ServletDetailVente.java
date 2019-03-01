@@ -29,6 +29,7 @@ public class ServletDetailVente extends HttpServlet {
      */
     public ServletDetailVente() {
         super();
+        
     }
 
 	/**
@@ -36,19 +37,26 @@ public class ServletDetailVente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Article article=null;
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
-		
+		EnchereManager em = new EnchereManager();
+		 request.setAttribute("em", em);
 		ArticleManager manager = new ArticleManager();
 		String id = request.getParameter("idArticle");
 		 try {
-			 Article article = manager.getArticleById(Integer.parseInt(id));
+			 article = manager.getArticleById(Integer.parseInt(id));
 			 request.setAttribute("article", article);
 		} catch (NumberFormatException e) {
 			// TODO Gestion d'exception à faire piairyck !!!
 		}
+		Date date=new Date();
 		 
+		//System.out.println("DAEZRAR: "+article.getDateDebutEncheres().after(date));
+		System.out.println(article.getDateDebutEncheres().after(date));
+		request.setAttribute("after", article.getDateDebutEncheres().after(date));
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/DetailVente.jsp");
 		rd.forward(request, response);
 	}
@@ -59,8 +67,8 @@ public class ServletDetailVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		ArticleManager am = new ArticleManager();
-		Enchere enchere = new Enchere((Utilisateur) session.getAttribute("Utilisateur"), new Date(), Integer.parseInt(request.getParameter("miseAPrix")),am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))) );
 		EnchereManager em = new EnchereManager();
+		Enchere enchere = new Enchere((Utilisateur) session.getAttribute("Utilisateur"), new Date(), Integer.parseInt(request.getParameter("miseAPrix")),am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))) );
 		em.insert(enchere);
 		doGet(request, response);
 	}

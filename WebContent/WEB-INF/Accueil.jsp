@@ -102,21 +102,24 @@
 				<label style="color: #ccc;" id="param231">Ventes terminées</label>
 			</div>
 			
-			
-			
 		</div>
 	</c:if>
 	<br>
 	<h3>Filtres :</h3>
 		<div class="row">
 			<div class="col-4">
-				<input type="text" name="filtre" placeHolder="Le nom de l'article contient">
+				<input type="text" name="filtre" placeHolder="Le nom de l'article contient" value="${filtre}">
 			</div>
 			<div class="col-4">
 				<label>Catégorie :</label>
 				<select name="categorie")>
 					<c:forEach var="categorie" items="${lesCategories}">
-						<option value="${categorie.getLibelle()}">${categorie.getLibelle()}
+					 	<c:if test="${categorie.getLibelle()==cat}">
+							<option value="${categorie.getLibelle()}" selected>${categorie.getLibelle()}</option>
+						</c:if>
+						<c:if test="${categorie.getLibelle()!=cat}">
+							<option value="${categorie.getLibelle()}">${categorie.getLibelle()}</option>
+						</c:if>
 					</c:forEach>
 						
 				</select>	
@@ -134,7 +137,7 @@
            		<li class="list-group-item d-flex justify-content-between align-items-center"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a>
 	        	<div>  
                     <div class="col-12">Prix : ${article.getPrixVente()} points</div>      
-                    <div class="col-12">Fin de l'enchère : ${article.getDateFinEncheres()}</div>
+                    <div class="col-12">Fin de l'enchère : ${article.printDateFinEnchere()}</div>
                     <div class="col-12">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></div>
 	        	</div> 
            		</li>

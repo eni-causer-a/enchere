@@ -1,5 +1,6 @@
 package fr.eni.enchere.bo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Article {
@@ -14,6 +15,7 @@ public class Article {
 	private Categorie categorie;
 	private Utilisateur proprietaire;
 	private Retrait retrait;
+	private Utilisateur gagnant;
 	private boolean retire;
 	
 	public int getNoArticle() {
@@ -82,6 +84,12 @@ public class Article {
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
 	}
+	public Utilisateur getGagnant() {
+		return gagnant;
+	}
+	public void setGagnant(Utilisateur gagnant) {
+		this.gagnant = gagnant;
+	}
 	public boolean isRetire() {
 		return retire;
 	}
@@ -137,5 +145,15 @@ public class Article {
 		else if(currentDate.after(this.dateFinEncheres)) {
 			this.etatVente = EtatVente.ENCHERE_TERMINE;
 		}
+	}
+	
+	public String printDateDebutEnchere() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		return sdf.format(this.dateDebutEncheres);
+	}
+	
+	public String printDateFinEnchere() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		return sdf.format(this.dateFinEncheres);
 	}
 }

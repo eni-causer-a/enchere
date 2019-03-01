@@ -1,10 +1,10 @@
 package fr.eni.enchere.servlet;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,23 +15,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.bll.ArticleManager;
-import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
- * Servlet implementation class ServletNouvelleVente
+ * Servlet implementation class ServletModifieVente
  */
-@WebServlet("/NouvelleVente")
-public class ServletNouvelleVente extends HttpServlet {
+@WebServlet("/ModifieVente")
+public class ServletModifieVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	SimpleDateFormat formaterTime=new SimpleDateFormat("HH:mm");
+	SimpleDateFormat formaterDate=new SimpleDateFormat("yyyy-MM-dd");
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletNouvelleVente() {
+    public ServletModifieVente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,15 +42,32 @@ public class ServletNouvelleVente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		Article article = null;
 		HttpSession session= request.getSession();
-		List<Categorie> lesCategories=(List<Categorie>) session.getAttribute("lesCategories");
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
-		request.setAttribute("lesCategories", lesCategories);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp");
-		rd.forward(request, response);
+		ArticleManager manager = new ArticleManager();
+		String id = request.getParameter("idArticle");
+		 try {
+			 article = manager.getArticleById(Integer.parseInt(id));
+			 request.setAttribute("article", article);
+		} catch (NumberFormatException e) {
+			// TODO Gestion d'exception à faire piairyck !!!
+			
+		}
+		
+		 
+		 request.setAttribute("formaterTime", formaterTime);
+		 request.setAttribute("formaterDate", formaterDate);
+		
+		if(utilisateur!=null && utilisateur.getPseudo().contentEquals(article.getProprietaire().getPseudo())) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifieVente.jsp");
+			rd.forward(request, response);
+		}else {
+			response.sendRedirect(request.getContextPath()+"/Accueil");
+		}
+		
 	}
 
 	/**
@@ -64,6 +82,7 @@ public class ServletNouvelleVente extends HttpServlet {
 		}
 		else if(request.getParameter("boutonEnregistrer") !=null){
 			Article art = new Article();
+			art.setNoArticle(Integer.parseInt(request.getParameter("idArticle")));
 			art.setNomArticle(request.getParameter("nomArticle"));
 			art.setDescription(request.getParameter("description"));
 			//Catégorie
@@ -101,7 +120,7 @@ public class ServletNouvelleVente extends HttpServlet {
 			art.setRetrait(retrait);
 			
 			ArticleManager am = new ArticleManager();
-			am.insert(art);
+			am.updateArticle(art);
 			
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 			

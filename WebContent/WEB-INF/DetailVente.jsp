@@ -70,7 +70,7 @@
 		  		<label>Meilleur offre :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="meilleurOffre">${article.getPrixVente()} points par ${article.proprietaire.pseudo}  </label>
+				<label name="meilleurOffre">${article.getPrixVente()} points <c:if test="${article.miseAPrix != article.prixVente }">par <a href="<%=request.getContextPath()%>/profil?user=${em.getLastEnchere(article).utilisateur.getNoUtilisateur()}">${em.getLastEnchere(article).utilisateur.pseudo}</a></c:if>   </label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>
@@ -88,7 +88,7 @@
 		  		<label>Fin de l'enchère :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="finEnchere">${article.getDateFinEncheres()}</label>
+				<label name="finEnchere">${article.printDateFinEnchere()}</label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>
@@ -123,30 +123,27 @@
 						<input type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
 					</div>
 					<div class="col">
-						<button>Enchérir</button>
+						<button class="btn btn-secondary">Enchérir</button>
 					</div>
 					<div class="col"></div>
 				</div>
 			</c:if>
-			<c:if test="${Utilisateur.pseudo == article.proprietaire.pseudo}">
-				
-				<button>Modifier</button>
-				
-			</c:if>
 			</form>
 		</c:if>
+			<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo() and after == true}">
+				<br>
+				<div class="row">
+					<div class="col-4"></div>
+				  	<div class="col-2">
+				  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Modifier vente</a>
+				  	</div>
+					<div class="col"></div>
+				</div>
+			
+			</c:if>
 		
-		<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo()}">
-			<br>
-			<div class="row">
-				<div class="col-4"></div>
-			  	<div class="col-2">
-			  		<a href="#ModifierVente" class="btn btn-secondary">Modifier vente</a>
-			  	</div>
-				<div class="col"></div>
-			</div>
 		
-		</c:if>
+		
 	</div>
 
 

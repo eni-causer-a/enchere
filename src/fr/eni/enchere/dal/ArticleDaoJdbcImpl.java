@@ -56,6 +56,22 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			"LEFT JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n" + 
 			" where ARTICLES_VENDUS.no_article = ?;";
 	
+	private static final String UPDATE_ARTICLE ="UPDATE ARTICLES_VENDUS\r\n" + 
+			"   SET nom_article = ?\r\n" + 
+			"      ,description = ?\r\n" + 
+			"      ,date_debut_encheres = ?\r\n" + 
+			"      ,date_fin_encheres = ?\r\n" + 
+			"      ,prix_initial = ?\r\n" + 
+			"      ,prix_vente = ?\r\n" + 
+			"      ,no_categorie = ?\r\n" + 
+			"      ,retire = ?\r\n" + 
+			" WHERE no_article =?;";
+	private static final String UPDATE_CATEGORIE ="UPDATE RETRAITS\r\n" + 
+			"   SET rue = ?\r\n" + 
+			"      ,code_postal = ?\r\n" + 
+			"      ,ville = ?\r\n" + 
+			" WHERE no_article =?";
+	
 	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
 	
 	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? ;";
@@ -90,8 +106,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					
 					pstmtArticle.setString(1, article.getNomArticle());
 					pstmtArticle.setString(2, article.getDescription());
-					pstmtArticle.setDate(3,new java.sql.Date( article.getDateDebutEncheres().getTime()));
-					pstmtArticle.setDate(4, new java.sql.Date(article.getDateFinEncheres().getTime()));
+					pstmtArticle.setTimestamp(3,new java.sql.Timestamp( article.getDateDebutEncheres().getTime()));
+					pstmtArticle.setTimestamp(4, new java.sql.Timestamp(article.getDateFinEncheres().getTime()));
 					pstmtArticle.setInt(5, article.getMiseAPrix());
 					pstmtArticle.setInt(6, article.getMiseAPrix());
 					pstmtArticle.setInt(7, user.getNoUtilisateur());
@@ -159,8 +175,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				art.setNoArticle(rs.getInt("no_article"));
 				art.setNomArticle(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setDateDebutEncheres(new java.sql.Date(rs.getDate("date_debut_encheres").getTime()));
-				art.setDateFinEncheres(new java.sql.Date(rs.getDate("date_fin_encheres").getTime()));
+				art.setDateDebutEncheres(new java.sql.Timestamp(rs.getDate("date_debut_encheres").getTime()));
+				art.setDateFinEncheres(new java.sql.Timestamp(rs.getDate("date_fin_encheres").getTime()));
 				art.setMiseAPrix(rs.getInt("prix_initial"));
 				art.setPrixVente(rs.getInt("prix_vente"));
 				
@@ -393,6 +409,37 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+	}
+
+	@Override
+	public void updateArticle(Article article) {
+		
+		try(Connection cnx = ConnectionProvider.getConnection();)
+		{
+			PreparedStatement ps = cnx.prepareStatement(UPDATE_ARTICLE);
+			ps.setString(1, article.getNomArticle());
+			ps.setString(2, article.getDescription());
+			ps.setTimestamp(3, new java.sql.Timestamp( article.getDateDebutEncheres().getTime()));
+			ps.setTimestamp(4, new java.sql.Timestamp( article.getDateFinEncheres().getTime()));
+			ps.setInt(5, article.getPrixVente());
+			ps.setInt(6, article.getPrixVente());
+			ps.setInt(7, article.getCategorie().getNoCategorie());
+			ps.setByte(8, new Byte(article.isRetire()?"0":"1"));
+			ps.setInt(9, article.getNoArticle());
+			
+			ps.executeUpdate();
+			
+			ps = cnx.prepareStatement(UPDATE_CATEGORIE);
+			ps.setString(1, article.getRetrait().getRue());
+			ps.setString(2, article.getRetrait().getCode_postale());
+			ps.setString(3, article.getRetrait().getVille());
+			ps.setInt(4, article.getNoArticle());
+			
+			ps.executeUpdate();
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

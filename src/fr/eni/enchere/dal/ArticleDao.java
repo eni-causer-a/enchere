@@ -31,5 +31,6 @@ public interface ArticleDao {
 	public Article trieWithCat(String cat, Article article);
 	public Article trieWithCatSearch(String cat, String search, Article article);
 	public Article trieWithSearch(String search, Article article);
+	public void updateArticle(Article article);
 
 }

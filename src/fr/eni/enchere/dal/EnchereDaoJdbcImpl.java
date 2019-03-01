@@ -38,17 +38,16 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement ps = cnx.prepareStatement(UPDATE_ARTICLE))
-			{
-			
-				ps.setInt(1, enchere.getMontant_enchere());
-				ps.setInt(2, enchere.getArticle_vendu().getNoArticle());
-			
-				ps.executeUpdate();
-			
-			}//Fermeture automatique de la connexion
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+		{
+			ps.setInt(1, enchere.getMontant_enchere());
+			ps.setInt(2, enchere.getArticle_vendu().getNoArticle());
+		
+			ps.executeUpdate();
+		
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -57,12 +56,12 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtUser = cnx.prepareStatement(LASTENCHERE);)
 			{
-			Utilisateur user = DAOFactory.getUtilisateurDao().findUserById(article.getProprietaire().getNoUtilisateur());
-				pstmtUser.setInt(1, article.getNoArticle());
-
+			pstmtUser.setInt(1, article.getNoArticle());
 				ResultSet rs = pstmtUser.executeQuery();
 				if(rs.next())
 				{
+					Utilisateur user = DAOFactory.getUtilisateurDao().findUserById(Integer.parseInt(rs.getString("no_utilisateur")));
+					
 					enchere = new Enchere(user,
 									rs.getDate("date_enchere"),
 									rs.getInt("montant_enchere"), 
