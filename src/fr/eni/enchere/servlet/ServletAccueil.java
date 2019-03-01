@@ -74,9 +74,10 @@ public class ServletAccueil extends HttpServlet {
 		
 		//String cat = request.getParameter("categorie");
 		String cat = request.getParameter("categorie");
+		String filtre =request.getParameter("filtre");
 		ArticleManager am = new ArticleManager();
 		List<Article> lesArticles = null;
-		if(StringUtils.isEmpty(request.getParameter("filtre"))) {
+		if(StringUtils.isEmpty(filtre)) {
 			lesArticles = am.getArticleByCategorieSearch(cat, null);
 
 		}
@@ -95,6 +96,9 @@ public class ServletAccueil extends HttpServlet {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
+		
+		request.setAttribute("cat",cat);
+		request.setAttribute("filtre",filtre);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
