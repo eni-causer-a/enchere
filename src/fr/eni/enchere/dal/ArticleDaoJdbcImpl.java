@@ -73,7 +73,26 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			" WHERE no_article =?";
 	
 	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
-
+	
+	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? ;";
+	private static final String GETENCHEREOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0; ";
+	private static final String GETENCHEREREMP = "select * from ARTICLES_VENDUS where no_gagnant = ? ;";
+	private static final String ENCHEREENCOURSOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0; ";
+	private static final String ENCHEREOUVERTEREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 union select * from ARTICLES_VENDUS where no_gagnant = ? ;";
+	private static final String ENCHEREENCOURSREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where no_gagnant = ? ";
+	
+	private static final String GETVENTEENCOURS = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ;" ;
+	private static final String GETVENTEDEBUTE = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() > 0 ;" ;
+	private static final String GETVENTEFIN = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_fin_encheres AS DATETIME) - GETDATE() < 0 ;";
+	private static final String VENTEENCOURSNONDEB = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 union select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() > 0 ;" ;
+	private static final String VENTEENCOURSFIN = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 union select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_fin_encheres AS DATETIME) - GETDATE() < 0 ";
+	private static final String VENTEDEBUTFIN = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() > 0 union select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_fin_encheres AS DATETIME) - GETDATE() < 0 ";
+	
+	
+	private static final String GETCAT = "select * from CATEGORIES where libelle = ? ;";
+	private static final String GETARTICLE= "select * from ARTICLES_VENDUS where no_categorie = ? and no_article = ?";
+	private static final String GETARTICLECATSEARCH = "select * from ARTICLES_VENDUS where no_categorie = ? and no_article = ? and nom_article like %?% ;";
+	private static final String GETARTICLESEARCH = "select * from ARTICLES_VENDUS where no_article = ? and nom_article like ? ;";
 	
 	public void insert(Article article) {
 		Categorie categorie =  article.getCategorie();
@@ -217,7 +236,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 
 
 
-	@Override
+	
+	@Override	
 	public List<Article> getArticleEnCours() {
 		List<Article> listeArticleEnCours = new ArrayList<Article>();
 		Categorie categorie = null;
@@ -278,6 +298,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		
 		return listeArticleEnCours;
 	}
+
 	
 	@Override
 	public List<Article> getArticleByCategorieSearch(String categorie, String search) {
@@ -419,6 +440,977 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Article> getEnchereEnCoursOuverte(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(ENCHEREENCOURSOUVERTE);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+
+			
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listeEnchere;
+	}
+	
+
+	@Override
+	public List<Article> getEnchereOuverte(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETENCHEREOUVERTE);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+	
+	@Override
+	public List<Article> getEnchereEnCours(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETENCHEREENCOURS);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getEnchereOuvertRemp(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(ENCHEREOUVERTEREMP);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+
+			
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getEnchereEnCourRemp(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(ENCHEREENCOURSREMP);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+
+			
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getEnchereRemporte(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETENCHEREREMP);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+
+			
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	
+	
+	@Override
+	public List<Article> getVenteNonDebEnCours(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(VENTEENCOURSNONDEB);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getVenteDebute(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETVENTEDEBUTE);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getVenteEnCoursTermine(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(VENTEENCOURSFIN);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+			pstmtArticle.setInt(2,utilisateur.getNoUtilisateur());
+
+
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getVenteNonDebTermine(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(VENTEDEBUTFIN);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+			pstmtArticle.setInt(2,utilisateur.getNoUtilisateur());
+
+
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getVenteTermine(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETVENTEFIN);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getVenteEnCours(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETVENTEENCOURS);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										rs.getDate("date_debut_encheres"),
+										rs.getDate("date_fin_encheres"),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public Article trieWithCat(String cat, Article article) {
+		Categorie categorie = null;
+		Article unArticle = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtCat = cnx.prepareStatement(GETCAT);
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETARTICLE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtCat.setString(1,cat);
+
+
+			ResultSet rs = pstmtCat.executeQuery();
+			while(rs.next())
+			{
+				categorie = new Categorie(rs.getInt("no_categorie"),rs.getString("libelle"));
+
+				pstmtUser.setInt(1,article.getProprietaire().getNoUtilisateur());
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				pstmtArticle.setInt(1,rs.getInt("no_categorie"));
+				pstmtArticle.setInt(2,article.getNoArticle());
+
+
+				ResultSet rsArticle = pstmtArticle.executeQuery();
+				while(rsArticle.next()) {
+					 unArticle = new Article(rsArticle.getInt("no_article"),
+							 rsArticle.getString("nom_article"), 
+							rsArticle.getString("description"), 
+							rsArticle.getDate("date_debut_encheres"),
+							rsArticle.getDate("date_fin_encheres"),
+							rsArticle.getInt("prix_initial"),
+							rsArticle.getInt("prix_vente"),
+							 categorie,
+							 user);
+				}
+				
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return unArticle;
+	}
+	@Override
+	public Article trieWithCatSearch(String cat,String search, Article article) {
+		Categorie categorie = null;
+		Article unArticle = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtCat = cnx.prepareStatement(GETCAT);
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETARTICLECATSEARCH);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtCat.setString(1,cat);
+
+
+			ResultSet rs = pstmtCat.executeQuery();
+			while(rs.next())
+			{
+				categorie = new Categorie(rs.getInt("no_categorie"),rs.getString("libelle")); 
+				
+				pstmtUser.setInt(1, article.getProprietaire().getNoUtilisateur());
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				pstmtArticle.setInt(1,rs.getInt("no_categorie"));
+				pstmtArticle.setInt(2,article.getNoArticle());
+				pstmtArticle.setString(3,search);
+
+
+				ResultSet rsArticle = pstmtArticle.executeQuery();
+				while(rsArticle.next()) {
+					 unArticle = new Article(rsArticle.getInt("no_article"),
+							 rsArticle.getString("nom_article"), 
+							 rsArticle.getString("description"), 
+							 rsArticle.getDate("date_debut_encheres"),
+							 rsArticle.getDate("date_fin_encheres"),
+							 rsArticle.getInt("prix_initial"),
+							 rsArticle.getInt("prix_vente"),
+							 categorie,
+							 user);
+				}
+				
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return unArticle;
+	}
+	@Override
+	public Article trieWithSearch(String search, Article article) {
+		Categorie categorie = null;
+		Article unArticle = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtCat = cnx.prepareStatement(GETCAT);
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETARTICLESEARCH);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+			pstmtCat.setString(1,article.getCategorie().getLibelle());
+
+
+			ResultSet rs = pstmtCat.executeQuery();
+			while(rs.next())
+			{
+				categorie = new Categorie(rs.getInt("no_categorie"),rs.getString("libelle"));
+				
+				pstmtUser.setInt(1, article.getProprietaire().getNoUtilisateur());
+
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur")
+							);
+
+				}
+				
+
+				pstmtArticle.setInt(1,article.getNoArticle());
+				pstmtArticle.setString(2,'%'+search+'%');
+
+
+				ResultSet rsArticle = pstmtArticle.executeQuery();
+				while(rsArticle.next()) {
+					 unArticle = new Article(rsArticle.getInt("no_article"),
+							 rsArticle.getString("nom_article"), 
+							 rsArticle.getString("description"), 
+							 rsArticle.getDate("date_debut_encheres"),
+							 rsArticle.getDate("date_fin_encheres"),
+							 rsArticle.getInt("prix_initial"),
+							 rsArticle.getInt("prix_vente"),
+							 categorie,
+							 user);
+				}
+				
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return unArticle;
 	}
 	
 }
