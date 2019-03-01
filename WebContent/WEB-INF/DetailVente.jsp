@@ -110,7 +110,7 @@
 			</div>
 			<div class="col"></div>
 		</div>
-		<c:if test="${utilisateur!=null}">
+		<c:if test="${utilisateur!=null and utilisateur.getPseudo()!=article.getProprietaire().getPseudo()}">
 			<form method="post" action="<%=request.getContextPath()%>/DetailVente?idArticle=<%=request.getParameter("idArticle")%>">
 			<c:if test="${Utilisateur.pseudo != article.proprietaire.pseudo}">
 				<div class="row">
@@ -123,7 +123,6 @@
 						<input type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
 					</div>
 					<div class="col">
-					
 						<button>Enchérir</button>
 					</div>
 					<div class="col"></div>
@@ -135,6 +134,18 @@
 				
 			</c:if>
 			</form>
+		</c:if>
+		
+		<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo()}">
+			<br>
+			<div class="row">
+				<div class="col-4"></div>
+			  	<div class="col-2">
+			  		<a href="#ModifierVente" class="btn btn-secondary">Modifier vente</a>
+			  	</div>
+				<div class="col"></div>
+			</div>
+		
 		</c:if>
 	</div>
 
