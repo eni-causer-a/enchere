@@ -70,7 +70,7 @@
 		  		<label>Meilleur offre :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="meilleurOffre">${article.getPrixVente()} points par ${em.getLastEnchere(article).utilisateur.pseudo}  </label>
+				<label name="meilleurOffre">${article.getPrixVente()} points <c:if test="${article.miseAPrix != article.prixVente }">par ${em.getLastEnchere(article).utilisateur.pseudo}</c:if>   </label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>
