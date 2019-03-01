@@ -100,8 +100,6 @@
 				<label style="color: #ccc;" id="param231">Ventes terminées</label>
 			</div>
 			
-			
-			
 		</div>
 	</c:if>
 	<br>
@@ -132,7 +130,7 @@
            		<li class="list-group-item d-flex justify-content-between align-items-center"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a>
 	        	<div>  
                     <div class="col-12">Prix : ${article.getPrixVente()} points</div>      
-                    <div class="col-12">Fin de l'enchère : ${article.getDateFinEncheres()}</div>
+                    <div class="col-12">Fin de l'enchère : ${article.printDateFinEnchere()}</div>
                     <div class="col-12">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></div>
 	        	</div> 
            		</li>

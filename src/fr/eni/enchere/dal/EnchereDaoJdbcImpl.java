@@ -57,12 +57,12 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtUser = cnx.prepareStatement(LASTENCHERE);)
 			{
-			Utilisateur user = DAOFactory.getUtilisateurDao().findUserById(article.getProprietaire().getNoUtilisateur());
-				pstmtUser.setInt(1, article.getNoArticle());
-
+			
 				ResultSet rs = pstmtUser.executeQuery();
 				if(rs.next())
 				{
+					Utilisateur user = DAOFactory.getUtilisateurDao().findUserById(Integer.parseInt(rs.getString("no_utilisateur")));
+					pstmtUser.setInt(1, article.getNoArticle());
 					enchere = new Enchere(user,
 									rs.getDate("date_enchere"),
 									rs.getInt("montant_enchere"), 
