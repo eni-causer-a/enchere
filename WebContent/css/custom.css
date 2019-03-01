@@ -1,0 +1,7 @@
+.hn_clicable{
+	color: #f8f9fa;
+}
+.hn_clicable:hover {
+	color: #f8f9fa;
+  	text-decoration: none;
+}
