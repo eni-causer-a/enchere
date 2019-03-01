@@ -29,6 +29,7 @@ public class ServletDetailVente extends HttpServlet {
      */
     public ServletDetailVente() {
         super();
+        
     }
 
 	/**
@@ -39,7 +40,8 @@ public class ServletDetailVente extends HttpServlet {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
-		
+		EnchereManager em = new EnchereManager();
+		 request.setAttribute("em", em);
 		ArticleManager manager = new ArticleManager();
 		String id = request.getParameter("idArticle");
 		 try {
@@ -59,8 +61,8 @@ public class ServletDetailVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		ArticleManager am = new ArticleManager();
-		Enchere enchere = new Enchere((Utilisateur) session.getAttribute("Utilisateur"), new Date(), Integer.parseInt(request.getParameter("miseAPrix")),am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))) );
 		EnchereManager em = new EnchereManager();
+		Enchere enchere = new Enchere((Utilisateur) session.getAttribute("Utilisateur"), new Date(), Integer.parseInt(request.getParameter("miseAPrix")),am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))) );
 		em.insert(enchere);
 		doGet(request, response);
 	}
