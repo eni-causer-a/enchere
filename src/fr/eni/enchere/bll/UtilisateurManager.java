@@ -48,4 +48,8 @@ public class UtilisateurManager {
 	public void delete(Utilisateur user) {
 		utilisateurDao.deleteUser(user);
 	}	
+	
+	public void launchRecup(int nb, String mail) {
+		utilisateurDao.launchRecup(nb, mail);
+	}
 }
