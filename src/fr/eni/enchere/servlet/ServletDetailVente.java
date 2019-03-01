@@ -1,6 +1,7 @@
 package fr.eni.enchere.servlet;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.bll.ArticleManager;
+import fr.eni.enchere.bll.EnchereManager;
 import fr.eni.enchere.bo.Article;
+import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
@@ -26,7 +29,6 @@ public class ServletDetailVente extends HttpServlet {
      */
     public ServletDetailVente() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -44,7 +46,7 @@ public class ServletDetailVente extends HttpServlet {
 			 Article article = manager.getArticleById(Integer.parseInt(id));
 			 request.setAttribute("article", article);
 		} catch (NumberFormatException e) {
-			//Gestion d'exception à faire
+			// TODO Gestion d'exception à faire piairyck !!!
 		}
 		 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/DetailVente.jsp");
@@ -55,8 +57,13 @@ public class ServletDetailVente extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session= request.getSession();
+		ArticleManager am = new ArticleManager();
+		Enchere enchere = new Enchere((Utilisateur) session.getAttribute("Utilisateur"), new Date(), Integer.parseInt(request.getParameter("miseAPrix")),am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))) );
+		EnchereManager em = new EnchereManager();
+		em.insert(enchere);
 		doGet(request, response);
 	}
+	
 
 }

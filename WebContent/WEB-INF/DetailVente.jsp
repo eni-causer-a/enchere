@@ -109,7 +109,7 @@
 			<div class="col"></div>
 		</div>
 		<c:if test="${utilisateur!=null}">
-			<form method="post" action="<%=request.getContextPath()%>/DetailVente">
+			<form method="post" action="<%=request.getContextPath()%>/DetailVente?idArticle=<%=request.getParameter("idArticle")%>">
 				<div class="row">
 					<div class="col"></div>
 				  	<div class="col">
@@ -117,9 +117,10 @@
 				  	</div>
 				  	
 				  	<div class="col">
-						<input type="number" min="${article.getPrixVente()}" value="${article.getPrixVente()}" name="miseAPrix">
+						<input type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
 					</div>
 					<div class="col">
+					
 						<button>Enchérir</button>
 					</div>
 					<div class="col"></div>
