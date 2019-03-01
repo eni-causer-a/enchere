@@ -1,6 +1,9 @@
 package fr.eni.enchere.servlet;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,8 +51,12 @@ public class ServletModifieVente extends HttpServlet {
 			// TODO Gestion d'exception à faire piairyck !!!
 			
 		}
-		 System.out.println(utilisateur.getPseudo());
-		 System.out.println(article.getProprietaire().getPseudo());
+		
+		 SimpleDateFormat formaterTime=new SimpleDateFormat("HH:mm");
+		 SimpleDateFormat formaterDate=new SimpleDateFormat("yyyy-MM-dd");
+		 request.setAttribute("formaterTime", formaterTime);
+		 request.setAttribute("formaterDate", formaterDate);
+		
 		if(utilisateur!=null && utilisateur.getPseudo().contentEquals(article.getProprietaire().getPseudo())) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifieVente.jsp");
 			rd.forward(request, response);

@@ -34,7 +34,7 @@
 	
 	<div>
 		<h5 class="my-5 text-center">Modifier la vente</h5>
-		<form method="post" action="<%=request.getContextPath()%>/NouvelleVente">
+		<form method="post" action="<%=request.getContextPath()%>/ModifieVente">
 		    <div class="row">
 		    	<div class="col"></div>
 				<div class="col">
@@ -61,7 +61,13 @@
 			  	<div class="col">
 					<select name="categorie")>
 						<c:forEach var="categorie" items="${lesCategories}">
-							<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}
+							
+							<c:if test="${article.getCategorie().getLibelle()==categorie.getLibelle()}">
+								<option value="${categorie.getNoCategorie()}" selected>${categorie.getLibelle()}</option>
+							</c:if>
+							<c:if test="${article.getCategorie().getLibelle()!=categorie.getLibelle()}">
+								<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}</option>
+							</c:if>
 						</c:forEach>		
 					</select>
 				</div>
@@ -91,7 +97,7 @@
 			  	</div>
 			  	
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="debutEnchere" required> <label>  à  </label> <input type="time" name="debutEnchereTime" required>
+					<label>Le  </label>  <input type="date" name="debutEnchere" value="${formaterDate.format(article.getDateDebutEncheres())}" required> <label>  à  </label> <input type="time" name="debutEnchereTime" value="${formaterTime.format(article.getDateDebutEncheres())}" required>
 				</div> 
 				<div class="col-1"></div>
 			
@@ -101,7 +107,7 @@
 			  		<label>Fin de l'enchère :</label>
 			  	</div>
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="finEnchere" required> <label>  à  </label> <input type="time" name="finEnchereTime" required>
+					<label>Le  </label>  <input type="date" name="finEnchere" value="${formaterDate.format(article.getDateFinEncheres())}" required> <label>  à  </label> <input type="time" name="finEnchereTime" value="${formaterTime.format(article.getDateFinEncheres())}" required>
 				</div>
 				<div class="col-1"></div>
 			</div>
