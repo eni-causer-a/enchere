@@ -69,7 +69,7 @@
 		  		<label>Meilleur offre :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="meilleurOffre">${article.getPrixVente()} points par Bob</label>
+				<label name="meilleurOffre">${article.getPrixVente()} points par ${article.proprietaire.pseudo}  </label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>
