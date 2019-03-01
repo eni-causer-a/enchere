@@ -78,7 +78,7 @@
 				</c:if>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param21" disabled/>
+				<input type="checkbox" value="value2" name="param21"  disabled/>
 				<label style="color: #ccc;" id="param211">Mes ventes en cours</label>
 			</div>
 			<div class="w-100"></div>
