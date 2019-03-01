@@ -15,6 +15,7 @@ public class Article {
 	private Categorie categorie;
 	private Utilisateur proprietaire;
 	private Retrait retrait;
+	private Utilisateur gagnant;
 	private boolean retire;
 	
 	public int getNoArticle() {
@@ -82,6 +83,12 @@ public class Article {
 	}
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
+	}
+	public Utilisateur getGagnant() {
+		return gagnant;
+	}
+	public void setGagnant(Utilisateur gagnant) {
+		this.gagnant = gagnant;
 	}
 	public boolean isRetire() {
 		return retire;

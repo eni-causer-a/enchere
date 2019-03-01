@@ -38,16 +38,16 @@ public class EnchereDaoJdbcImpl implements EnchereDao {
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement ps = cnx.prepareStatement(UPDATE_ARTICLE))
-			{
-				ps.setInt(1, enchere.getMontant_enchere());
-				ps.setInt(2, enchere.getArticle_vendu().getNoArticle());
-			
-				ps.executeUpdate();
-			
-			}//Fermeture automatique de la connexion
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+		{
+			ps.setInt(1, enchere.getMontant_enchere());
+			ps.setInt(2, enchere.getArticle_vendu().getNoArticle());
+		
+			ps.executeUpdate();
+		
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

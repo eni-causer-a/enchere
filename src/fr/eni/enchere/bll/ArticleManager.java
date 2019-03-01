@@ -42,4 +42,10 @@ public class ArticleManager {
 		return res;
 	}
 	
+	public void updateArticle(Article art) {
+		if (art != null) {
+			articleDao.updateArticle(art);
+		}
+	}
+	
 }
