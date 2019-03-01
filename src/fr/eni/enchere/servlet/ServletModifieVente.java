@@ -23,7 +23,10 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/ModifieVente")
 public class ServletModifieVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	SimpleDateFormat formaterTime=new SimpleDateFormat("HH:mm");
+	SimpleDateFormat formaterDate=new SimpleDateFormat("yyyy-MM-dd");
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -52,8 +55,7 @@ public class ServletModifieVente extends HttpServlet {
 			
 		}
 		
-		 SimpleDateFormat formaterTime=new SimpleDateFormat("HH:mm");
-		 SimpleDateFormat formaterDate=new SimpleDateFormat("yyyy-MM-dd");
+		 
 		 request.setAttribute("formaterTime", formaterTime);
 		 request.setAttribute("formaterDate", formaterDate);
 		

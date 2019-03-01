@@ -128,25 +128,22 @@
 					<div class="col"></div>
 				</div>
 			</c:if>
-			<c:if test="${Utilisateur.pseudo == article.proprietaire.pseudo}">
-				
-				<button class="btn btn-secondary">Modifier</button>
-				
-			</c:if>
 			</form>
 		</c:if>
+			<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo() and after == true}">
+				<br>
+				<div class="row">
+					<div class="col-4"></div>
+				  	<div class="col-2">
+				  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Modifier vente</a>
+				  	</div>
+					<div class="col"></div>
+				</div>
+			
+			</c:if>
 		
-		<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo()}">
-			<br>
-			<div class="row">
-				<div class="col-4"></div>
-			  	<div class="col-2">
-			  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Modifier vente</a>
-			  	</div>
-				<div class="col"></div>
-			</div>
 		
-		</c:if>
+		
 	</div>
 
 
