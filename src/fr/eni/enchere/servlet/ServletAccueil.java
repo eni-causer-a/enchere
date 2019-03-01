@@ -88,6 +88,10 @@ public class ServletAccueil extends HttpServlet {
 		lesCategories = cm.getListCategorie();
 		request.setAttribute("lesCategories", lesCategories);
 		
+		HttpSession session= request.getSession();
+		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		request.setAttribute("utilisateur", utilisateur);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 	}

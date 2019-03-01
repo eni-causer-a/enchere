@@ -39,7 +39,6 @@ public class ServletConnexion extends HttpServlet {
 		if(cookies != null) {
 			for (Cookie cookie : cookies) {
 				String nom=cookie.getName();
-				System.out.println("pouquoi");
 				if (nom.equals("idCompte")) {
 					request.setAttribute("pseudo",cookie.getValue() );					
 				}
