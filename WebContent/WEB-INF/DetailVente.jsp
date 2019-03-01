@@ -88,7 +88,7 @@
 		  		<label>Fin de l'enchère :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="finEnchere">${article.getDateFinEncheres()}</label>
+				<label name="finEnchere">${article.printDateFinEnchere()}</label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>

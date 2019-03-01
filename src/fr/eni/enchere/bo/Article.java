@@ -1,5 +1,6 @@
 package fr.eni.enchere.bo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Article {
@@ -137,5 +138,15 @@ public class Article {
 		else if(currentDate.after(this.dateFinEncheres)) {
 			this.etatVente = EtatVente.ENCHERE_TERMINE;
 		}
+	}
+	
+	public String printDateDebutEnchere() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		return sdf.format(this.dateDebutEncheres);
+	}
+	
+	public String printDateFinEnchere() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		return sdf.format(this.dateFinEncheres);
 	}
 }
