@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Request;
 import org.apache.commons.lang3.StringUtils;
 
 import fr.eni.enchere.bll.ArticleManager;
@@ -67,7 +68,10 @@ public class ServletAccueil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		String res = (String)request.getParameter("param11");
+		System.out.println(res);
+		//filtre(request, response);
+		
 		//String cat = request.getParameter("categorie");
 		String cat = request.getParameter("categorie");
 		ArticleManager am = new ArticleManager();
@@ -88,8 +92,21 @@ public class ServletAccueil extends HttpServlet {
 		lesCategories = cm.getListCategorie();
 		request.setAttribute("lesCategories", lesCategories);
 		
+		HttpSession session= request.getSession();
+		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		request.setAttribute("utilisateur", utilisateur);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
+	}
+	
+	
+	public void filtre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean etatCheckBox = request.getParameter("param21") != null;
+		System.out.println(request.getAttribute("param21"));
+		System.out.println(etatCheckBox);
+
+	
 	}
 
 }

@@ -59,35 +59,45 @@
 		<br>
 			<div class="row">
 				<div class="col-3">
-			    	<input type="radio" value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>Achats
+			    	<input type="radio"  value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>
+			    	<label id="achat"  for="groupe1">Achats</label>
+			    	
 			    </div>
 			    <div class="col-3">
-			    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);">Mes Ventes
+			    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);">
+			    	<label id="vente"  for="groupe1">Mes Ventes</label>
+			    	
 			    </div>
 			</div>
 		</fieldset>
 		<div class="row">
 			<div class="col-3">
 				<c:if test="${groupe1==value1}">
-					<input type="checkbox" value="value1" name="param11">Enchères ouvertes
+					<input type="checkbox" value="value1" name="param11"/>
+					<label id="param111">Enchères ouvertes</label>
 				</c:if>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param21" disabled>Mes ventes en cours
+				<input type="checkbox" value="value2" name="param21"  disabled/>
+				<label style="color: #ccc;" id="param211">Mes ventes en cours</label>
 			</div>
 			<div class="w-100"></div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param12">Mes enchères en cours
+				<input type="checkbox" value="value2" name="param12"/>
+				<label id="param121">Mes enchères en cours</label>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param22" disabled>Ventes non débutées
+				<input type="checkbox" value="value2" name="param22" disabled/>
+				<label style="color: #ccc;" id="param221">Ventes non débutées</label>
 			</div>
 			<div class="w-100"></div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param13">Mes enchères remportées
+				<input type="checkbox" value="value2" name="param13" />
+				<label id="param131">Mes enchères remportées</label>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="value2" name="param23" disabled>Ventes terminées
+				<input type="checkbox" value="value2" name="param23" disabled/>
+				<label style="color: #ccc;" id="param231">Ventes terminées</label>
 			</div>
 			
 			
@@ -159,22 +169,46 @@ function active1(radio) {
    }*/
 	function activeDesactive(radio,id) {
 	    if(radio.checked && id==1) {
+	    	
 	    	document.getElementsByName("param11")[0].disabled = false;
 	    	document.getElementsByName("param12")[0].disabled = false;
 	    	document.getElementsByName("param13")[0].disabled = false;
 	    	document.getElementsByName("param21")[0].disabled = true;
 	    	document.getElementsByName("param22")[0].disabled = true;
 	    	document.getElementsByName("param23")[0].disabled = true;
+	    	changeColorEnable();
 	    }
 	    else if(radio.checked && id==2){
+
 	    	document.getElementsByName("param11")[0].disabled = true;
 	    	document.getElementsByName("param12")[0].disabled = true;
 	    	document.getElementsByName("param13")[0].disabled = true;
 	    	document.getElementsByName("param21")[0].disabled = false;
 	    	document.getElementsByName("param22")[0].disabled = false;
 	    	document.getElementsByName("param23")[0].disabled = false;
+	    	changeColorDisable();
 	    }
 	}
+   function changeColorDisable()
+   {
+   	document.getElementById("param111").style.color = "#ccc";
+	document.getElementById("param121").style.color = "#ccc";
+	document.getElementById("param131").style.color = "#ccc";
+	document.getElementById("param211").style.color = "black";
+	document.getElementById("param221").style.color = "black";
+	document.getElementById("param231").style.color = "black";
+
+
+   }
+   function changeColorEnable()
+   {
+	   document.getElementById("param111").style.color = "black";
+		document.getElementById("param121").style.color = "black";
+		document.getElementById("param131").style.color = "black";
+		document.getElementById("param211").style.color = "#ccc";
+		document.getElementById("param221").style.color = "#ccc";
+		document.getElementById("param231").style.color = "#ccc";
+   }
 
 </script>
 

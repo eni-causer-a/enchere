@@ -81,27 +81,29 @@
 			  		<label>Mise à prix :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="number" min="0" name="miseAPrix">
+					<input type="number" min="0" name="miseAPrix" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
+				<div class="col-3"></div>
+			  	<div class="col-3">
 			  		<label>Début de l'enchère :</label>
 			  	</div>
-			  	<div class="col">
-					<input type="date" name="debutEnchere" required>
-				</div>
-				<div class="col"></div>
+			  	
+			  	<div class="col-5">
+					<label>Le  </label>  <input type="date" name="debutEnchere" required> <label>  à  </label> <input type="time" name="debutEnchereTime" required>
+				</div> 
+				<div class="col-1"></div>
+			
 				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
+				<div class="col-3"></div>
+			  	<div class="col-3">
 			  		<label>Fin de l'enchère :</label>
 			  	</div>
-			  	<div class="col">
-					<input type="date" name="finEnchere" required>
+			  	<div class="col-5">
+					<label>Le  </label>  <input type="date" name="finEnchere" required> <label>  à  </label> <input type="time" name="finEnchereTime" required>
 				</div>
-				<div class="col"></div>
+				<div class="col-1"></div>
 			</div>
 			<br>
 			<div class="row list-group-item  d-flex">
