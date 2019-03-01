@@ -129,7 +129,7 @@
 		</div>
 	</form>
 	<br>
-    <div class="row">
+    <!-- <div class="row">
         <ul class="list-group col-12">
            	<c:forEach var="article" items="${lesArticles}">
            		<li class="list-group-item d-flex justify-content-between align-items-center"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a>
@@ -140,9 +140,34 @@
 	        	</div> 
            		</li>
            </c:forEach>
-          
-		
 		</ul>
+	</div>-->
+	<br>
+	<div class="row">
+		<c:forEach var="article" items="${lesArticles}">
+			<div class="col-4" style="margin-bottom: 2%;">
+				<div class="card" style="width: 18rem;">
+				  <div class="card-body">
+				    <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a></h5>
+				    <p class="card-text">${article.getDescription()}</p>
+				    <p>Meilleur Offre : ${article.getPrixVente()} points</p>
+				    <p>Début : ${article.printDateDebutEnchere()}</p>
+				    <p>Fin : ${article.printDateFinEnchere()}</p>
+				    <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>
+				  </div>
+				  <!--  
+					  <ul class="list-group list-group-flush">
+					    <li class="list-group-item">MeilleurOffre : ${article.getPrixVente()} points</li>
+					    <li class="list-group-item">Début : ${article.printDateDebutEnchere()}</li>
+					    <li class="list-group-item">Fin : ${article.printDateFinEnchere()}</li>
+					    <li class="list-group-item">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></li>
+					    <!--<li class="list-group-item">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></li>
+					  </ul>
+					 -->
+				</div>
+			</div>
+		</c:forEach>
+
 	</div>
 
 	<br>

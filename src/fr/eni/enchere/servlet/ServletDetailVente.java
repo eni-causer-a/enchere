@@ -54,7 +54,7 @@ public class ServletDetailVente extends HttpServlet {
 		Date date=new Date();
 		 
 		//System.out.println("DAEZRAR: "+article.getDateDebutEncheres().after(date));
-		System.out.println(article.getDateDebutEncheres().after(date));
+		//System.out.println(article.getDateDebutEncheres().after(date));
 		request.setAttribute("after", article.getDateDebutEncheres().after(date));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/DetailVente.jsp");

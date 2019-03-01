@@ -33,11 +33,12 @@ public class ServletModifyProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		HttpSession session= request.getSession(); 
+		
 		request.setAttribute("user", session.getAttribute("Utilisateur"));
 		if(request.getAttribute("user")==null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}else {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifyProfil.jsp");
 		rd.forward(request, response);

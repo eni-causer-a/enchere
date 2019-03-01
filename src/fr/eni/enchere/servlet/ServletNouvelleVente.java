@@ -45,11 +45,16 @@ public class ServletNouvelleVente extends HttpServlet {
 		HttpSession session= request.getSession();
 		List<Categorie> lesCategories=(List<Categorie>) session.getAttribute("lesCategories");
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
-		request.setAttribute("utilisateur", utilisateur);
-		request.setAttribute("lesCategories", lesCategories);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp");
-		rd.forward(request, response);
+		if(utilisateur==null) {
+			response.sendRedirect(request.getContextPath()+"/Accueil");
+		}else {
+
+			request.setAttribute("utilisateur", utilisateur);
+			request.setAttribute("lesCategories", lesCategories);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
