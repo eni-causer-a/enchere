@@ -1,7 +1,7 @@
 package fr.eni.enchere.servlet;
 
 import java.io.IOException;
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.bll.ArticleManager;
-import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Retrait;
@@ -26,7 +25,10 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/ModifieVente")
 public class ServletModifieVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	SimpleDateFormat formaterTime=new SimpleDateFormat("HH:mm");
+	SimpleDateFormat formaterDate=new SimpleDateFormat("yyyy-MM-dd");
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -54,8 +56,11 @@ public class ServletModifieVente extends HttpServlet {
 			// TODO Gestion d'exception à faire piairyck !!!
 			
 		}
-		 System.out.println(utilisateur.getPseudo());
-		 System.out.println(article.getProprietaire().getPseudo());
+		
+		 
+		 request.setAttribute("formaterTime", formaterTime);
+		 request.setAttribute("formaterDate", formaterDate);
+		
 		if(utilisateur!=null && utilisateur.getPseudo().contentEquals(article.getProprietaire().getPseudo())) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifieVente.jsp");
 			rd.forward(request, response);
