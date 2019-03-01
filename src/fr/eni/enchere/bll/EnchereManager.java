@@ -9,7 +9,7 @@ import fr.eni.enchere.dal.UtilisateurDao;
 public class EnchereManager {
 	private EnchereDao enchereDao;
 	
-	public EnchereManager(EnchereDao enchereDao) {
+	public EnchereManager() {
 		this.enchereDao = DAOFactory.getEnchereDao();
 	}
 	

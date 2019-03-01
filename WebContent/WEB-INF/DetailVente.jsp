@@ -11,7 +11,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
+	<link href="css/custom.css" rel="stylesheet">
+	
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,7 +26,7 @@
 	    <div class="row">
 	   		<div class="col-6">	
 	   			<div class="container text-center text-white">
-	   				<h3>ENI-Encheres</h3>
+	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
 	   			</div>
 	   		</div>
 	   	</div>
@@ -68,7 +69,7 @@
 		  		<label>Meilleur offre :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="meilleurOffre">${article.getPrixVente()} points par Bob</label>
+				<label name="meilleurOffre">${article.getPrixVente()} points par ${article.proprietaire.pseudo}  </label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>
@@ -109,7 +110,7 @@
 			<div class="col"></div>
 		</div>
 		<c:if test="${utilisateur!=null}">
-			<form method="post" action="<%=request.getContextPath()%>/DetailVente">
+			<form method="post" action="<%=request.getContextPath()%>/DetailVente?idArticle=<%=request.getParameter("idArticle")%>">
 				<div class="row">
 					<div class="col"></div>
 				  	<div class="col">
@@ -117,21 +118,16 @@
 				  	</div>
 				  	
 				  	<div class="col">
-						<input type="number" min="${article.getPrixVente()}" value="${article.getPrixVente()}" name="miseAPrix">
+						<input type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
 					</div>
 					<div class="col">
+					
 						<button>Enchérir</button>
 					</div>
 					<div class="col"></div>
 				</div>
 			</form>
 		</c:if>
-		<br>
-		<div class="row">
-			<div class="col"></div>
-			<div class="col"><a href="<%=request.getContextPath()%>/Accueil">Retour vers l'accueil</a></div>
-			<div class="col"></div>
-		</div>
 	</div>
 
 
