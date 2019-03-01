@@ -70,7 +70,7 @@
 		  		<label>Meilleur offre :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="meilleurOffre">${article.getPrixVente()} points par ${article.proprietaire.pseudo}  </label>
+				<label name="meilleurOffre">${article.getPrixVente()} points par ${em.getLastEnchere(article).utilisateur.pseudo}  </label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>
@@ -88,7 +88,7 @@
 		  		<label>Fin de l'enchère :</label>
 		  	</div>
 		  	<div class="col">
-				<label name="finEnchere">${article.getDateFinEncheres()}</label>
+				<label name="finEnchere">${article.printDateFinEnchere()}</label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>
