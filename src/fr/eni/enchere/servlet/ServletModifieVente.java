@@ -2,6 +2,7 @@ package fr.eni.enchere.servlet;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,7 +29,6 @@ public class ServletModifieVente extends HttpServlet {
 	
 	SimpleDateFormat formaterTime=new SimpleDateFormat("HH:mm");
 	SimpleDateFormat formaterDate=new SimpleDateFormat("yyyy-MM-dd");
-	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -82,6 +82,7 @@ public class ServletModifieVente extends HttpServlet {
 		}
 		else if(request.getParameter("boutonEnregistrer") !=null){
 			Article art = new Article();
+			art.setNoArticle(Integer.parseInt(request.getParameter("idArticle")));
 			art.setNomArticle(request.getParameter("nomArticle"));
 			art.setDescription(request.getParameter("description"));
 			//Catégorie
@@ -124,7 +125,6 @@ public class ServletModifieVente extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 			
 		}
-		doGet(request, response);
 	}
 
 }

@@ -36,6 +36,7 @@
 		<h5 class="my-5 text-center">Modifier la vente</h5>
 		<form method="post" action="<%=request.getContextPath()%>/ModifieVente">
 		    <div class="row">
+		    <input type="hidden" name="idArticle" value="${article.getNoArticle()}">
 		    	<div class="col"></div>
 				<div class="col">
 			  		<label>Article :</label>
