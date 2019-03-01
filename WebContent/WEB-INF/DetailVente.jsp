@@ -109,7 +109,7 @@
 			</div>
 			<div class="col"></div>
 		</div>
-		<c:if test="${utilisateur!=null}">
+		<c:if test="${utilisateur!=null and utilisateur.getPseudo()!=article.getProprietaire().getPseudo()}">
 			<form method="post" action="<%=request.getContextPath()%>/DetailVente">
 				<div class="row">
 					<div class="col"></div>
@@ -126,6 +126,17 @@
 					<div class="col"></div>
 				</div>
 			</form>
+		</c:if>
+		
+		<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo()}">
+			<div class="row">
+				<div class="col"></div>
+			  	<div class="col">
+			  		<a href="#ModifierVente" class="btn btn-secondary">Modifier vente</label>
+			  	</div>
+				<div class="col"></div>
+			</div>
+		
 		</c:if>
 	</div>
 
