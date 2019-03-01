@@ -107,13 +107,18 @@
 	<form method="post" action="<%=request.getContextPath()%>/Accueil">
 		<div class="row">
 			<div class="col-4">
-				<input type="text" name="filtre" placeHolder="Le nom de l'article contient">
+				<input type="text" name="filtre" placeHolder="Le nom de l'article contient" value="${filtre}">
 			</div>
 			<div class="col-4">
 				<label>Catégorie :</label>
 				<select name="categorie")>
 					<c:forEach var="categorie" items="${lesCategories}">
-						<option value="${categorie.getLibelle()}">${categorie.getLibelle()}
+					 	<c:if test="${categorie.getLibelle()==cat}">
+							<option value="${categorie.getLibelle()}" selected>${categorie.getLibelle()}</option>
+						</c:if>
+						<c:if test="${categorie.getLibelle()!=cat}">
+							<option value="${categorie.getLibelle()}">${categorie.getLibelle()}</option>
+						</c:if>
 					</c:forEach>
 						
 				</select>	
