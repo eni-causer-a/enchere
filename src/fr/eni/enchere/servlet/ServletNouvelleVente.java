@@ -72,9 +72,20 @@ public class ServletNouvelleVente extends HttpServlet {
 			art.setMiseAPrix(Integer.parseInt(request.getParameter("miseAPrix")));
 			art.setPrixVente(art.getMiseAPrix());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
 			try {
-				art.setDateDebutEncheres(sdf.parse(request.getParameter("debutEnchere")));
-				art.setDateFinEncheres(sdf.parse(request.getParameter("finEnchere")));
+				Date date = sdf.parse(request.getParameter("debutEnchere"));
+				Date time = sdf2.parse(request.getParameter("debutEnchereTime"));
+				date.setHours(time.getHours());
+				date.setMinutes(time.getMinutes());
+				art.setDateDebutEncheres(date);
+				
+				date = sdf.parse(request.getParameter("finEnchere"));
+				time = sdf2.parse(request.getParameter("finEnchereTime"));
+				date.setHours(time.getHours());
+				date.setMinutes(time.getMinutes());
+				art.setDateFinEncheres(date);
+
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

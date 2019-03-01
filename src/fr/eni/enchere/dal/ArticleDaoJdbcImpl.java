@@ -71,8 +71,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					
 					pstmtArticle.setString(1, article.getNomArticle());
 					pstmtArticle.setString(2, article.getDescription());
-					pstmtArticle.setDate(3,new java.sql.Date( article.getDateDebutEncheres().getTime()));
-					pstmtArticle.setDate(4, new java.sql.Date(article.getDateFinEncheres().getTime()));
+					pstmtArticle.setTimestamp(3,new java.sql.Timestamp( article.getDateDebutEncheres().getTime()));
+					pstmtArticle.setTimestamp(4, new java.sql.Timestamp(article.getDateFinEncheres().getTime()));
 					pstmtArticle.setInt(5, article.getMiseAPrix());
 					pstmtArticle.setInt(6, article.getMiseAPrix());
 					pstmtArticle.setInt(7, user.getNoUtilisateur());
@@ -140,8 +140,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				art.setNoArticle(rs.getInt("no_article"));
 				art.setNomArticle(rs.getString("nom_article"));
 				art.setDescription(rs.getString("description"));
-				art.setDateDebutEncheres(new java.sql.Date(rs.getDate("date_debut_encheres").getTime()));
-				art.setDateFinEncheres(new java.sql.Date(rs.getDate("date_fin_encheres").getTime()));
+				art.setDateDebutEncheres(new java.sql.Timestamp(rs.getDate("date_debut_encheres").getTime()));
+				art.setDateFinEncheres(new java.sql.Timestamp(rs.getDate("date_fin_encheres").getTime()));
 				art.setMiseAPrix(rs.getInt("prix_initial"));
 				art.setPrixVente(rs.getInt("prix_vente"));
 				
