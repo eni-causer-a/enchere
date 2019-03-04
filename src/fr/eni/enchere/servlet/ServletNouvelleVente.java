@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -127,17 +128,20 @@ public class ServletNouvelleVente extends HttpServlet {
 			
 			art.setProprietaire(utilisateur);
 			
-			Retrait retrait = new Retrait();
-			retrait.setRue(request.getParameter("rue"));
-			retrait.setCode_postale(request.getParameter("codePostal"));
-			retrait.setVille(request.getParameter("ville"));
-			
-			art.setRetrait(retrait);
-			
-			ArticleManager am = new ArticleManager();
-			am.insert(art);
-			
-		System.out.println("ok1");
+		
+			if(Error==false) {
+				art.setProprietaire(utilisateur);
+				
+				Retrait retrait = new Retrait();
+				retrait.setRue(request.getParameter("rue"));
+				retrait.setCode_postale(request.getParameter("codePostal"));
+				retrait.setVille(request.getParameter("ville"));
+				
+				art.setRetrait(retrait);
+				
+				ArticleManager am = new ArticleManager();
+				am.insert(art);
+				System.out.println("ok1");
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
@@ -161,20 +165,6 @@ public class ServletNouvelleVente extends HttpServlet {
 		} catch (FileUploadException e) {
 		} catch (Exception e) {
 		}
-		
-			if(Error==false) {
-				art.setProprietaire(utilisateur);
-				
-				Retrait retrait = new Retrait();
-				retrait.setRue(request.getParameter("rue"));
-				retrait.setCode_postale(request.getParameter("codePostal"));
-				retrait.setVille(request.getParameter("ville"));
-				
-				art.setRetrait(retrait);
-				
-				ArticleManager am = new ArticleManager();
-				am.insert(art);
-				
 				response.sendRedirect(request.getContextPath()+"/Accueil");
 			}else {
 				request.setAttribute("nomArticle",request.getParameter("nomArticle"));
@@ -195,6 +185,6 @@ public class ServletNouvelleVente extends HttpServlet {
 			}
 			
 		}
-	}
+	
 
 }
