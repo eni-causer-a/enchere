@@ -1411,7 +1411,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							 rsArticle.getString("nom_article"), 
 							 rsArticle.getString("description"), 
 							 new Date(rs.getTimestamp("date_debut_encheres").getTime()),
-								new Date(rs.getTimestamp("date_fin_encheres").getTime()),
+							 new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 							 rsArticle.getInt("prix_initial"),
 							 rsArticle.getInt("prix_vente"),
 							 categorie,

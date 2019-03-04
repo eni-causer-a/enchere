@@ -42,7 +42,7 @@
 			  		<label>Article :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="nomArticle" required>
+					<input type="text" name="nomArticle" value="${nomArticle}" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="w-100"></div>
@@ -51,7 +51,7 @@
 			  		<label>Description :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="description">
+					<input type="text" name="description" value="${description}">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -62,7 +62,15 @@
 			  	<div class="col">
 					<select name="categorie")>
 						<c:forEach var="categorie" items="${lesCategories}">
-							<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}
+							<!-- <option value="${categorie.getNoCategorie()}">${categorie.getLibelle()} -->
+							
+							<c:if test="${cat==categorie.getNoCategorie()}">
+								<option value="${categorie.getNoCategorie()}" selected>${categorie.getLibelle()}</option>
+							</c:if>
+							<c:if test="${cat!=categorie.getNoCategorie()}">
+								<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}</option>
+							</c:if>
+						
 						</c:forEach>		
 					</select>
 				</div>
@@ -82,7 +90,7 @@
 			  		<label>Mise à prix :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="number" min="0" name="miseAPrix" required>
+					<input type="number" min="0" name="miseAPrix" value="${miseAPrix}" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -92,19 +100,36 @@
 			  	</div>
 			  	
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="debutEnchere" required> <label>  à  </label> <input type="time" name="debutEnchereTime" required>
+					<label>Le  </label>  <input type="date" name="debutEnchere" value="${debutEnchere}" required> <label>  à  </label> <input type="time" name="debutEnchereTime" value="${debutEnchereTime}" required>
 				</div> 
 				<div class="col-1"></div>
-			
+				<c:if test="${dateDebutError!=null}">
+					<div class="w-100"></div>
+					<div class="col-4"></div>
+				  	<div class="col-6">
+				  		<label style="color: red;" class="label-danger">${dateDebutError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 				<div class="w-100"></div>
 				<div class="col-3"></div>
 			  	<div class="col-3">
 			  		<label>Fin de l'enchère :</label>
 			  	</div>
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="finEnchere" required> <label>  à  </label> <input type="time" name="finEnchereTime" required>
+					<label>Le  </label>  <input type="date" name="finEnchere" value="${finEnchere}" required> <label>  à  </label> <input type="time" name="finEnchereTime" value="${finEnchereTime}" required>
 				</div>
 				<div class="col-1"></div>
+				<c:if test="${dateFinError!=null}">
+					<div class="w-100"></div>
+					<div class="col-4"></div>
+				  	<div class="col-6">
+				  		<label style="color: red;" class="label-danger">${dateFinError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 			</div>
 			<br>
 			<div class="row list-group-item  d-flex">
@@ -117,9 +142,16 @@
 			  	<div class="col">
 			  		<label>Rue :</label>
 			  	</div>
-			  	<div class="col">
-					<input type="text" name="rue" value="${utilisateur.getRue()}" required>
-				</div>
+			  	<c:if test="${rue==null}">
+				  	<div class="col">
+						<input type="text" name="rue" value="${utilisateur.getRue()}" required>
+					</div>
+				</c:if>
+				<c:if test="${rue!=null}">
+				  	<div class="col">
+						<input type="text" name="rue" value="${rue}" required>
+					</div>
+				</c:if>
 				<div class="col"></div>
 				<div class="w-100"></div>
 				<div class="col-4"></div>
@@ -127,7 +159,12 @@
 			  		<label>Code postal :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="codePostal" value="${utilisateur.getCodePostale()}" required>
+			  		<c:if test="${codeP==null}">
+						<input type="text" name=codePostal value="${utilisateur.getCodePostale()}" required>
+					</c:if>
+					<c:if test="${codeP!=null}">
+						<input type="text" name="codePostal" value="${codeP}" required>
+					</c:if>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -136,7 +173,12 @@
 			  		<label>Ville :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="ville" value="${utilisateur.getVille()}" required>
+			  		<c:if test="${ville==null}">
+						<input type="text" name="ville" value="${utilisateur.getVille()}" required>
+					</c:if>
+					<c:if test="${ville!=null}">
+						<input type="text" name="ville" value="${ville}" required>
+					</c:if>
 				</div>
 				<div class="col"></div>
 			</div>

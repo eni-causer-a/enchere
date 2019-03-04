@@ -61,10 +61,10 @@ public class ServletConnexion extends HttpServlet {
 		
 		UtilisateurManager utilisateurManager=new UtilisateurManager();
 		Utilisateur utilisateur=utilisateurManager.getUtilisateur(id,mdp);
-		System.out.println(utilisateur);
+		//System.out.println(utilisateur);
 		if(utilisateur==null) {
 			request.setAttribute("Identifiant", id);
-			request.setAttribute("loginError", "Compte ou mot de passe erroné");
+			request.setAttribute("loginError", "Identifiant ou mot de passe erroné");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 			rd.forward(request, response);
 	
