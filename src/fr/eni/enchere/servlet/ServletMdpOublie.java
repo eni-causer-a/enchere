@@ -31,7 +31,6 @@ public class ServletMdpOublie extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/MdpOublie.jsp");
 		rd.forward(request, response);
 	}
@@ -44,7 +43,8 @@ public class ServletMdpOublie extends HttpServlet {
 		Random r = new Random();
 		int valeur = 99999999 + r.nextInt(999999999 - 99999999);
 		um.launchRecup(valeur, request.getParameter("email"));
-		doGet(request, response);
+		System.out.println("URL pour changer mdp: http://localhost:8080/Enchere/changeMdp?id="+ valeur );
+		//doGet(request, response);
 	}
 
 }
