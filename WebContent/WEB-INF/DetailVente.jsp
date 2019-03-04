@@ -7,6 +7,7 @@
 <head>
 <!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
 <title>ENI-Encheres</title>
+<link rel="shortcut icon" href="image/eni.ico">
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -80,6 +81,15 @@
 		  	</div>
 		  	<div class="col">
 				<label name="miseAPrix">${article.getMiseAPrix()} points</label>
+			</div>
+			<div class="col"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
+		  		<label>Début de l'enchère :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="debutEnchere">${article.printDateDebutEnchere()}</label>
 			</div>
 			<div class="col"></div>
 			<div class="w-100"></div>

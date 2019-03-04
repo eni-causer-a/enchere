@@ -6,6 +6,7 @@
 <head>
 <!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
 <title>ENI-Encheres</title>
+<link rel="shortcut icon" href="image/eni.ico">
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -135,7 +136,7 @@
 			  		<label>Ville :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="ville" value="${utilisateur.getVille()} required">
+					<input type="text" name="ville" value="${utilisateur.getVille()}" required>
 				</div>
 				<div class="col"></div>
 			</div>

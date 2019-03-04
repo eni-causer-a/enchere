@@ -75,18 +75,17 @@ public class ServletNouvelleVente extends HttpServlet {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		
-		CategorieManager cm = new CategorieManager();
-		Categorie uneCat = cm.getCategorie(request.getParameter("categorie"));
+		//CategorieManager cm = new CategorieManager();
+		//Categorie uneCat = cm.getCategorie(request.getParameter("categorie"));
 			
 			Article art = new Article();
 			art.setNomArticle(request.getParameter("nomArticle"));
 			art.setDescription(request.getParameter("description"));
 			//Catégorie
-			art.setCategorie(uneCat);
+			//art.setCategorie(uneCat);
 
 			art.setMiseAPrix(Integer.parseInt(request.getParameter("miseAPrix")));
-			art.setPrixVente(Integer.parseInt(request.getParameter("miseAPrix")));
-			
+			art.setPrixVente(art.getMiseAPrix());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
 			

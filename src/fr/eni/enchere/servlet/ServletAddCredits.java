@@ -14,16 +14,16 @@ import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
- * Servlet implementation class ServletNouveauProfil
+ * Servlet implementation class ServletAddCredits
  */
-@WebServlet("/profil")
-public class ServletProfil extends HttpServlet {
+@WebServlet("/ezMoney")
+public class ServletAddCredits extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletProfil() {
+    public ServletAddCredits() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,33 +32,20 @@ public class ServletProfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session= request.getSession();
-		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
-		if(utilisateur!=null) {
-			UtilisateurManager manager = new UtilisateurManager();
-			String id = request.getParameter("user");
-			 try {
-				 Utilisateur user = manager.findUserById(Integer.parseInt(id));
-				 request.setAttribute("user", user);
-			} catch (NumberFormatException e) {
-				//Gestion d'exception à faire
-				System.out.println("Mauvais param");
-			}
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/profil.jsp");
-			rd.forward(request, response);
-		}
-		else {
-			response.sendRedirect(request.getContextPath()+"/Accueil");
-		}
+
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/achat.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session= request.getSession();
+		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		utilisateur.setCredit(utilisateur.getCredit()+1);
+		UtilisateurManager um = new UtilisateurManager();
+		um.update(utilisateur);
 		doGet(request, response);
 	}
 

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import fr.eni.enchere.bll.UtilisateurManager;
 
 /**
@@ -31,9 +33,24 @@ public class ServletRecupMdp extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UtilisateurManager um = new UtilisateurManager();
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/RecPass.jsp");
-		rd.forward(request, response);
+		if(request.getParameter("id") == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+			rd.forward(request, response);
+		}else if(StringUtils.isNumeric(request.getParameter("id"))) {
+			if(um.isRecup(Integer.parseInt(request.getParameter("id")))) {
+				request.setAttribute("id", request.getParameter("id"));
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/RecPass.jsp");
+				rd.forward(request, response);
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+				rd.forward(request, response);
+			}
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -41,10 +58,10 @@ public class ServletRecupMdp extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UtilisateurManager um = new UtilisateurManager();
-		Random r = new Random();
-		int valeur = 99999999 + r.nextInt(999999999 - 99999999);
-		um.launchRecup(valeur, request.getParameter("email"));
-		doGet(request, response);
+		um.endRecup(Integer.parseInt(request.getParameter("id")), request.getParameter("newpass"));
+		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+		rd.forward(request, response);
+		
 	}
 
 }

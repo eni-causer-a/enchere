@@ -6,6 +6,7 @@
 <head>
 <!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
 <title>ENI-Encheres</title>
+<link rel="shortcut icon" href="image/eni.ico">
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -151,6 +152,10 @@
 				<div class="col-4"></div>
 				<div class="col-1">
 					<button name="boutonEnregistrer" class="btn btn-secondary">Enregistrer</button>
+				</div>
+				<div class="col-1"></div>
+				<div class="col-3">
+					<button name="boutonSupprimer" class="btn btn-secondary">Supprimer la vente</button>
 				</div>
 				<div class="col-1"></div>
 				<div class="col-1">

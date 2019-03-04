@@ -19,15 +19,21 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 
 	private static final String LAUNCH_REC = "UPDATE UTILISATEURS SET nb_recup= ? WHERE email = ? ; ";
 	
+	private static final String REC_REC = "SELECT * FROM UTILISATEURS WHERE nb_recup= ? ; ";
+	
+	private static final String END_REC = "UPDATE UTILISATEURS SET mot_de_passe= ? , nb_recup = null WHERE nb_recup = ? ; ";
+	
+	
 	private static final String GETUSER = "select * from UTILISATEURS where pseudo = ? and mot_de_passe = ? ;";
 	
 	private static final String GETVENTEUSER = "select * from ARTICLES_VENDUS where no_utilisateur = ?"; 
 
 	private static final String GETCATEGORIE = "select * from CATEGORIES where no_categorie = ?"; 
 	
-	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? where no_utilisateur = ? ; ";
+	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=? where no_utilisateur = ? ; ";
 
 	private static final String GETACHATUSER = "select distinct ";
+	
 	
 	private static final String DELETEUSER = "update UTILISATEURS set mot_de_passe='' where no_utilisateur = ? ;";
 	private static final String DELETE_ARTICLE="delete from ARTICLES_VENDUS \r\n" + 
@@ -63,6 +69,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 				pstmtUser.setString(7, user.getCodePostale());
 				pstmtUser.setString(8, user.getVille());
 				pstmtUser.setString(9, user.getMotDePasse());
+				
 				
 				pstmtUser.execute();
 				ResultSet rs = pstmtUser.getGeneratedKeys();
@@ -190,7 +197,9 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 			pstmtUser.setString(7, user.getCodePostale());
 			pstmtUser.setString(8, user.getVille());
 			pstmtUser.setString(9, user.getMotDePasse());
-			pstmtUser.setInt(10, user.getNoUtilisateur());
+			pstmtUser.setInt(10, user.getCredit());
+			pstmtUser.setInt(11, user.getNoUtilisateur());
+			
 
 			pstmtUser.executeUpdate();
 		} catch (SQLException e) {
@@ -289,7 +298,49 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 				catch (SQLException e) {
 					e.printStackTrace();
 				}
+	}
+	
+	@Override
+	public boolean setRecup(int nb) {
+		Utilisateur user = null;
 		
+		
+		try(Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pstmtUser = cnx.prepareStatement(REC_REC);)
+		{
+			pstmtUser.setInt(1, nb);
+
+
+			ResultSet rs = pstmtUser.executeQuery();
+			while(rs.next())
+			{
+				if(rs.getString("pseudo")!=null)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+				
+	}
+
+	@Override
+	public void endRecup(int nb, String mdp) {
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtUser = cnx.prepareStatement(END_REC)){
+			
+					pstmtUser.setString(1, mdp);
+					pstmtUser.setInt(2, nb);
+					pstmtUser.executeUpdate();
+					
+				}//Fermeture automatique de la connexion
+				catch (SQLException e) {
+					e.printStackTrace();
+				}	
 	}
 	
 	

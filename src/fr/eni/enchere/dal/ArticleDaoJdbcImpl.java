@@ -72,7 +72,10 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			"      ,ville = ?\r\n" + 
 			" WHERE no_article =?";
 	
-	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
+	private static final String DELETE_ARTICLE="delete from ARTICLES_VENDUS \r\n" + 
+			"where no_article=?;";
+	private static final String DELETE_RETRAIT="delete from RETRAITS\r\n" + 
+			"where no_article=?;";
 	
 	private static final String GETTOPENCHERE = "select distinct no_article, no_utilisateur from ENCHERES where no_utilisateur=?";
 	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_article = ? ;";
@@ -399,17 +402,20 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 
 	@Override
 	public void deleteArticle(Article article) {
-		try(Connection cnx = ConnectionProvider.getConnection();
-				PreparedStatement pstmtUser = cnx.prepareStatement(DELETEARTICLE);)
-			{
-				pstmtUser.setInt(1, article.getNoArticle());
-
-				pstmtUser.executeQuery();
-				
-			}//Fermeture automatique de la connexion
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+		try(Connection cnx = ConnectionProvider.getConnection();)
+		{
+			PreparedStatement ps = cnx.prepareStatement(DELETE_RETRAIT);
+			ps.setInt(1, article.getNoArticle());
+			ps.executeUpdate();
+			
+			ps = cnx.prepareStatement(DELETE_ARTICLE);
+			ps.setInt(1, article.getNoArticle());
+			ps.executeUpdate();
+			
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
