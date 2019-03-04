@@ -856,6 +856,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
 			{
 			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+			pstmtArticle.setInt(2,utilisateur.getNoUtilisateur());
+
 
 
 			ResultSet rs = pstmtArticle.executeQuery();

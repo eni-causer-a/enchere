@@ -81,7 +81,7 @@
 			  		<label>Photo de l'article :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="button" value="Uploader">
+					<input type="file" name="fileName" value="Uploader">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>

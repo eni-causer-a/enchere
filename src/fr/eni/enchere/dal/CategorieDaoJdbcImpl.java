@@ -13,6 +13,7 @@ public class CategorieDaoJdbcImpl implements CategorieDao {
 	
 	public static final String GETALLCAT = "select * from CATEGORIES;";
 	public static final String GETALLWITHOUTTOUTE = "select * from CATEGORIES where no_categorie != 1";
+	public static final String GETCATEGORIE = "select * from CATEGORIES where libelle like ?";
 
 	@Override
 	public List<Categorie> getListCategorie() {
@@ -57,6 +58,30 @@ public class CategorieDaoJdbcImpl implements CategorieDao {
 			e.printStackTrace();
 		}
 		return listeCategorie;
+	}
+	@Override
+	public Categorie getCategorie(String libelle) {
+		Categorie categorie = null;
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtCat = cnx.prepareStatement(GETCATEGORIE))
+			{
+
+			pstmtCat.setString(1, "%"+libelle+"%");
+			
+			ResultSet rs = pstmtCat.executeQuery();
+			while(rs.next())
+			{
+				 categorie = new Categorie(rs.getInt("no_categorie"),
+										rs.getString("libelle"));
+
+				
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return categorie;
+		
 	}
 
 }

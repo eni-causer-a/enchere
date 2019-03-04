@@ -4,4 +4,12 @@
   <welcome-file-list>
     <welcome-file>Accueil</welcome-file>
   </welcome-file-list>
+  <display-name>ServletFileUploadDownloadExample</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>tempfile.dir</param-name>
+    <param-value>tmpfiles</param-value>
+  </context-param>
 </web-app>
