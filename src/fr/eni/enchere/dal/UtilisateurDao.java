@@ -25,4 +25,8 @@ public interface UtilisateurDao {
 	public boolean pseudoTaken(String pseudo);
 	
 	public void launchRecup(int nb, String mail);
+	
+	public boolean setRecup(int nb);
+	
+	public void endRecup(int nb, String mdp);
 }

@@ -35,7 +35,7 @@
 	</header>
 	<h3 class="my-5 text-center">Mot de passe oublié</h3>
 	<div class="container">
-		<form method="post" action="<%=request.getContextPath()%>/mdpoublie">
+		<form method="post" action="<%=request.getContextPath()%>/changeMdp?id=<%=request.getAttribute("id")%>">
 			<c:if test="${loginError!=null}">
 					<div class="w-100"></div>
 					<div class="col-4"></div>
@@ -51,7 +51,7 @@
 			  		<label>Nouveau mot de passe :</label>
 			  	</div>
 			  	<div class="col-2">
-			  		<input type="password" name="email" required>
+			  		<input type="password" name="newpass" required>
 				</div>
 				
 			</div>

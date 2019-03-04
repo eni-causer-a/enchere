@@ -8,4 +8,5 @@ public interface CategorieDao {
 
 	
 	public List<Categorie> getListCategorie();
+	public List<Categorie> getListCategorieWithoutToutes();
 }

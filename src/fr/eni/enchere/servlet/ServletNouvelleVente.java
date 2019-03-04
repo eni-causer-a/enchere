@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.bll.ArticleManager;
+import fr.eni.enchere.bll.CategorieManager;
 import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
@@ -43,7 +44,8 @@ public class ServletNouvelleVente extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session= request.getSession();
-		List<Categorie> lesCategories=(List<Categorie>) session.getAttribute("lesCategories");
+		CategorieManager cm  = new CategorieManager();
+		List<Categorie> lesCategories= cm.getListCategorieWithoutToutes(); 
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		if(utilisateur==null) {
 			response.sendRedirect(request.getContextPath()+"/Accueil");

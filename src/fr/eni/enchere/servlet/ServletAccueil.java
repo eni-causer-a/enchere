@@ -58,7 +58,6 @@ public class ServletAccueil extends HttpServlet {
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
 		
-		session.setAttribute("lesCategories",lesCategories);
 		
 		request.setAttribute("select", "value1");
 		

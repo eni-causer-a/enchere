@@ -17,5 +17,8 @@ public class CategorieManager {
 	public List<Categorie> getListCategorie() {
 		return categorieDao.getListCategorie();
 	}
+	public List<Categorie> getListCategorieWithoutToutes() {
+		return categorieDao.getListCategorieWithoutToutes();
+	}
 
 }

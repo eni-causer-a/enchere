@@ -52,4 +52,12 @@ public class UtilisateurManager {
 	public void launchRecup(int nb, String mail) {
 		utilisateurDao.launchRecup(nb, mail);
 	}
+	
+	public boolean isRecup(int nb) {
+		return utilisateurDao.setRecup(nb);
+	}
+	
+	public void endRecup(int nb, String mdp) {
+		utilisateurDao.endRecup(nb, mdp);
+	}
 }
