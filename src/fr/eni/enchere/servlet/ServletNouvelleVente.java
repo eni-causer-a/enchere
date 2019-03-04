@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.bll.ArticleManager;
+import fr.eni.enchere.bll.CategorieManager;
 import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
@@ -43,13 +44,19 @@ public class ServletNouvelleVente extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session= request.getSession();
-		List<Categorie> lesCategories=(List<Categorie>) session.getAttribute("lesCategories");
+		CategorieManager cm  = new CategorieManager();
+		List<Categorie> lesCategories= cm.getListCategorieWithoutToutes(); 
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
-		request.setAttribute("utilisateur", utilisateur);
-		request.setAttribute("lesCategories", lesCategories);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp");
-		rd.forward(request, response);
+		if(utilisateur==null) {
+			response.sendRedirect(request.getContextPath()+"/Accueil");
+		}else {
+
+			request.setAttribute("utilisateur", utilisateur);
+			request.setAttribute("lesCategories", lesCategories);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -72,7 +79,7 @@ public class ServletNouvelleVente extends HttpServlet {
 			art.setMiseAPrix(Integer.parseInt(request.getParameter("miseAPrix")));
 			art.setPrixVente(art.getMiseAPrix());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 			try {
 				Date date = sdf.parse(request.getParameter("debutEnchere"));
 				Date time = sdf2.parse(request.getParameter("debutEnchereTime"));

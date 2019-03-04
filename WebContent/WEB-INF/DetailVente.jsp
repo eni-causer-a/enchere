@@ -85,6 +85,15 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
+		  		<label>Début de l'enchère :</label>
+		  	</div>
+		  	<div class="col">
+				<label name="debutEnchere">${article.printDateDebutEnchere()}</label>
+			</div>
+			<div class="col"></div>
+			<div class="w-100"></div>
+			<div class="col"></div>
+		  	<div class="col">
 		  		<label>Fin de l'enchère :</label>
 		  	</div>
 		  	<div class="col">

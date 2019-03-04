@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.bll.ArticleManager;
+import fr.eni.enchere.bll.CategorieManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Retrait;
@@ -49,6 +51,9 @@ public class ServletModifieVente extends HttpServlet {
 		
 		ArticleManager manager = new ArticleManager();
 		String id = request.getParameter("idArticle");
+		CategorieManager cm  = new CategorieManager();
+		List<Categorie> lesCategories= cm.getListCategorieWithoutToutes(); 
+		request.setAttribute("lesCategories", lesCategories);
 		 try {
 			 article = manager.getArticleById(Integer.parseInt(id));
 			 request.setAttribute("article", article);
@@ -57,7 +62,7 @@ public class ServletModifieVente extends HttpServlet {
 			
 		}
 		
-		 
+		 System.out.println("jnjnjnjljljkjjlkjjlkjlk:"+formaterTime.format(article.getDateDebutEncheres()));
 		 request.setAttribute("formaterTime", formaterTime);
 		 request.setAttribute("formaterDate", formaterDate);
 		

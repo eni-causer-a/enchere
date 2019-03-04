@@ -148,12 +148,12 @@ public class Article {
 	}
 	
 	public String printDateDebutEnchere() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		return sdf.format(this.dateDebutEncheres);
 	}
 	
 	public String printDateFinEnchere() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		return sdf.format(this.dateFinEncheres);
 	}
 }
