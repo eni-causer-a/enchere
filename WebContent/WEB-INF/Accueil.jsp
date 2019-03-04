@@ -61,45 +61,116 @@
 		<br>
 			<div class="row">
 				<div class="col-3">
-			    	<input type="radio"  value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>
-			    	<label id="achat"  for="groupe1">Achats</label>
+					<c:if test="${select=='value1'}">
+				    	<input type="radio"  value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>
+				    	<label style="color: black;" id="achat"  for="groupe1">Achats</label>
+				    </c:if>
+				    <c:if test="${select!='value1'}">
+				    	<input type="radio"  value="value1" name="groupe1" onclick="activeDesactive(this,1);">
+				    	<label style="color: black;" id="achat"  for="groupe1">Achats</label>
+				    </c:if>
 			    	
 			    </div>
 			    <div class="col-3">
-			    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);">
-			    	<label id="vente"  for="groupe1">Mes Ventes</label>
+			    	<c:if test="${select=='value2'}">
+				    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);" checked>
+				    	<label style="color: black;" id="vente"  for="groupe1">Mes Ventes</label>
+				    </c:if>
+				    <c:if test="${select!='value2'}">
+				    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);">
+				    	<label style="color: black;" id="vente"  for="groupe1">Mes Ventes</label>
+				    </c:if>
 			    	
 			    </div>
 			</div>
 		</fieldset>
 		<div class="row">
 			<div class="col-3">
-				<c:if test="${groupe1==value1}">
+				<c:if test="${select=='value1' and parame11!=null}">
+					<input type="checkbox" value="param11" name="param11" checked />
+					<label style="color: black;" id="param111">Enchères ouvertes</label>
+				</c:if>
+				<c:if test="${select=='value1' and parame11==null}">
 					<input type="checkbox" value="param11" name="param11"/>
-					<label id="param111">Enchères ouvertes</label>
+					<label style="color: black;" id="param111">Enchères ouvertes</label>
+				</c:if>
+				<c:if test="${select!='value1' and parame11==null}">
+					<input type="checkbox" value="param11" name="param11" disabled/>
+					<label style="color: #ccc;" id="param111">Enchères ouvertes</label>
 				</c:if>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="param21" name="param21"  disabled/>
-				<label style="color: #ccc;" id="param211">Mes ventes en cours</label>
+				<c:if test="${select=='value2' and parame21!=null}">
+					<input type="checkbox" value="param21" name="param21"  checked/>
+					<label style="color: black;" id="param211">Mes ventes en cours</label>
+				</c:if>
+				<c:if test="${select=='value2' and parame21==null}">
+					<input type="checkbox" value="param21" name="param21" />
+					<label style="color: black;" id="param211">Mes ventes en cours</label>
+				</c:if>
+				<c:if test="${select!='value2' and parame21==null}">
+					<input type="checkbox" value="param21" name="param21"  disabled/>
+					<label style="color: #ccc;" id="param211">Mes ventes en cours</label>
+				</c:if>
+			
 			</div>
 			<div class="w-100"></div>
 			<div class="col-3">
-				<input type="checkbox" value="param12" name="param12"/>
-				<label id="param121">Mes enchères en cours</label>
+				<c:if test="${select=='value1' and parame12!=null}">
+					<input type="checkbox" value="param12" name="param12" checked/>
+					<label style="color: black;" id="param121">Mes enchères en cours</label>
+				</c:if>
+				<c:if test="${select=='value1' and parame12==null}">
+					<input type="checkbox" value="param12" name="param12"/>
+					<label style="color: black;" id="param121">Mes enchères en cours</label>
+				</c:if>
+				<c:if test="${select!='value1' and parame12==null}">
+					<input type="checkbox" value="param12" name="param12"disabled/ >
+					<label style="color: #ccc;" id="param121">Mes enchères en cours</label>
+				</c:if>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="param22" name="param22" disabled/>
-				<label style="color: #ccc;" id="param221">Ventes non débutées</label>
+				<c:if test="${select=='value2' and parame22!=null}">
+					<input type="checkbox" value="param22" name="param22" checked/>
+					<label style="color: black;" id="param221">Ventes non débutées</label>
+				</c:if>
+				<c:if test="${select=='value2' and parame22==null}">
+					<input type="checkbox" value="param22" name="param22" />
+					<label style="color: black;" id="param221">Ventes non débutées</label>
+				</c:if>
+				<c:if test="${select!='value2' and parame22==null}">
+					<input type="checkbox" value="param22" name="param22" disabled/>
+					<label style="color: #ccc;" id="param221">Ventes non débutées</label>
+				</c:if>
 			</div>
 			<div class="w-100"></div>
 			<div class="col-3">
-				<input type="checkbox" value="param13" name="param13" />
-				<label id="param131">Mes enchères remportées</label>
+				<c:if test="${select=='value1' and parame13!=null}">
+					<input type="checkbox" value="param13" name="param13" checked />
+					<label style="color: black;" id="param131">Mes enchères remportées</label>
+				</c:if>
+				<c:if test="${select=='value1' and parame13==null}">
+					<input type="checkbox" value="param13" name="param13" />
+					<label style="color: black;" id="param131">Mes enchères remportées</label>
+				</c:if>
+				<c:if test="${select!='value1' and parame13==null}">
+					<input type="checkbox" value="param13" name="param13" disabled />
+					<label style="color: #ccc;" id="param131">Mes enchères remportées</label>
+				</c:if>
 			</div>
 			<div class="col-3">
-				<input type="checkbox" value="param23" name="param23" disabled/>
-				<label style="color: #ccc;" id="param231">Ventes terminées</label>
+				<c:if test="${select=='value2' and parame23!=null}">
+					<input type="checkbox" value="param23" name="param23" checked/>
+					<label style="color: black;" id="param231">Ventes terminées</label>
+				</c:if>
+				<c:if test="${select=='value2' and parame23==null}">
+					<input type="checkbox" value="param23" name="param23" />
+					<label style="color: black;" id="param231">Ventes terminées</label>
+				</c:if>
+				<c:if test="${select!='value2' and parame23==null}">
+					<input type="checkbox" value="param23" name="param23" disabled/>
+					<label style="color: #ccc;" id="param231">Ventes terminées</label>
+				</c:if>
 			</div>
 			
 		</div>
@@ -199,13 +270,15 @@ function active1(radio) {
    }*/
 	function activeDesactive(radio,id) {
 	    if(radio.checked && id==1) {
-	    	
 	    	document.getElementsByName("param11")[0].disabled = false;
 	    	document.getElementsByName("param12")[0].disabled = false;
 	    	document.getElementsByName("param13")[0].disabled = false;
 	    	document.getElementsByName("param21")[0].disabled = true;
 	    	document.getElementsByName("param22")[0].disabled = true;
 	    	document.getElementsByName("param23")[0].disabled = true;
+	    	document.getElementsByName("param21")[0].checked = false;
+	    	document.getElementsByName("param22")[0].checked = false;
+	    	document.getElementsByName("param23")[0].checked = false;
 	    	changeColorEnable();
 	    }
 	    else if(radio.checked && id==2){
@@ -216,6 +289,9 @@ function active1(radio) {
 	    	document.getElementsByName("param21")[0].disabled = false;
 	    	document.getElementsByName("param22")[0].disabled = false;
 	    	document.getElementsByName("param23")[0].disabled = false;
+	    	document.getElementsByName("param11")[0].checked = false;
+	    	document.getElementsByName("param12")[0].checked = false;
+	    	document.getElementsByName("param13")[0].checked = false;
 	    	changeColorDisable();
 	    }
 	}

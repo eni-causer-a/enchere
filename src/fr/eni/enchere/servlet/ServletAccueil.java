@@ -60,6 +60,8 @@ public class ServletAccueil extends HttpServlet {
 		
 		session.setAttribute("lesCategories",lesCategories);
 		
+		request.setAttribute("select", "value1");
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		rd.forward(request, response);
 	}
@@ -238,6 +240,16 @@ public class ServletAccueil extends HttpServlet {
 		
 
 
+		request.setAttribute("parame11", param11);
+		request.setAttribute("parame12", param12);
+		request.setAttribute("parame13", param13);
+		request.setAttribute("parame21", param21);
+		request.setAttribute("parame22", param22);
+		request.setAttribute("parame23", param23);
+		request.setAttribute("cat", cat);
+		request.setAttribute("filtre", request.getParameter("filtre"));
+		request.setAttribute("select", request.getParameter("groupe1"));
+		//System.out.println("parame11 : "+ param11+" | parame12 : "+ param12+" | parame13 : "+ param13+" | parame21 : "+ param21+" | parame22 : "+ param22+" | parame22 : "+ param22+" | parame23 : "+ param23+" | cat : "+ cat+" | filtre : "+ request.getParameter("filtre")+" | select : "+ request.getParameter("groupe1"));
 		
 		request.setAttribute("lesCategories", lesCategories);
 		

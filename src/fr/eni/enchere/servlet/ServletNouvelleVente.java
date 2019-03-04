@@ -77,7 +77,7 @@ public class ServletNouvelleVente extends HttpServlet {
 			art.setMiseAPrix(Integer.parseInt(request.getParameter("miseAPrix")));
 			art.setPrixVente(art.getMiseAPrix());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 			try {
 				Date date = sdf.parse(request.getParameter("debutEnchere"));
 				Date time = sdf2.parse(request.getParameter("debutEnchereTime"));

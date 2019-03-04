@@ -57,7 +57,7 @@ public class ServletModifieVente extends HttpServlet {
 			
 		}
 		
-		 
+		 System.out.println("jnjnjnjljljkjjlkjjlkjlk:"+formaterTime.format(article.getDateDebutEncheres()));
 		 request.setAttribute("formaterTime", formaterTime);
 		 request.setAttribute("formaterDate", formaterDate);
 		
