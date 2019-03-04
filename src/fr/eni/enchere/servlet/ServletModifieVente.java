@@ -81,8 +81,12 @@ public class ServletModifieVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		ArticleManager am = new ArticleManager();
 		
-		if(request.getParameter("boutonAnnuler")!=null) {
+		if(request.getParameter("boutonSupprimer")!=null) {
+			Article art = new Article();
+			art.setNoArticle(Integer.parseInt(request.getParameter("idArticle")));
+			am.deleteArticle(art);
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}
 		else if(request.getParameter("boutonEnregistrer") !=null){
@@ -124,7 +128,6 @@ public class ServletModifieVente extends HttpServlet {
 			
 			art.setRetrait(retrait);
 			
-			ArticleManager am = new ArticleManager();
 			am.updateArticle(art);
 			
 			response.sendRedirect(request.getContextPath()+"/Accueil");

@@ -154,6 +154,10 @@
 					<button name="boutonEnregistrer" class="btn btn-secondary">Enregistrer</button>
 				</div>
 				<div class="col-1"></div>
+				<div class="col-3">
+					<button name="boutonSupprimer" class="btn btn-secondary">Supprimer la vente</button>
+				</div>
+				<div class="col-1"></div>
 				<div class="col-1">
 					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler">Annuler</a>
 				</div>
