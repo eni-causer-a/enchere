@@ -74,7 +74,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	
 	private static final String DELETEARTICLE = "delete * from ARTICLES_VENDUS where no_article = ?";
 	
-	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? ;";
+	private static final String GETTOPENCHERE = "select distinct no_article, no_utilisateur from ENCHERES where no_utilisateur=?";
+	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_article = ? ;";
 	private static final String GETENCHEREOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0; ";
 	private static final String GETENCHEREREMP = "select * from ARTICLES_VENDUS where no_gagnant = ? ;";
 	private static final String ENCHEREENCOURSOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0; ";
@@ -91,7 +92,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	
 	private static final String GETCAT = "select * from CATEGORIES where libelle = ? ;";
 	private static final String GETARTICLE= "select * from ARTICLES_VENDUS where no_categorie = ? and no_article = ?";
-	private static final String GETARTICLECATSEARCH = "select * from ARTICLES_VENDUS where no_categorie = ? and no_article = ? and nom_article like %?% ;";
+	private static final String GETARTICLECATSEARCH = "select * from ARTICLES_VENDUS where no_categorie = ? and no_article = ? and nom_article like ? ";
 	private static final String GETARTICLESEARCH = "select * from ARTICLES_VENDUS where no_article = ? and nom_article like ? ;";
 	
 	public void insert(Article article) {
@@ -576,12 +577,18 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		Utilisateur user = null;
 
 		try(Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pstmtTop = cnx.prepareStatement(GETTOPENCHERE);
 				PreparedStatement pstmtArticle = cnx.prepareStatement(GETENCHEREENCOURS);
 				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
 				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
 			{
 
-			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
+			pstmtTop.setInt(1,utilisateur.getNoUtilisateur() );
+			ResultSet rsTop = pstmtTop.executeQuery();
+
+			while(rsTop.next()) {
+			
+			pstmtArticle.setInt(1,rsTop.getInt("no_article"));
 
 			ResultSet rs = pstmtArticle.executeQuery();
 			while(rs.next())
@@ -623,6 +630,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										 categorie,
 										 user);
 				listeEnchere.add(article);
+			}
 			}
 		}//Fermeture automatique de la connexion
 		catch (SQLException e) {
@@ -1321,7 +1329,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				}
 				pstmtArticle.setInt(1,rs.getInt("no_categorie"));
 				pstmtArticle.setInt(2,article.getNoArticle());
-				pstmtArticle.setString(3,search);
+				pstmtArticle.setString(3,'%'+search+'%');
 
 
 				ResultSet rsArticle = pstmtArticle.executeQuery();

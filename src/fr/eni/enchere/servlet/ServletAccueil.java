@@ -126,6 +126,8 @@ public class ServletAccueil extends HttpServlet {
 		String param23 = (String)request.getParameter("param23");
 
 		if(param11 != null && param12 != null && param13 != null) {
+			lesArticles = am.getArticleEnCours();
+
 		}
 		else if(param11 != null && param12 != null && param13 == null) {
 			lesArticles = am.getEnchereEnCoursOuverte(utilisateur);
@@ -134,7 +136,6 @@ public class ServletAccueil extends HttpServlet {
 			lesArticles = am.getEnchereOuverte(utilisateur);
 		}
 		else if(param11 == null && param12 != null && param13 == null) {
-			System.out.println("tot");
 			lesArticles = am.getEnchereEnCours(utilisateur);
 
 		}
@@ -157,7 +158,8 @@ public class ServletAccueil extends HttpServlet {
 		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		
 		if(param21 != null && param22 != null && param23 != null) {
-			
+			lesArticles = am.getArticleEnCours();
+
 		}
 		else if(param21 != null && param22 != null && param23 == null) {
 			lesArticles = am.getVenteNonDebEnCours(utilisateur);
@@ -208,7 +210,7 @@ public class ServletAccueil extends HttpServlet {
 			for(Article article: lesArticles) {
 				if(am.trieWithCatSearch(cat,search,article)!=null) {
 					lesArticlesTrie.add(am.trieWithCatSearch(cat,search,article));
-
+					System.out.println(search);
 				}
 
 			}
