@@ -20,5 +20,9 @@ public class CategorieManager {
 	public List<Categorie> getListCategorieWithoutToutes() {
 		return categorieDao.getListCategorieWithoutToutes();
 	}
+	
+	public Categorie getCategorie(String libelle) {
+		return categorieDao.getCategorie(libelle);
+	}
 
 }

@@ -34,7 +34,7 @@
 	
 	<div>
 		<h5 class="my-5 text-center">Nouvelle vente</h5>
-		<form method="post" action="<%=request.getContextPath()%>/NouvelleVente">
+		<form method="post" action="<%=request.getContextPath()%>/NouvelleVente" enctype="multipart/form-data">
 		    <div class="row">
 		    	<div class="col"></div>
 				<div class="col">
@@ -72,7 +72,7 @@
 			  		<label>Photo de l'article :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="button" value="Uploader">
+					<input type="file" name="fileName" value="Uploader">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -81,7 +81,7 @@
 			  		<label>Mise à prix :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="number" min="0" name="miseAPrix" required>
+					<input type="number" name="miseAPrix" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
