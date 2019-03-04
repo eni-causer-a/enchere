@@ -135,7 +135,7 @@
 			  		<label>Ville :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="ville" value="${utilisateur.getVille()} required">
+					<input type="text" name="ville" value="${utilisateur.getVille()}" required>
 				</div>
 				<div class="col"></div>
 			</div>
