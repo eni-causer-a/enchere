@@ -81,7 +81,7 @@
 			<div class="w-100"></div>
 			<div class="col-5"></div>
 			<div class="col-2">
-				<a href="#MotDePasseOublie">Mot de passe oublié</a> <!-- <%=request.getContextPath()%>/ServletConnexion -->
+				<a href="mdpoublie">Mot de passe oublié</a> <!-- <%=request.getContextPath()%>/ServletConnexion -->
 			</div>
 			<div class="col-5"></div>
 		</div>

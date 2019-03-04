@@ -23,4 +23,6 @@ public interface UtilisateurDao {
 	public Utilisateur findUserById(int id);
 	
 	public boolean pseudoTaken(String pseudo);
+	
+	public void launchRecup(int nb, String mail);
 }

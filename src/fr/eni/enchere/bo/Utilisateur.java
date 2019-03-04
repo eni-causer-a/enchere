@@ -16,6 +16,7 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private boolean administareur;
+	private int nbRecup;
 	
 	private List<Article> articlesEnVente;
 	
@@ -148,6 +149,12 @@ public class Utilisateur {
 	}
 	public void setArticlesEnVente(List<Article> articlesEnVente) {
 		this.articlesEnVente = articlesEnVente;
+	}
+	public int getNbRecup() {
+		return nbRecup;
+	}
+	public void setNbRecup(int nbRecup) {
+		this.nbRecup = nbRecup;
 	}
 	
 	
