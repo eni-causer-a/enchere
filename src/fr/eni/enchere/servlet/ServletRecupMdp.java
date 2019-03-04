@@ -59,6 +59,8 @@ public class ServletRecupMdp extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UtilisateurManager um = new UtilisateurManager();
 		um.endRecup(Integer.parseInt(request.getParameter("id")), request.getParameter("newpass"));
+		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+		rd.forward(request, response);
 		
 	}
 

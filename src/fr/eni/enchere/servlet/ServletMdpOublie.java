@@ -44,6 +44,8 @@ public class ServletMdpOublie extends HttpServlet {
 		int valeur = 99999999 + r.nextInt(999999999 - 99999999);
 		um.launchRecup(valeur, request.getParameter("email"));
 		System.out.println("URL pour changer mdp: http://localhost:8080/Enchere/changeMdp?id="+ valeur );
+		RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
+		rd.forward(request, response);
 		//doGet(request, response);
 	}
 
