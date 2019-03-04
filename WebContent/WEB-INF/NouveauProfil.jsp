@@ -125,14 +125,14 @@
 				</div>
 				<div class="col"></div>
 				<c:if test="${mdpError!=null}">
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col-6">
-			  		<label style="color: red;" class="label-danger">${mdpError}</label>
-			  	</div>
-			  	<div class="col"></div>
-			  	<div class="col"></div>
-			</c:if>
+					<div class="w-100"></div>
+					<div class="col-4"></div>
+				  	<div class="col-6">
+				  		<label style="color: red;" class="label-danger">${mdpError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 			</div>
 			
 			
