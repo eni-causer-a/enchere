@@ -7,6 +7,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -31,11 +32,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<form method="post" action="<%=request.getContextPath()%>/Accueil">
 	
-	<h3 class="my-5 text-center">Liste des enchères</h3>
+	<h3 class="my-5 text-center"><fmt:message key="liste_en" bundle="${langue}"/></h3>
 	<c:if test="${utilisateur!=null}">
 		
 		<fieldset id="group1">
@@ -44,22 +48,22 @@
 				<div class="col-3">
 					<c:if test="${select=='value1'}">
 				    	<input type="radio"  value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>
-				    	<label style="color: black;" id="achat"  for="groupe1">Achats</label>
+				    	<label style="color: black;" id="achat"  for="groupe1"><fmt:message key="achat" bundle="${langue}"/></label>
 				    </c:if>
 				    <c:if test="${select!='value1'}">
 				    	<input type="radio"  value="value1" name="groupe1" onclick="activeDesactive(this,1);">
-				    	<label style="color: black;" id="achat"  for="groupe1">Achats</label>
+				    	<label style="color: black;" id="achat"  for="groupe1"><fmt:message key="achat" bundle="${langue}"/></label>
 				    </c:if>
 			    	
 			    </div>
 			    <div class="col-3">
 			    	<c:if test="${select=='value2'}">
 				    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);" checked>
-				    	<label style="color: black;" id="vente"  for="groupe1">Mes Ventes</label>
+				    	<label style="color: black;" id="vente"  for="groupe1"><fmt:message key="vente" bundle="${langue}"/></label>
 				    </c:if>
 				    <c:if test="${select!='value2'}">
 				    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);">
-				    	<label style="color: black;" id="vente"  for="groupe1">Mes Ventes</label>
+				    	<label style="color: black;" id="vente"  for="groupe1"><fmt:message key="vente" bundle="${langue}"/></label>
 				    </c:if>
 			    	
 			    </div>
@@ -69,29 +73,29 @@
 			<div class="col-3">
 				<c:if test="${select=='value1' and parame11!=null}">
 					<input type="checkbox" value="param11" name="param11" checked />
-					<label style="color: black;" id="param111">Enchères ouvertes</label>
+					<label style="color: black;" id="param111"><fmt:message key="ouverte" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value1' and parame11==null}">
 					<input type="checkbox" value="param11" name="param11"/>
-					<label style="color: black;" id="param111">Enchères ouvertes</label>
+					<label style="color: black;" id="param111"><fmt:message key="ouverte" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value1' and parame11==null}">
 					<input type="checkbox" value="param11" name="param11" disabled/>
-					<label style="color: #ccc;" id="param111">Enchères ouvertes</label>
+					<label style="color: #ccc;" id="param111"><fmt:message key="ouverte" bundle="${langue}"/></label>
 				</c:if>
 			</div>
 			<div class="col-3">
 				<c:if test="${select=='value2' and parame21!=null}">
 					<input type="checkbox" value="param21" name="param21"  checked/>
-					<label style="color: black;" id="param211">Mes ventes en cours</label>
+					<label style="color: black;" id="param211"><fmt:message key="en_cours" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value2' and parame21==null}">
 					<input type="checkbox" value="param21" name="param21" />
-					<label style="color: black;" id="param211">Mes ventes en cours</label>
+					<label style="color: black;" id="param211"><fmt:message key="en_cours" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value2' and parame21==null}">
 					<input type="checkbox" value="param21" name="param21"  disabled/>
-					<label style="color: #ccc;" id="param211">Mes ventes en cours</label>
+					<label style="color: #ccc;" id="param211"><fmt:message key="en_cours" bundle="${langue}"/></label>
 				</c:if>
 			
 			</div>
@@ -99,54 +103,54 @@
 			<div class="col-3">
 				<c:if test="${select=='value1' and parame12!=null}">
 					<input type="checkbox" value="param12" name="param12" checked/>
-					<label style="color: black;" id="param121">Mes enchères en cours</label>
+					<label style="color: black;" id="param121"><fmt:message key="en_cours_c" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value1' and parame12==null}">
 					<input type="checkbox" value="param12" name="param12"/>
-					<label style="color: black;" id="param121">Mes enchères en cours</label>
+					<label style="color: black;" id="param121"><fmt:message key="en_cours_c" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value1' and parame12==null}">
 					<input type="checkbox" value="param12" name="param12"disabled/ >
-					<label style="color: #ccc;" id="param121">Mes enchères en cours</label>
+					<label style="color: #ccc;" id="param121"><fmt:message key="en_cours_c" bundle="${langue}"/></label>
 				</c:if>
 			</div>
 			<div class="col-3">
 				<c:if test="${select=='value2' and parame22!=null}">
 					<input type="checkbox" value="param22" name="param22" checked/>
-					<label style="color: black;" id="param221">Ventes non débutées</label>
+					<label style="color: black;" id="param221"><fmt:message key="non_débuté" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value2' and parame22==null}">
 					<input type="checkbox" value="param22" name="param22" />
-					<label style="color: black;" id="param221">Ventes non débutées</label>
+					<label style="color: black;" id="param221"><fmt:message key="non_débuté" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value2' and parame22==null}">
 					<input type="checkbox" value="param22" name="param22" disabled/>
-					<label style="color: #ccc;" id="param221">Ventes non débutées</label>
+					<label style="color: #ccc;" id="param221"><fmt:message key="non_débuté" bundle="${langue}"/></label>
 				</c:if>
 			</div>
 			<div class="w-100"></div>
 			<div class="col-3">
 				<c:if test="${select=='value1' and parame13!=null}">
 					<input type="checkbox" value="param13" name="param13" checked />
-					<label style="color: black;" id="param131">Mes enchères remportées</label>
+					<label style="color: black;" id="param131"><fmt:message key="remporté" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value1' and parame13==null}">
 					<input type="checkbox" value="param13" name="param13" />
-					<label style="color: black;" id="param131">Mes enchères remportées</label>
+					<label style="color: black;" id="param131"><fmt:message key="remporté" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value1' and parame13==null}">
 					<input type="checkbox" value="param13" name="param13" disabled />
-					<label style="color: #ccc;" id="param131">Mes enchères remportées</label>
+					<label style="color: #ccc;" id="param131"><fmt:message key="remporté" bundle="${langue}"/></label>
 				</c:if>
 			</div>
 			<div class="col-3">
 				<c:if test="${select=='value2' and parame23!=null}">
 					<input type="checkbox" value="param23" name="param23" checked/>
-					<label style="color: black;" id="param231">Ventes terminées</label>
+					<label style="color: black;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value2' and parame23==null}">
 					<input type="checkbox" value="param23" name="param23" />
-					<label style="color: black;" id="param231">Ventes terminées</label>
+					<label style="color: black;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value2' and parame23==null}">
 					<input type="checkbox" value="param23" name="param23" disabled/>
@@ -157,13 +161,13 @@
 		</div>
 	</c:if>
 	<br>
-	<h3>Filtres :</h3>
+	<h3><fmt:message key="filtre" bundle="${langue}"/></h3>
 		<div class="row">
 			<div class="col-4">
-				<input type="text" name="filtre" placeHolder="Le nom de l'article contient" value="${filtre}">
+				<input type="text" name="filtre" placeHolder="<fmt:message key="ph_filtre" bundle="${langue}"/>" value="${filtre}">
 			</div>
 			<div class="col-4">
-				<label>Catégorie :</label>
+				<label><fmt:message key="categorie" bundle="${langue}"/></label>
 				<select name="categorie")>
 					<c:forEach var="categorie" items="${lesCategories}">
 					 	<c:if test="${categorie.getLibelle()==cat}">
@@ -177,7 +181,7 @@
 				</select>	
 			</div>
 			<div class="col-4">
-				<button class="btn btn-secondary">Rechercher</button>
+				<button class="btn btn-secondary"><fmt:message key="rechercher" bundle="${langue}"/></button>
 			</div>
 	
 		</div>
