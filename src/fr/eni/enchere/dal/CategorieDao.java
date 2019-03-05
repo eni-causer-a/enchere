@@ -9,4 +9,5 @@ public interface CategorieDao {
 	
 	public List<Categorie> getListCategorie();
 	public List<Categorie> getListCategorieWithoutToutes();
+	public Categorie getCategorie(String libelle);
 }

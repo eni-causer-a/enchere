@@ -5,6 +5,7 @@
 <head>
 <!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
 <title>ENI-Encheres</title>
+<link rel="shortcut icon" href="image/eni.ico">
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -36,15 +37,6 @@
 	<h3 class="my-5 text-center">Connexion</h3>
 	<div class="container">
 		<form method="post" action="<%=request.getContextPath()%>/Connexion">
-			<c:if test="${loginError!=null}">
-					<div class="w-100"></div>
-					<div class="col-4"></div>
-				  	<div class="col">
-				  		<label class="label-danger">${loginError}</label>
-				  	</div>
-				  	<div class="col"></div>
-				  	<div class="col"></div>
-				</c:if>
 			<div class="row">
 				<div class="col-4"></div>
 				<div class="col-2">
@@ -63,6 +55,15 @@
 				  	<input type="password" name="MotDePasse" required>
 				</div>
 				<div class="col-4"></div>
+				<c:if test="${loginError!=null}">
+					<div class="w-100"></div>
+					<div class="col-5"></div>
+				  	<div class="col-6">
+				  		<label style="color: red;" class="label-danger">${loginError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 			</div>
 			<br>
 			<div class="row">

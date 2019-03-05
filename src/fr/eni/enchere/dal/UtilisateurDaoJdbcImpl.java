@@ -70,6 +70,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 				pstmtUser.setString(8, user.getVille());
 				pstmtUser.setString(9, user.getMotDePasse());
 				
+				
 				pstmtUser.execute();
 				ResultSet rs = pstmtUser.getGeneratedKeys();
 				if(rs.next())
