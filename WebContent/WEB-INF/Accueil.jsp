@@ -225,11 +225,13 @@
 				  <div class="card-body">
 				    <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a></h5>
 				    <p class="card-text">${article.getDescription()}</p>
+				    <img src="http://localhost:8080/MesDocuments/${article.getPhoto()}"/>
 				    <p>Meilleur Offre : ${article.getPrixVente()} points</p>
 				    <p>Début : ${article.printDateDebutEnchere()}</p>
 				    <p>Fin : ${article.printDateFinEnchere()}</p>
 				    <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>
 				  </div>
+				  
 				  <!--  
 					  <ul class="list-group list-group-flush">
 					    <li class="list-group-item">MeilleurOffre : ${article.getPrixVente()} points</li>
@@ -241,6 +243,7 @@
 					 -->
 				</div>
 			</div>
+			
 		</c:forEach>
 
 	</div>

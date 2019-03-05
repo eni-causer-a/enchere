@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -27,7 +28,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import fr.eni.enchere.bll.ArticleManager;
 import fr.eni.enchere.bll.CategorieManager;
-import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Retrait;
@@ -40,6 +40,7 @@ import fr.eni.enchere.bo.Utilisateur;
 public class ServletNouvelleVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private ServletFileUpload uploader = null;
+    
 	@Override
 	public void init() throws ServletException{
 		DiskFileItemFactory fileFactory = new DiskFileItemFactory();
@@ -71,79 +72,115 @@ public class ServletNouvelleVente extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	@SuppressWarnings({ "deprecation", "null" })
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		
+		Random rd = new Random();
+		int valeur = 1 + rd.nextInt(100000 - 1);
+
+		
 		//CategorieManager cm = new CategorieManager();
-		//Categorie uneCat = cm.getCategorie(request.getParameter("categorie"));
+		//Categorie uneCat = null ;
 			
 			Article art = new Article();
-			art.setNomArticle(request.getParameter("nomArticle"));
-			art.setDescription(request.getParameter("description"));
-			//Catégorie
-			//art.setCategorie(uneCat);
-
-			art.setMiseAPrix(Integer.parseInt(request.getParameter("miseAPrix")));
-			art.setPrixVente(art.getMiseAPrix());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
-			
-			try {
-				Date date = sdf.parse(request.getParameter("debutEnchere"));
-				Date time = sdf2.parse(request.getParameter("debutEnchereTime"));
-				date.setHours(time.getHours());
-				date.setMinutes(time.getMinutes());
-				art.setDateDebutEncheres(date);
-				
-				date = sdf.parse(request.getParameter("finEnchere"));
-				time = sdf2.parse(request.getParameter("finEnchereTime"));
-				date.setHours(time.getHours());
-				date.setMinutes(time.getMinutes());
-				art.setDateFinEncheres(date);
-
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			art.setProprietaire(utilisateur);
-			
 			Retrait retrait = new Retrait();
-			retrait.setRue(request.getParameter("rue"));
-			retrait.setCode_postale(request.getParameter("codePostal"));
-			retrait.setVille(request.getParameter("ville"));
-			
-			art.setRetrait(retrait);
-			
+			Date date = null;
+		    Date dateFin = null;
 			ArticleManager am = new ArticleManager();
-			am.insert(art);
+		
 			
-		System.out.println("ok1");
 		if(!ServletFileUpload.isMultipartContent(request)){
 			throw new ServletException("Content type is not multipart/form-data");
 		}
-		System.out.println("ok2");
 		response.setContentType("text/html");
-		System.out.println("ok3");
 		try {
 			List<FileItem> fileItemsList = uploader.parseRequest(request);
 			Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
 			while(fileItemsIterator.hasNext()){
 				
 				FileItem fileItem = fileItemsIterator.next();
-				if(fileItem.getFieldName().equalsIgnoreCase("fileName")) {
-				File file = new File(request.getServletContext().getAttribute("FILES_DIR")+File.separator+fileItem.getName());
-				System.out.println("Absolute Path at server="+file.getAbsolutePath());
-				fileItem.write(file);
 				
-				
+				if (fileItem.isFormField()) {
+				    String name = fileItem.getFieldName();
+				    String value = fileItem.getString();
+	
+				    switch(name) {
+				    case "nomArticle":
+				    	art.setNomArticle(value);
+				    	break;
+				    case "description":
+				    	art.setDescription(value);
+				    	break;
+				    	
+				    case "categorie":
+						art.setCategorie(new Categorie(Integer.parseInt(value),""));
+						break;
+						
+				    case "miseAPrix":
+				    	art.setMiseAPrix(Integer.parseInt(value));
+				    	art.setPrixVente(Integer.parseInt(value));
+				    	break;
+				    case "debutEnchere":
+				    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+						date = sdf.parse(value);
+				    	break;
+				    case "debutEnchereTime":
+						SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+						Date time = sdf2.parse(value);
+						date.setHours(time.getHours());
+						date.setMinutes(time.getMinutes());
+						art.setDateDebutEncheres(date);
+						break;
+						
+				    case "finEnchere":
+				    	SimpleDateFormat sdfin = new SimpleDateFormat("yyyy-MM-dd");
+						dateFin = sdfin.parse(value);
+				    	break;
+				    	
+				    case "finEnchereTime":
+						SimpleDateFormat sdfin2 = new SimpleDateFormat("hh:mm");
+						Date timeFin = sdfin2.parse(value);
+						dateFin.setHours(timeFin.getHours());
+						dateFin.setMinutes(timeFin.getMinutes());
+						art.setDateFinEncheres(dateFin);
+							
+						break;
+				    case "rue":
+						retrait.setRue(value);
+						break;
+				    case "codePostal":
+				    	retrait.setCode_postale(value);
+				    	break;
+				    case "ville":
+				    	retrait.setVille(value);
+				    	break;
+				   /* case "fileName":
+				    	File file = new File(request.getServletContext().getAttribute("FILES_DIR")+File.separator+fileItem.getName());
+						System.out.println("Absolute Path at server="+file.getAbsolutePath());
+						fileItem.write(file);
+						break;*/
+				    }
 				}
+				//request.getServletContext().getAttribute("FILES_DIR")+
+				if(fileItem.getFieldName().equalsIgnoreCase("fileName")) {
+					File file = new File("//10.51.0.254/Outils/groupe6Image"+File.separator+valeur+fileItem.getName());
+					art.setPhoto(valeur+fileItem.getName());
+					fileItem.write(file);
+				}
+		
+				
 			}
+			
+
 		} catch (FileUploadException e) {
 		} catch (Exception e) {
 		}
-		
+		art.setRetrait(retrait);
+		art.setProprietaire(utilisateur);
+
+		am.insert(art);
 		response.sendRedirect(request.getContextPath()+"/Accueil");
 
 			

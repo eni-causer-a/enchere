@@ -60,7 +60,7 @@
 			  		<label>Catégorie :</label>
 			  	</div>
 			  	<div class="col">
-					<select name="categorie")>
+					<select name="categorie">
 						<c:forEach var="categorie" items="${lesCategories}">
 							<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}
 						</c:forEach>		
