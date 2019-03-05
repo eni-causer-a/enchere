@@ -72,7 +72,10 @@ public class ServletNouvelleVente extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	@SuppressWarnings({ "deprecation", "null" })
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");

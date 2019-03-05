@@ -41,16 +41,15 @@ public class ServletNouveauProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		UtilisateurManager um = new UtilisateurManager();
 		if(request.getParameter("boutonCreer")!=null) {
-			if(request.getParameter("motDePasse").equalsIgnoreCase(request.getParameter("confirmationMotDePasse"))) {
+			if(request.getParameter("motDePasse").equalsIgnoreCase(request.getParameter("confirmationMotDePasse")) && !um.pseudoIsTaken(request.getParameter("pseudo"))) {
 				System.out.println("ok");
-
-				UtilisateurManager um = new UtilisateurManager();
 				Utilisateur user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasse"));
 				um.createUtilisateur(user);
 				response.sendRedirect(request.getContextPath()+"/Connexion");
 			}else {
-				System.out.println(request.getParameter("pseudo"));
+				
 				request.setAttribute("pseudo", request.getParameter("pseudo"));
 				request.setAttribute("nom", request.getParameter("nom"));
 				request.setAttribute("prenom", request.getParameter("prenom"));
@@ -59,11 +58,19 @@ public class ServletNouveauProfil extends HttpServlet {
 				request.setAttribute("rue", request.getParameter("rue"));
 				request.setAttribute("codePostal", request.getParameter("codePostal"));
 				request.setAttribute("ville", request.getParameter("ville"));
-				request.setAttribute("mdpError", "Le mot de passe est diffenrent de Confirmation");
+			
+				if(um.pseudoIsTaken(request.getParameter("pseudo"))) {
+					System.out.println("pseudo");
+					request.setAttribute("pseudoError", "Ce pseudo a déjà été utilisé");
+				}
+	
+				if(!request.getParameter("motDePasse").equalsIgnoreCase(request.getParameter("confirmationMotDePasse"))) {
+					System.out.println("mdp");
+					request.setAttribute("mdpError", "Les champs 'Confirmation' et 'Mot de passe' sont différents");	
+				}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouveauProfil.jsp");
 				rd.forward(request, response);
 			}
-			
 			
 		}
 	}

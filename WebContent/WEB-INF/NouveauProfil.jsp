@@ -24,7 +24,7 @@
 <body class="container">
 	<header class="py-3 bg-dark header-demodule fixed-top">
 	    <div class="row">
-	   		<div class="col-6">	
+	   		<div class="col-5">	
 	   			<div class="container text-center text-white">
 	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
 	   			</div>
@@ -51,6 +51,15 @@
 					<input type="text" name="nom" value="${nom}" required>
 				</div>
 				<div class="col"></div>
+				<c:if test="${pseudoError!=null}">
+					<div class="w-100"></div>
+					<div class="col-3"></div>
+				  	<div class="col">
+				  		<label style="color: red;" class="label-danger">${pseudoError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 			  	<div class="w-100"></div>
 			  	<div class="col"></div>
 			  	<div class="col">
@@ -115,16 +124,18 @@
 					<input type="password" name="confirmationMotDePasse" required>
 				</div>
 				<div class="col"></div>
+				<c:if test="${mdpError!=null}">
+					<div class="w-100"></div>
+					<div class="col-4"></div>
+				  	<div class="col-6">
+				  		<label style="color: red;" class="label-danger">${mdpError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 			</div>
-			<c:if test="${mdpError!=null}">
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col">
-			  		<label class="label-danger">${mdpError}</label>
-			  	</div>
-			  	<div class="col"></div>
-			  	<div class="col"></div>
-			</c:if>
+			
+			
 			<br>
 			<div class="row">
 				<div class="col-5"></div>

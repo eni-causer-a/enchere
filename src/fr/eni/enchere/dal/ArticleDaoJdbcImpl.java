@@ -433,7 +433,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			ps.setString(2, article.getDescription());
 			ps.setTimestamp(3, new java.sql.Timestamp( article.getDateDebutEncheres().getTime()));
 			ps.setTimestamp(4, new java.sql.Timestamp( article.getDateFinEncheres().getTime()));
-			ps.setInt(5, article.getPrixVente());
+			ps.setInt(5, article.getMiseAPrix());
 			ps.setInt(6, article.getPrixVente());
 			//ps.setSting(7, article.getPhoto());
 			ps.setInt(7, article.getCategorie().getNoCategorie());
@@ -1298,8 +1298,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					 unArticle = new Article(rsArticle.getInt("no_article"),
 							 rsArticle.getString("nom_article"), 
 							rsArticle.getString("description"), 
-							new Date(rs.getTimestamp("date_debut_encheres").getTime()),
-							new Date(rs.getTimestamp("date_fin_encheres").getTime()),
+							new Date(rsArticle.getTimestamp("date_debut_encheres").getTime()),
+							new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							rsArticle.getInt("prix_initial"),
 							rsArticle.getInt("prix_vente"),
 							rsArticle.getString("image"),
@@ -1364,8 +1364,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					 unArticle = new Article(rsArticle.getInt("no_article"),
 							 rsArticle.getString("nom_article"), 
 							 rsArticle.getString("description"), 
-							 new Date(rs.getTimestamp("date_debut_encheres").getTime()),
-								new Date(rs.getTimestamp("date_fin_encheres").getTime()),
+							 new Date(rsArticle.getTimestamp("date_debut_encheres").getTime()),
+							 new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							 rsArticle.getInt("prix_initial"),
 							 rsArticle.getInt("prix_vente"),
 								rsArticle.getString("image"),
@@ -1432,8 +1432,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					 unArticle = new Article(rsArticle.getInt("no_article"),
 							 rsArticle.getString("nom_article"), 
 							 rsArticle.getString("description"), 
-							 new Date(rs.getTimestamp("date_debut_encheres").getTime()),
-								new Date(rs.getTimestamp("date_fin_encheres").getTime()),
+							 new Date(rsArticle.getTimestamp("date_debut_encheres").getTime()),
+							 new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							 rsArticle.getInt("prix_initial"),
 							 rsArticle.getInt("prix_vente"),
 								rsArticle.getString("image"),

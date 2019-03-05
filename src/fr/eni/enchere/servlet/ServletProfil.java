@@ -35,6 +35,7 @@ public class ServletProfil extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		request.setAttribute("utilisateur", utilisateur);
 		if(utilisateur!=null) {
 			UtilisateurManager manager = new UtilisateurManager();
 			String id = request.getParameter("user");

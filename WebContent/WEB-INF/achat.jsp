@@ -21,18 +21,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
-	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="row">
-	   		<div class="col-6">	
-	   			<div class="container text-center text-white">
-	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
-	   			</div>
-	   		</div>
-	   		<div class="col-6">
-	        	<a href="<%=request.getContextPath()%>/NouveauProfil">Créer un compte </a>
-	       	</div>
-		</div>  
-	</header>
+	<jsp:include page="/WEB-INF/header.jsp" />
 	<h3 class="my-5 text-center">Crédits gratuit</h3>
 	<div class="container">
 		<form method="post" action="<%=request.getContextPath()%>/ezMoney">
