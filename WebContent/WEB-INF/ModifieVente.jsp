@@ -112,8 +112,7 @@
 					<label>Le  </label>  <input type="date" name="finEnchere" value="${formaterDate.format(article.getDateFinEncheres())}${finEnchere}" required> <label>  à  </label> <input type="time" name="finEnchereTime" value="${formaterTime.format(article.getDateFinEncheres())}${finEnchereTime}" required>
 				</div>
 				<div class="col-1"></div>
-			</div>
-			<c:if test="${dateFinError!=null}">
+				<c:if test="${dateFinError!=null}">
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
@@ -122,6 +121,8 @@
 				  	<div class="col"></div>
 				  	<div class="col"></div>
 				</c:if>
+			</div>
+			
 			<br>
 			<div class="row list-group-item  d-flex">
 				<div class="col-3"></div>
