@@ -9,7 +9,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
+
 <!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
 <title>ENI-Encheres</title>
 <link rel="shortcut icon" href="image/eni.ico">
@@ -29,32 +31,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
-	<header class="py-3 bg-dark header-demodule fixed-top">  
-	   	<div class="row">
-	   		<div class="col-5">	
-	   			<div class="container text-center text-white">
-	   				<!-- <h3>ENI-Encheres</h3> -->
-	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
-	   			</div>
-	   		</div>
-	   		<c:if test="${utilisateur==null}">
-	   			<div class="col-1"></div>
-		   		<div class="col-6">
-		        	<a href="<%=request.getContextPath()%>/Connexion">S'inscrire - Se connecter</a>
-		       	</div>
-	   		</c:if>
-	   		<c:if test="${utilisateur!=null}">
-	   			style=""
-	        	<div class="col-2"><h5 style="color: white;">${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} Crédits</h5></div>
-	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente">Vendre un article</a></div>
-	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}">Mon profil</a></div>
-	        	<div class="col-1"><a href="<%=request.getContextPath()%>/ezMoney">Ajouter des crédits</a></div>
-	        	<div class="col-1"><a href="<%=request.getContextPath()%>/Deconnexion">Déconnexion</a></div>
-		    
-	   		</c:if>
-	   		
-		</div>  
-	</header>
+	<jsp:include page="/WEB-INF/header.jsp" />
+	
 	<form method="post" action="<%=request.getContextPath()%>/Accueil">
 	
 	<h3 class="my-5 text-center">Liste des enchères</h3>
