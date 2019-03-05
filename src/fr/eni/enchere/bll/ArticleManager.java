@@ -123,4 +123,15 @@ public class ArticleManager {
 		}
 	}
 	
+	public void retractArticle(Article article) {
+		if (!article.isRetire()) {
+			article.setRetire(true);
+			this.articleDao.updateArticle(article);
+			
+			Utilisateur proprietaire = article.getProprietaire();
+			proprietaire.setCredit(proprietaire.getCredit()+ article.getPrixVente());
+			DAOFactory.getUtilisateurDao().updateUser(proprietaire);
+		}
+	}
+	
 }

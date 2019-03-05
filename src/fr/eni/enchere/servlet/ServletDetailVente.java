@@ -15,6 +15,7 @@ import fr.eni.enchere.bll.ArticleManager;
 import fr.eni.enchere.bll.EnchereManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Enchere;
+import fr.eni.enchere.bo.EtatVente;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
@@ -52,10 +53,12 @@ public class ServletDetailVente extends HttpServlet {
 			// TODO Gestion d'exception à faire piairyck !!!
 		}
 		Date date=new Date();
-		 
+		
 		//System.out.println("DAEZRAR: "+article.getDateDebutEncheres().after(date));
 		//System.out.println(article.getDateDebutEncheres().after(date));
-		request.setAttribute("after", article.getDateDebutEncheres().after(date));
+		request.setAttribute("cree", article.getEtatVente() == EtatVente.CREE);
+		request.setAttribute("enCours", article.getEtatVente() == EtatVente.EN_COURS);
+		request.setAttribute("ended", article.getEtatVente() == EtatVente.ENCHERE_TERMINE);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/DetailVente.jsp");
 		rd.forward(request, response);

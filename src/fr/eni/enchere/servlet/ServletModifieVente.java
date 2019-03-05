@@ -62,9 +62,8 @@ public class ServletModifieVente extends HttpServlet {
 			
 		}
 		
-		 System.out.println("jnjnjnjljljkjjlkjjlkjlk:"+formaterTime.format(article.getDateDebutEncheres()));
-		 request.setAttribute("formaterTime", formaterTime);
-		 request.setAttribute("formaterDate", formaterDate);
+		request.setAttribute("formaterTime", formaterTime);
+		request.setAttribute("formaterDate", formaterDate);
 		
 		if(utilisateur!=null && utilisateur.getPseudo().contentEquals(article.getProprietaire().getPseudo())) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifieVente.jsp");
