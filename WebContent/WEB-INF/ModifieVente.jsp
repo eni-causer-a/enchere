@@ -25,7 +25,7 @@
 <body class="container">
 	<header class="py-3 bg-dark header-demodule fixed-top">
 	    <div class="row">
-	   		<div class="col-6">	
+	   		<div class="col-5">	
 	   			<div class="container text-center text-white">
 	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
 	   			</div>

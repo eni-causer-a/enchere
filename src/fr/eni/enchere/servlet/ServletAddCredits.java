@@ -43,7 +43,7 @@ public class ServletAddCredits extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
-		utilisateur.setCredit(utilisateur.getCredit()+1);
+		utilisateur.setCredit(utilisateur.getCredit()+100);
 		UtilisateurManager um = new UtilisateurManager();
 		um.update(utilisateur);
 		doGet(request, response);
