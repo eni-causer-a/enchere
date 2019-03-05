@@ -20,15 +20,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
-	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="row">
-	   		<div class="col-5">	
-	   			<div class="container text-center text-white">
-	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
-	   			</div>
-	   		</div>
-	   	</div>
-	</header>
+	<jsp:include page="/WEB-INF/header.jsp" />
 	<h5 class="my-5 text-center">Informations Profil</h5>
 	<div class="row">
 			<div class="col-4"></div>

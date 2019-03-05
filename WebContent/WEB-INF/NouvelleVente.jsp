@@ -23,15 +23,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
-	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="row">
-	   		<div class="col-5">	
-	   			<div class="container text-center text-white">
-	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
-	   			</div>
-	   		</div>
-	   	</div>
-	</header>
+	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
 		<h5 class="my-5 text-center">Nouvelle vente</h5>
@@ -42,7 +34,7 @@
 			  		<label>Article :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="nomArticle" value="${nomArticle}" required>
+					<input type="text" class="form-control" name="nomArticle" value="${nomArticle}" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="w-100"></div>
@@ -51,7 +43,7 @@
 			  		<label>Description :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="description" value="${description}">
+					<input type="text" class="form-control" name="description" value="${description}">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -60,7 +52,7 @@
 			  		<label>Catégorie :</label>
 			  	</div>
 			  	<div class="col">
-					<select name="categorie">
+					<select class="form-control" name="categorie">
 						<c:forEach var="categorie" items="${lesCategories}">
 							<!-- <option value="${categorie.getNoCategorie()}">${categorie.getLibelle()} -->
 							
@@ -77,10 +69,10 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Photo de l'article :</label>
+			  		<label style="padding-left: 50px;">Photo de l'article :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="file" name="fileName" value="Uploader">
+					<input style="padding-left: 100px;" class="btn" type="file" name="fileName" value="Uploader">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -89,7 +81,7 @@
 			  		<label>Mise à prix :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="number" min="0" name="miseAPrix" value="${miseAPrix}" required>
+					<input class="form-control" type="number" min="0" name="miseAPrix" value="${miseAPrix}" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -99,7 +91,7 @@
 			  	</div>
 			  	
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="debutEnchere" value="${debutEnchere}" required> <label>  à  </label> <input type="time" name="debutEnchereTime" value="${debutEnchereTime}" required>
+					<label>Le  </label>  <input class="form-control" type="date" name="debutEnchere" value="${debutEnchere}" required> <label>  à  </label> <input class="form-control" type="time" name="debutEnchereTime" value="${debutEnchereTime}" required>
 				</div> 
 				<div class="col-1"></div>
 				<c:if test="${dateDebutError!=null}">
@@ -117,7 +109,7 @@
 			  		<label>Fin de l'enchère :</label>
 			  	</div>
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="finEnchere" value="${finEnchere}" required> <label>  à  </label> <input type="time" name="finEnchereTime" value="${finEnchereTime}" required>
+					<label>Le  </label>  <input class="form-control" type="date" name="finEnchere" value="${finEnchere}" required> <label>  à  </label> <input class="form-control" type="time" name="finEnchereTime" value="${finEnchereTime}" required>
 				</div>
 				<div class="col-1"></div>
 				<c:if test="${dateFinError!=null}">
@@ -143,12 +135,12 @@
 			  	</div>
 			  	<c:if test="${rue==null}">
 				  	<div class="col">
-						<input type="text" name="rue" value="${utilisateur.getRue()}" required>
+						<input class="form-control" type="text" name="rue" value="${utilisateur.getRue()}" required>
 					</div>
 				</c:if>
 				<c:if test="${rue!=null}">
 				  	<div class="col">
-						<input type="text" name="rue" value="${rue}" required>
+						<input class="form-control" type="text" name="rue" value="${rue}" required>
 					</div>
 				</c:if>
 				<div class="col"></div>
@@ -159,10 +151,10 @@
 			  	</div>
 			  	<div class="col">
 			  		<c:if test="${codeP==null}">
-						<input type="text" name=codePostal value="${utilisateur.getCodePostale()}" required>
+						<input class="form-control" type="text" name=codePostal value="${utilisateur.getCodePostale()}" required>
 					</c:if>
 					<c:if test="${codeP!=null}">
-						<input type="text" name="codePostal" value="${codeP}" required>
+						<input class="form-control" type="text" name="codePostal" value="${codeP}" required>
 					</c:if>
 				</div>
 				<div class="col"></div>
@@ -173,10 +165,10 @@
 			  	</div>
 			  	<div class="col">
 			  		<c:if test="${ville==null}">
-						<input type="text" name="ville" value="${utilisateur.getVille()}" required>
+						<input class="form-control" type="text" name="ville" value="${utilisateur.getVille()}" required>
 					</c:if>
 					<c:if test="${ville!=null}">
-						<input type="text" name="ville" value="${ville}" required>
+						<input class="form-control" type="text" name="ville" value="${ville}" required>
 					</c:if>
 				</div>
 				<div class="col"></div>

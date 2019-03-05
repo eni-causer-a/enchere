@@ -11,6 +11,7 @@ public class Article {
 	private Date dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
+	private String photo;
 	private EtatVente etatVente;
 	private Categorie categorie;
 	private Utilisateur proprietaire;
@@ -130,6 +131,21 @@ public class Article {
 		this.proprietaire = proprietaire;
 		this.retire = false;
 	}
+	public Article(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int miseAPrix, int prixVente, String photo, Categorie categorie,Utilisateur proprietaire) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.photo = photo;
+		this.categorie = categorie;
+		this.proprietaire = proprietaire;
+		this.retire = false;
+	}
 	
 	public void updateEtat() {
 		Date currentDate = new Date();
@@ -156,4 +172,11 @@ public class Article {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		return sdf.format(this.dateFinEncheres);
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 }

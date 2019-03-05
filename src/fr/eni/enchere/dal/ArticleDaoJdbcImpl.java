@@ -22,8 +22,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 
 	private static final String GETETAT = "select date_debut_encheres, date_fin_encheres from ARTICLES_VENDUS where no_article = ? "; 
 	private static final String GETUSER = "select * from UTILISATEURS where no_utilisateur = ? ;";
-	private static final String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(nom_article, description, date_debut_encheres,date_fin_encheres,prix_initial, prix_vente,no_utilisateur,no_categorie)\r\n" + 
-			"values(?,?,?,?,?,?,?,?)";
+	private static final String INSERT_ARTICLE = "insert into ARTICLES_VENDUS(nom_article, description, date_debut_encheres,date_fin_encheres,prix_initial, prix_vente,no_utilisateur,no_categorie,image)\r\n" + 
+			"values(?,?,?,?,?,?,?,?,?)";
 	private static final String INSERT_RETRAIT = "insert into RETRAITS(no_article,rue,code_postal,ville)"+
 			"values(?,?,?,?);";
 	
@@ -40,7 +40,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			"ARTICLES_VENDUS.date_debut_encheres as date_debut_encheres,\r\n" + 
 			"ARTICLES_VENDUS.date_fin_encheres as date_fin_encheres,\r\n" + 
 			"ARTICLES_VENDUS.prix_initial as prix_initial,\r\n" + 
-			"ARTICLES_VENDUS.prix_vente as prix_vente,\r\n" + 
+			"ARTICLES_VENDUS.prix_vente as prix_vente,\r\n" +
+			"ARTICLES_VENDUS.image as image,\r\n" + 
 			"ARTICLES_VENDUS.no_gagnant as no_gagnant,\r\n" + 
 			"ARTICLES_VENDUS.retire as retire,\r\n" + 
 			"ARTICLES_VENDUS.no_utilisateur as no_utilisateur,\r\n" + 
@@ -119,7 +120,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					pstmtArticle.setInt(6, article.getMiseAPrix());
 					pstmtArticle.setInt(7, user.getNoUtilisateur());
 					pstmtArticle.setInt(8, categorie.getNoCategorie());
-				
+					pstmtArticle.setString(9, article.getPhoto());
+
 					pstmtArticle.executeUpdate();
 					ResultSet rs = pstmtArticle.getGeneratedKeys();
 					if(rs.next())
@@ -189,7 +191,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 					art.setGagnant(DAOFactory.getUtilisateurDao().findUserById(rs.getInt("no_gagnant")));
 				}
 				art.setRetire(rs.getBoolean("retire"));
-				
+				art.setPhoto(rs.getString("image"));
 				art.setCategorie(categorie);
 				art.setRetrait(retrait);
 				art.setProprietaire(DAOFactory.getUtilisateurDao().findUserById(proprietaire.getNoUtilisateur()));
@@ -296,6 +298,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeArticleEnCours.add(article);
@@ -393,6 +396,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 uneCategorie,
 										 user);
 				listeArticleByCat.add(article);
@@ -436,6 +440,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			ps.setTimestamp(4, new java.sql.Timestamp( article.getDateFinEncheres().getTime()));
 			ps.setInt(5, article.getMiseAPrix());
 			ps.setInt(6, article.getPrixVente());
+			//ps.setSting(7, article.getPhoto());
 			ps.setInt(7, article.getCategorie().getNoCategorie());
 			ps.setBoolean(8, article.isRetire());
 			ps.setInt(9, article.getGagnant()!=null?article.getGagnant().getNoUtilisateur():0);
@@ -508,6 +513,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -570,6 +576,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -640,6 +647,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -706,6 +714,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -771,6 +780,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -836,6 +846,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -904,6 +915,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -967,6 +979,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -1033,6 +1046,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -1099,6 +1113,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -1163,6 +1178,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -1227,6 +1243,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
 										rs.getInt("prix_initial"),
 										rs.getInt("prix_vente"),
+										rs.getString("image"),
 										 categorie,
 										 user);
 				listeEnchere.add(article);
@@ -1291,6 +1308,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							rsArticle.getInt("prix_initial"),
 							rsArticle.getInt("prix_vente"),
+							rsArticle.getString("image"),
 							 categorie,
 							 user);
 				}
@@ -1356,6 +1374,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							 new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							 rsArticle.getInt("prix_initial"),
 							 rsArticle.getInt("prix_vente"),
+								rsArticle.getString("image"),
 							 categorie,
 							 user);
 				}
@@ -1423,6 +1442,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							 new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							 rsArticle.getInt("prix_initial"),
 							 rsArticle.getInt("prix_vente"),
+								rsArticle.getString("image"),
 							 categorie,
 							 user);
 				}
