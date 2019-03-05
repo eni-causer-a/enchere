@@ -31,7 +31,7 @@
 	
 		<h5 class="my-5 text-center">Détail vente</h5>
 		
-		<img src="http://localhost:8080/MesDocuments/${article.getPhoto()}"/>	
+		<img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>	
 	    <div class="row">
 	    	<div class="col"></div>
 			<div class="col">

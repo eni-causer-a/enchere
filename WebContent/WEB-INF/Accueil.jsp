@@ -208,19 +208,16 @@
 				  <div class="card-body">
 				    <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a></h5>
 				    <p class="card-text">${article.getDescription()}</p>
-<<<<<<< HEAD
-				    <img src="http://localhost:8080/MesDocuments/${article.getPhoto()}"/>
+				    <img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
 				    <p>Meilleur Offre : ${article.getPrixVente()} points</p>
 				    <p>Début : ${article.printDateDebutEnchere()}</p>
 				    <p>Fin : ${article.printDateFinEnchere()}</p>
 				    <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>
-=======
 				    <p><label style="font-weight : bold;">Catégorie : </label>${article.getCategorie().getLibelle()}</p>
 				    <p><label style="font-weight : bold;">Meilleur Offre : </label>${article.getPrixVente()} points</p>
 				    <p><label style="font-weight : bold;">Début : </label> ${article.printDateDebutEnchere()}</p>
 				    <p><label style="font-weight : bold;">Fin : </label>${article.printDateFinEnchere()}</p>
 				    <!--  <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>-->
->>>>>>> branch 'master' of https://github.com/eni-causer-a/enchere.git
 				  </div>
 				  
 				  <!--  
