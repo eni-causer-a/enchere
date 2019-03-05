@@ -80,6 +80,7 @@ public class ServletNouvelleVente extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(request.toString());
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		Date aujourdhui=new Date();
@@ -92,6 +93,7 @@ public class ServletNouvelleVente extends HttpServlet {
 			art.setNomArticle(request.getParameter("nomArticle"));
 			art.setDescription(request.getParameter("description"));
 			//Catégorie
+			
 			art.setCategorie(new Categorie(Integer.parseInt(request.getParameter("categorie")),""));
 			
 			art.setMiseAPrix(Integer.parseInt(request.getParameter("miseAPrix")));
@@ -142,29 +144,29 @@ public class ServletNouvelleVente extends HttpServlet {
 				ArticleManager am = new ArticleManager();
 				am.insert(art);
 				System.out.println("ok1");
-		if(!ServletFileUpload.isMultipartContent(request)){
-			throw new ServletException("Content type is not multipart/form-data");
-		}
-		System.out.println("ok2");
-		response.setContentType("text/html");
-		System.out.println("ok3");
-		try {
-			List<FileItem> fileItemsList = uploader.parseRequest(request);
-			Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
-			while(fileItemsIterator.hasNext()){
-				
-				FileItem fileItem = fileItemsIterator.next();
-				if(fileItem.getFieldName().equalsIgnoreCase("fileName")) {
-				File file = new File(request.getServletContext().getAttribute("FILES_DIR")+File.separator+fileItem.getName());
-				System.out.println("Absolute Path at server="+file.getAbsolutePath());
-				fileItem.write(file);
-				
-				
-				}
+			if(!ServletFileUpload.isMultipartContent(request)){
+				throw new ServletException("Content type is not multipart/form-data");
 			}
-		} catch (FileUploadException e) {
-		} catch (Exception e) {
-		}
+			System.out.println("ok2");
+			response.setContentType("text/html");
+			System.out.println("ok3");
+			try {
+				List<FileItem> fileItemsList = uploader.parseRequest(request);
+				Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
+				while(fileItemsIterator.hasNext()){
+					
+					FileItem fileItem = fileItemsIterator.next();
+					if(fileItem.getFieldName().equalsIgnoreCase("fileName")) {
+					File file = new File(request.getServletContext().getAttribute("FILES_DIR")+File.separator+fileItem.getName());
+					System.out.println("Absolute Path at server="+file.getAbsolutePath());
+					fileItem.write(file);
+					
+					
+					}
+				}
+			} catch (FileUploadException e) {
+			} catch (Exception e) {
+			}
 				response.sendRedirect(request.getContextPath()+"/Accueil");
 			}else {
 				request.setAttribute("nomArticle",request.getParameter("nomArticle"));

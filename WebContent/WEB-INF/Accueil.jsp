@@ -31,20 +31,21 @@
 <body class="container">
 	<header class="py-3 bg-dark header-demodule fixed-top">  
 	   	<div class="row">
-	   		<div class="col-6">	
+	   		<div class="col-5">	
 	   			<div class="container text-center text-white">
 	   				<!-- <h3>ENI-Encheres</h3> -->
 	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
 	   			</div>
 	   		</div>
 	   		<c:if test="${utilisateur==null}">
+	   			<div class="col-1"></div>
 		   		<div class="col-6">
 		        	<a href="<%=request.getContextPath()%>/Connexion">S'inscrire - Se connecter</a>
 		       	</div>
 	   		</c:if>
 	   		<c:if test="${utilisateur!=null}">
-	   			
-	        	<div class="col-1"></div>
+	   			style=""
+	        	<div class="col-2"><h5 style="color: white;">${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} Crédits</h5></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente">Vendre un article</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}">Mon profil</a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/ezMoney">Ajouter des crédits</a></div>
@@ -220,15 +221,16 @@
 	<br>
 	<div class="row">
 		<c:forEach var="article" items="${lesArticles}">
-			<div class="col-4" style="margin-bottom: 2%;">
-				<div class="card" style="width: 18rem;">
+			<div class="col-6" style="margin-bottom: 2%;">
+				<div class="card" style="width: 25rem;">
 				  <div class="card-body">
 				    <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a></h5>
 				    <p class="card-text">${article.getDescription()}</p>
-				    <p>Meilleur Offre : ${article.getPrixVente()} points</p>
-				    <p>Début : ${article.printDateDebutEnchere()}</p>
-				    <p>Fin : ${article.printDateFinEnchere()}</p>
-				    <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>
+				    <p><label style="font-weight : bold;">Catégorie : </label>${article.getCategorie().getLibelle()}</p>
+				    <p><label style="font-weight : bold;">Meilleur Offre : </label>${article.getPrixVente()} points</p>
+				    <p><label style="font-weight : bold;">Début : </label> ${article.printDateDebutEnchere()}</p>
+				    <p><label style="font-weight : bold;">Fin : </label>${article.printDateFinEnchere()}</p>
+				    <!--  <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>-->
 				  </div>
 				  <!--  
 					  <ul class="list-group list-group-flush">
