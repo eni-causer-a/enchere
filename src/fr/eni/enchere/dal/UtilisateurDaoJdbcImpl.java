@@ -199,7 +199,6 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 			pstmtUser.setString(9, user.getMotDePasse());
 			pstmtUser.setInt(10, user.getCredit());
 			pstmtUser.setInt(11, user.getNoUtilisateur());
-			
 
 			pstmtUser.executeUpdate();
 		} catch (SQLException e) {

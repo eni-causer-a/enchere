@@ -428,7 +428,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			ps.setString(2, article.getDescription());
 			ps.setTimestamp(3, new java.sql.Timestamp( article.getDateDebutEncheres().getTime()));
 			ps.setTimestamp(4, new java.sql.Timestamp( article.getDateFinEncheres().getTime()));
-			ps.setInt(5, article.getPrixVente());
+			ps.setInt(5, article.getMiseAPrix());
 			ps.setInt(6, article.getPrixVente());
 			ps.setInt(7, article.getCategorie().getNoCategorie());
 			ps.setByte(8, new Byte(article.isRetire()?"0":"1"));
