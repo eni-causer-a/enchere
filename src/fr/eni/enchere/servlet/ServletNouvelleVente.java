@@ -71,7 +71,6 @@ public class ServletNouvelleVente extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp");
 		rd.forward(request, response);
 	}
-
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

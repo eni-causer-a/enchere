@@ -208,8 +208,8 @@
 				  <div class="card-body">
 				    <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a></h5>
 				    <p class="card-text">${article.getDescription()}</p>
-
-				    <img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}"/>
+				    
+				    <img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
 				    <p>Meilleur Offre : ${article.getPrixVente()} points</p>
 				    <p>Début : ${article.printDateDebutEnchere()}</p>
 				    <p>Fin : ${article.printDateFinEnchere()}</p>
