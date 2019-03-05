@@ -32,7 +32,10 @@ public class ServletAddCredits extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session= request.getSession();
+		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		request.setAttribute("utilisateur", utilisateur);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/achat.jsp");
 		rd.forward(request, response);
 	}

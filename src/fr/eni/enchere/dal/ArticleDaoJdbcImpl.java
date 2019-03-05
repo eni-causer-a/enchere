@@ -45,6 +45,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			"ARTICLES_VENDUS.no_gagnant as no_gagnant,\r\n" + 
 			"ARTICLES_VENDUS.retire as retire,\r\n" + 
 			"ARTICLES_VENDUS.no_utilisateur as no_utilisateur,\r\n" + 
+			"ARTICLES_VENDUS.no_gagnant as no_gagnant,\r\n" + 
+			"ARTICLES_VENDUS.retire as retire,\r\n" + 
 			"UTILISATEURS.pseudo as pseudo_proprietaire,\r\n" + 
 			"CATEGORIES.no_categorie as no_categorie,\r\n" + 
 			"CATEGORIES.libelle as libelle_categorie,\r\n" + 
@@ -66,6 +68,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			"      ,prix_vente = ?\r\n" + 
 			"      ,no_categorie = ?\r\n" + 
 			"      ,retire = ?\r\n" + 
+			"      ,no_gagnant = ?\r\n" + 
 			" WHERE no_article =?;";
 	private static final String UPDATE_CATEGORIE ="UPDATE RETRAITS\r\n" + 
 			"   SET rue = ?\r\n" + 
@@ -109,10 +112,9 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				{				
 				if(article != null) {
 					
-					
 					pstmtArticle.setString(1, article.getNomArticle());
 					pstmtArticle.setString(2, article.getDescription());
-					pstmtArticle.setTimestamp(3, new java.sql.Timestamp( article.getDateDebutEncheres().getTime()));
+					pstmtArticle.setTimestamp(3,new java.sql.Timestamp( article.getDateDebutEncheres().getTime()));
 					pstmtArticle.setTimestamp(4, new java.sql.Timestamp(article.getDateFinEncheres().getTime()));
 					pstmtArticle.setInt(5, article.getMiseAPrix());
 					pstmtArticle.setInt(6, article.getMiseAPrix());
@@ -176,7 +178,6 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				retrait.setVille(rs.getString("ville_retrait"));
 				
 				proprietaire.setNoUtilisateur(Integer.parseInt(rs.getString("no_utilisateur")));
-				proprietaire.setPseudo(rs.getString("pseudo_proprietaire"));
 				
 				art = new Article();
 				art.setNoArticle(rs.getInt("no_article"));
@@ -186,10 +187,14 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				art.setDateFinEncheres(new Date(rs.getTimestamp("date_fin_encheres").getTime()));
 				art.setMiseAPrix(rs.getInt("prix_initial"));
 				art.setPrixVente(rs.getInt("prix_vente"));
+				if (rs.getInt("no_gagnant") >0) {
+					art.setGagnant(DAOFactory.getUtilisateurDao().findUserById(rs.getInt("no_gagnant")));
+				}
+				art.setRetire(rs.getBoolean("retire"));
 				art.setPhoto(rs.getString("image"));
 				art.setCategorie(categorie);
 				art.setRetrait(retrait);
-				art.setProprietaire(proprietaire);
+				art.setProprietaire(DAOFactory.getUtilisateurDao().findUserById(proprietaire.getNoUtilisateur()));
 				
 				System.out.println(retrait.toString());
 			}
@@ -437,8 +442,9 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			ps.setInt(6, article.getPrixVente());
 			//ps.setSting(7, article.getPhoto());
 			ps.setInt(7, article.getCategorie().getNoCategorie());
-			ps.setByte(8, new Byte(article.isRetire()?"0":"1"));
-			ps.setInt(9, article.getNoArticle());
+			ps.setBoolean(8, article.isRetire());
+			ps.setInt(9, article.getGagnant()!=null?article.getGagnant().getNoUtilisateur():0);
+			ps.setInt(10, article.getNoArticle());
 			
 			ps.executeUpdate();
 			

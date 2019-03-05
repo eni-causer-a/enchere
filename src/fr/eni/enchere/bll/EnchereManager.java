@@ -42,6 +42,7 @@ public class EnchereManager {
 			DAOFactory.getUtilisateurDao().updateUser(user);
 			
 			article.setPrixVente(value);
+			article.setGagnant(user);
 			DAOFactory.getArticleDao().updateArticle(article);
 			
 			Enchere newEnchere = new Enchere(user, new Date(), value, article);

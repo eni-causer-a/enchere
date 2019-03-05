@@ -31,6 +31,7 @@ public class ServletModifieVente extends HttpServlet {
 	
 	SimpleDateFormat formaterTime=new SimpleDateFormat("HH:mm");
 	SimpleDateFormat formaterDate=new SimpleDateFormat("yyyy-MM-dd");
+	String id;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -50,7 +51,7 @@ public class ServletModifieVente extends HttpServlet {
 		request.setAttribute("utilisateur", utilisateur);
 		
 		ArticleManager manager = new ArticleManager();
-		String id = request.getParameter("idArticle");
+		id = request.getParameter("idArticle");
 		CategorieManager cm  = new CategorieManager();
 		List<Categorie> lesCategories= cm.getListCategorieWithoutToutes(); 
 		request.setAttribute("lesCategories", lesCategories);
@@ -62,7 +63,7 @@ public class ServletModifieVente extends HttpServlet {
 			
 		}
 		
-		 System.out.println("jnjnjnjljljkjjlkjjlkjlk:"+formaterTime.format(article.getDateDebutEncheres()));
+		 //System.out.println("jnjnjnjljljkjjlkjjlkjlk:"+formaterTime.format(article.getDateDebutEncheres()));
 		 request.setAttribute("formaterTime", formaterTime);
 		 request.setAttribute("formaterDate", formaterDate);
 		
@@ -82,6 +83,8 @@ public class ServletModifieVente extends HttpServlet {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		ArticleManager am = new ArticleManager();
+		Date aujourdhui=new Date();
+		Boolean Error=false;
 		
 		if(request.getParameter("boutonSupprimer")!=null) {
 			Article art = new Article();
@@ -102,35 +105,71 @@ public class ServletModifieVente extends HttpServlet {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
 			try {
-				Date date = sdf.parse(request.getParameter("debutEnchere"));
+				Date dateDebut = sdf.parse(request.getParameter("debutEnchere"));
 				Date time = sdf2.parse(request.getParameter("debutEnchereTime"));
-				date.setHours(time.getHours());
-				date.setMinutes(time.getMinutes());
-				art.setDateDebutEncheres(date);
+				dateDebut.setHours(time.getHours());
+				dateDebut.setMinutes(time.getMinutes());
+				art.setDateDebutEncheres(dateDebut);
 				
-				date = sdf.parse(request.getParameter("finEnchere"));
+				if(dateDebut.before(aujourdhui)){
+					Error=true;
+					request.setAttribute("dateDebutError", "La date saisie est anterieur à la date d'aujourd'hui");
+				}
+				
+				Date dateFin = sdf.parse(request.getParameter("finEnchere"));
 				time = sdf2.parse(request.getParameter("finEnchereTime"));
-				date.setHours(time.getHours());
-				date.setMinutes(time.getMinutes());
-				art.setDateFinEncheres(date);
-
+				dateFin.setHours(time.getHours());
+				dateFin.setMinutes(time.getMinutes());
+				art.setDateFinEncheres(dateFin);
+				
+				if(dateDebut.after(dateFin)){
+					Error=true;
+					request.setAttribute("dateFinError", "La date saisie est anterieur à la date de début de l'enchère");
+				}
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			art.setProprietaire(utilisateur);
+			if(Error==false) {
+				Retrait retrait = new Retrait();
+				retrait.setRue(request.getParameter("rue"));
+				retrait.setCode_postale(request.getParameter("codePostal"));
+				retrait.setVille(request.getParameter("ville"));
+				
+				art.setRetrait(retrait);
+				
+				am.updateArticle(art);
+				
+				response.sendRedirect(request.getContextPath()+"/Accueil");
 			
-			Retrait retrait = new Retrait();
-			retrait.setRue(request.getParameter("rue"));
-			retrait.setCode_postale(request.getParameter("codePostal"));
-			retrait.setVille(request.getParameter("ville"));
-			
-			art.setRetrait(retrait);
-			
-			am.updateArticle(art);
-			
-			response.sendRedirect(request.getContextPath()+"/Accueil");
+			}else {
+				CategorieManager cm=new CategorieManager();
+				request.setAttribute("idArticle", request.getParameter("idArticle"));
+				request.setAttribute("lesCategories", cm.getListCategorieWithoutToutes());
+				request.setAttribute("nomArticle",request.getParameter("nomArticle"));
+				request.setAttribute("description",request.getParameter("description"));
+				request.setAttribute("cat",request.getParameter("categorie"));
+				request.setAttribute("miseAPrix",request.getParameter("miseAPrix"));
+				request.setAttribute("debutEnchere",request.getParameter("debutEnchere"));
+				request.setAttribute("debutEnchereTime",request.getParameter("debutEnchereTime"));
+				request.setAttribute("finEnchere",request.getParameter("finEnchere"));
+				request.setAttribute("finEnchereTime",request.getParameter("finEnchereTime"));
+				request.setAttribute("rue",request.getParameter("rue"));
+				request.setAttribute("codeP",request.getParameter("codePostal"));
+				request.setAttribute("ville",request.getParameter("ville"));
+				
+				
+
+				
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifieVente.jsp");
+				rd.forward(request, response);
+				
+				
+			}
 			
 		}
 	}

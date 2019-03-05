@@ -15,6 +15,7 @@ import fr.eni.enchere.bll.ArticleManager;
 import fr.eni.enchere.bll.EnchereManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Enchere;
+import fr.eni.enchere.bo.EtatVente;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
@@ -42,20 +43,22 @@ public class ServletDetailVente extends HttpServlet {
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
 		EnchereManager em = new EnchereManager();
-		 request.setAttribute("em", em);
+		request.setAttribute("em", em);
 		ArticleManager manager = new ArticleManager();
 		String id = request.getParameter("idArticle");
-		 try {
-			 article = manager.getArticleById(Integer.parseInt(id));
-			 request.setAttribute("article", article);
+		try {
+			article = manager.getArticleById(Integer.parseInt(id));
+			request.setAttribute("article", article);
 		} catch (NumberFormatException e) {
 			// TODO Gestion d'exception à faire piairyck !!!
 		}
 		Date date=new Date();
-		 
+		
 		//System.out.println("DAEZRAR: "+article.getDateDebutEncheres().after(date));
 		//System.out.println(article.getDateDebutEncheres().after(date));
-		request.setAttribute("after", article.getDateDebutEncheres().after(date));
+		request.setAttribute("cree", article.getEtatVente() == EtatVente.CREE);
+		request.setAttribute("enCours", article.getEtatVente() == EtatVente.EN_COURS);
+		request.setAttribute("ended", article.getEtatVente() == EtatVente.ENCHERE_TERMINE);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/DetailVente.jsp");
 		rd.forward(request, response);

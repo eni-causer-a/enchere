@@ -29,13 +29,13 @@
 		<h5 class="my-5 text-center">Modifier la vente</h5>
 		<form method="post" action="<%=request.getContextPath()%>/ModifieVente">
 		    <div class="row">
-		    <input type="hidden" name="idArticle" value="${article.getNoArticle()}">
+		    <input type="hidden" name="idArticle" value="${article.getNoArticle()}${idArticle}">
 		    	<div class="col"></div>
 				<div class="col">
 			  		<label>Article :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="nomArticle" value="${article.getNomArticle()}" required>
+					<input type="text" name="nomArticle" value="${article.getNomArticle()}${nomArticle}" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="w-100"></div>
@@ -44,7 +44,7 @@
 			  		<label>Description :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="description" value="${article.getDescription()}">
+					<input type="text" name="description" value="${article.getDescription()}${description}">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -56,7 +56,7 @@
 					<select name="categorie")>
 						<c:forEach var="categorie" items="${lesCategories}">
 							
-							<c:if test="${article.getCategorie().getLibelle()==categorie.getLibelle()}">
+							<c:if test="${article.getCategorie().getLibelle()==categorie.getLibelle() or cat==categorie.getNoCategorie()}">
 								<option value="${categorie.getNoCategorie()}" selected>${categorie.getLibelle()}</option>
 							</c:if>
 							<c:if test="${article.getCategorie().getLibelle()!=categorie.getLibelle()}">
@@ -81,7 +81,7 @@
 			  		<label>Mise à prix :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="number" min="0" name="miseAPrix" value="${article.getMiseAPrix()}" required>
+					<input type="number" min="0" name="miseAPrix" value="${article.getMiseAPrix()}${miseAPrix}" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -91,20 +91,38 @@
 			  	</div>
 			  	
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="debutEnchere" value="${formaterDate.format(article.getDateDebutEncheres())}" required> <label>  à  </label> <input type="time" name="debutEnchereTime" value="${formaterTime.format(article.getDateDebutEncheres())}" required>
+					<label>Le  </label>  <input type="date" name="debutEnchere" value="${formaterDate.format(article.getDateDebutEncheres())}${debutEnchere}" required> <label>  à  </label> <input type="time" name="debutEnchereTime" value="${formaterTime.format(article.getDateDebutEncheres())}${debutEnchereTime}" required>
 				</div> 
 				<div class="col-1"></div>
-			
+				<c:if test="${dateDebutError!=null}">
+					<div class="w-100"></div>
+					<div class="col-4"></div>
+				  	<div class="col-6">
+				  		<label style="color: red;" class="label-danger">${dateDebutError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 				<div class="w-100"></div>
 				<div class="col-3"></div>
 			  	<div class="col-3">
 			  		<label>Fin de l'enchère :</label>
 			  	</div>
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="finEnchere" value="${formaterDate.format(article.getDateFinEncheres())}" required> <label>  à  </label> <input type="time" name="finEnchereTime" value="${formaterTime.format(article.getDateFinEncheres())}" required>
+					<label>Le  </label>  <input type="date" name="finEnchere" value="${formaterDate.format(article.getDateFinEncheres())}${finEnchere}" required> <label>  à  </label> <input type="time" name="finEnchereTime" value="${formaterTime.format(article.getDateFinEncheres())}${finEnchereTime}" required>
 				</div>
 				<div class="col-1"></div>
+				<c:if test="${dateFinError!=null}">
+					<div class="w-100"></div>
+					<div class="col-4"></div>
+				  	<div class="col-6">
+				  		<label style="color: red;" class="label-danger">${dateFinError}</label>
+				  	</div>
+				  	<div class="col"></div>
+				  	<div class="col"></div>
+				</c:if>
 			</div>
+			
 			<br>
 			<div class="row list-group-item  d-flex">
 				<div class="col-3"></div>
@@ -117,7 +135,7 @@
 			  		<label>Rue :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="rue" value="${article.getRetrait().getRue()}" required>
+					<input type="text" name="rue" value="${article.getRetrait().getRue()}${rue}" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -126,7 +144,7 @@
 			  		<label>Code postal :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="codePostal" value="${article.getRetrait().getCode_postale()}" required>
+					<input type="text" name="codePostal" value="${article.getRetrait().getCode_postale()}${codeP}" required>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
@@ -135,7 +153,7 @@
 			  		<label>Ville :</label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="ville" value="${article.getRetrait().getVille()}" required">
+					<input type="text" name="ville" value="${article.getRetrait().getVille()}${ville}" required">
 				</div>
 				<div class="col"></div>
 			</div>

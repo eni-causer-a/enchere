@@ -5,6 +5,7 @@
 <head>
 <!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
 <title>ENI-Encheres</title>
+<link rel="shortcut icon" href="image/eni.ico">
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -25,7 +26,7 @@
 	<h3 class="my-5 text-center">Crédits gratuit</h3>
 	<div class="container">
 		<form method="post" action="<%=request.getContextPath()%>/ezMoney">
-			<button>Cliquer pour gagner 1 crédit</button>
+			<button>Cliquer pour gagner des crédits</button>
 		</form>
 	</div>
     <!-- Footer -->
