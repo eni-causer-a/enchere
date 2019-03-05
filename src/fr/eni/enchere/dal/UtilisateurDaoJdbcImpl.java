@@ -30,7 +30,7 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 
 	private static final String GETCATEGORIE = "select * from CATEGORIES where no_categorie = ?"; 
 	
-	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? where no_utilisateur = ? ; ";
+	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=? where no_utilisateur = ? ; ";
 
 	private static final String GETACHATUSER = "select distinct ";
 	
@@ -196,7 +196,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 			pstmtUser.setString(7, user.getCodePostale());
 			pstmtUser.setString(8, user.getVille());
 			pstmtUser.setString(9, user.getMotDePasse());
-			pstmtUser.setInt(10, user.getNoUtilisateur());
+			pstmtUser.setInt(10, user.getCredit());
+			pstmtUser.setInt(11, user.getNoUtilisateur());
 
 			pstmtUser.executeUpdate();
 		} catch (SQLException e) {

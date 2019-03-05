@@ -23,7 +23,7 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/DetailVente")
 public class ServletDetailVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -68,8 +68,8 @@ public class ServletDetailVente extends HttpServlet {
 		HttpSession session= request.getSession();
 		ArticleManager am = new ArticleManager();
 		EnchereManager em = new EnchereManager();
-		Enchere enchere = new Enchere((Utilisateur) session.getAttribute("Utilisateur"), new Date(), Integer.parseInt(request.getParameter("miseAPrix")),am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))) );
-		em.insert(enchere);
+		
+		em.encherir((Utilisateur) session.getAttribute("Utilisateur"), am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))), Integer.parseInt(request.getParameter("miseAPrix")));
 		doGet(request, response);
 	}
 	
