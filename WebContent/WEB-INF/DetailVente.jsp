@@ -31,15 +31,23 @@
 	
 		<h5 class="my-5 text-center">Détail vente</h5>
 		
-		<img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>	
-	    <div class="row">
-	    	<div class="col"></div>
-			<div class="col">
-		  		<h6>${article.getNomArticle()}</h6>
+	    <div style="position: relative; left: 30px;" class="row">
+	    
+	    <div class="col"></div>
+		  	<div class="col">
+		  		<img style="position: relative;left: 100px;" src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>	
 		  	</div>
 		  	<div class="col"></div>
 			<div class="col"></div>
 		  	<div class="w-100"></div>
+		  	
+	    	<div class="col"></div>
+			<div style="postion: relative; left:-70px; padding-top:15px;" class="col">
+		  		<h6>${article.getNomArticle()}</h6>
+		  	</div>
+		  	<div class="w-100"></div>
+		  	
+		  	<br>
 		  	<div class="col-3"></div>
 		  	<div class="col-3">
 		  		<label>Description :</label>
@@ -117,12 +125,12 @@
 			<c:if test="${Utilisateur.pseudo != article.proprietaire.pseudo}">
 				<div class="row">
 					<div class="col"></div>
-				  	<div class="col">
+				  	<div style="position: relative; left: 85px;" class="col">
 				  		<label>Ma proposition :</label>
 				  	</div>
 				  	
 				  	<div class="col">
-						<input type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
+						<input class="form-control" type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
 					</div>
 					<div class="col">
 						<button class="btn btn-secondary">Enchérir</button>

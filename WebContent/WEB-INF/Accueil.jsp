@@ -164,11 +164,11 @@
 	<h3><fmt:message key="filtre" bundle="${langue}"/></h3>
 		<div class="row">
 			<div class="col-4">
-				<input type="text" name="filtre" placeHolder="<fmt:message key="ph_filtre" bundle="${langue}"/>" value="${filtre}">
+				<input class="form-control" type="text" name="filtre" placeHolder="<fmt:message key="ph_filtre" bundle="${langue}"/>" value="${filtre}">
 			</div>
-			<div class="col-4">
+			<div style="postion: relative; margin-top: -31px;" class="col-4">
 				<label><fmt:message key="categorie" bundle="${langue}"/></label>
-				<select name="categorie")>
+				<select class="form-control" name="categorie">
 					<c:forEach var="categorie" items="${lesCategories}">
 					 	<c:if test="${categorie.getLibelle()==cat}">
 							<option value="${categorie.getLibelle()}" selected>${categorie.getLibelle()}</option>

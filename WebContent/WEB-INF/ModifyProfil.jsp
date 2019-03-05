@@ -25,112 +25,69 @@
 	<div>
 		<h5 class="my-5 text-center">Mon Profil</h5>
 		<form method="post" action="<%=request.getContextPath()%>/modifProfil">
-		    <div class="row">
-		    	<div class="col-1"></div>
-				<div class="col-2">
-			  		<label>Pseudo :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="pseudo" value="${user.pseudo}">
-				</div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Nom :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="nom" value="${user.nom}">
-				</div>
-				<div class="col"></div>
-			  	<div class="w-100"></div>
-			  	<div class="col-1"></div>
-			  	<div class="col-2">
-			  		<label>Prénom :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="prenom" value="${user.prenom}">
-				</div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Email :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="email" value="${user.email}">
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-1"></div>
-			  	<div class="col-2">
-			  		<label>Téléphone :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="telephone" value="${user.telephone}">
-				</div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Rue :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="rue" value="${user.rue}">
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-1"></div>
-			  	<div class="col-2">
-			  		<label>Code Postal :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="codePostal" value="${user.codePostale}">
-				</div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Ville :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" name="ville" value="${user.ville}">
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-1"></div>
-				<div class="col-2">
-			  		<label>Mot de passe actuel :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="password" name="motDePasse">
-				</div>
-				<div class="col"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		
-			  	</div>
-			  
-				<div class="w-100"></div>
-				<div class="col-1"></div>
-			  	<div class="col-2">
-			  		<label>Nouveau Mot de passe :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="password" name="motDePasses">
-				</div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label>Confirmation :</label>
-			  	</div>
-			  	<div class="col">
-					<input type="password" name="confirmationMotDePasse">
-				</div>
-				<div class="col"></div>
-			</div>
-			<div class="row">
-				<div class="col-4"></div>
-				<div class="col-1">
-					<button name="boutonCreer" class="btn btn-secondary">Enregistrer</button>
-				</div>
-				<div class="col-1"></div>
-				<div class="col-3">
-					<button name="boutonAnnuler" class="btn btn-secondary">Supprimer mon compte</button>
-				</div>
-				<div class="col-5"></div>
-			</div>
+		
+		<div class="form-row">
+    		<div class="form-group col-md-6">
+      			<label for="inputPseudo">Pseudo</label>
+      			<input type="text" class="form-control" value="${user.pseudo}" name="pseudo" id="inputPseudo" placeholder="Pseudo">
+    		</div>
+    		<div class="form-group col-md-6">
+      			<label for="inputNom">Nom</label>
+      			<input type="text" class="form-control" id="inputNom" name="nom" value="${user.nom}" placeholder="Nom">
+    		</div>
+    	</div>
+    	<div class="form-row">
+    		<div class="form-group  col-md-6">
+    			<label for="inputPrenom">Prénom</label>
+      			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}" placeholder="Prenom">
+    		</div>
+    		<div class="form-group  col-md-6">
+    			<label for="inputEmail">Email</label>
+      			<input type="email" class="form-control" id="inputEmail" name="email" value="${user.email}" placeholder="Email">
+    		</div>
+    	</div>
+    	<div class="form-row">
+    		<div class="form-group  col-md-6">
+    			<label for="inputTel">Téléphone</label>
+      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}" placeholder="Téléphone">
+    		</div>
+    		<div class="form-group  col-md-6">
+    			<label for="inputRue">Rue</label>
+      			<input type="text" class="form-control" id="inputRue" name="rue" value="${user.rue}" placeholder="Rue">
+    		</div>
+    	</div>
+    	<div class="form-row">
+    		<div class="form-group  col-md-6">
+    			<label for="inputCp">Code Postal</label>
+      			<input type="text" class="form-control" id="inputCp" name="codePostal" value="${user.codePostale}" placeholder="Code Postal">
+    		</div>
+    		<div class="form-group  col-md-6">
+    			<label for="inputVille">Ville</label>
+      			<input type="text" class="form-control" id="inputVille" name="ville" value="${user.ville}" placeholder="Ville">
+    		</div>
+    	</div>
+    	<div class="form-group">
+    			<label for="inputMdp">Mot de passe actuel</label>
+      			<input type="password" class="form-control" id="inputMdp" name="motDePasse"  placeholder="Mot de passe">
+    	</div>
+    	<div class="form-row">
+    		<div class="form-group  col-md-6">
+    			<label for="inputMdpNew">Nouveau Mot de passe</label>
+      			<input type="password" class="form-control" id="inputMdpNew" name="motDePasses"  placeholder="Nouveau Mot de passe">
+    		</div>
+    		<div class="form-group  col-md-6">
+    			<label for="inputMdpNewC">Confirmation</label>
+      			<input type="password" class="form-control" id="inputMdpNewC" name="confirmationMotDePasse"  placeholder="Confirmation">
+    		</div>
+    	</div>
+		<div class="form-row">
+    		<div class="form-group  col-md-6">
+    			<button name="boutonCreer" class="btn btn-secondary">Enregistrer</button>		
+    		</div>
+    		<div class="form-group  col-md-6">
+    			<button name="boutonAnnuler" class="btn btn-secondary">Supprimer mon compte</button>
+    		</div>
+    	</div>
 			 
 		</form>
 
