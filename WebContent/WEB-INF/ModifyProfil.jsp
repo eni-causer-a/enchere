@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,10 +21,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
-		<h5 class="my-5 text-center">Mon Profil</h5>
+		<h5 class="my-5 text-center"><fmt:message key="mon_pf" bundle="${langue}"/></h5>
 		<form method="post" action="<%=request.getContextPath()%>/modifProfil">
 		
 		<div class="form-row">
@@ -38,7 +42,7 @@
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
-    			<label for="inputPrenom">Prénom</label>
+    			<label for="inputPrenom">Prï¿½nom</label>
       			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}" placeholder="Prenom">
     		</div>
     		<div class="form-group  col-md-6">
@@ -48,8 +52,8 @@
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
-    			<label for="inputTel">Téléphone</label>
-      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}" placeholder="Téléphone">
+    			<label for="inputTel">Tï¿½lï¿½phone</label>
+      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}" placeholder="Tï¿½lï¿½phone">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputRue">Rue</label>
