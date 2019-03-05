@@ -42,12 +42,12 @@ public class ServletDetailVente extends HttpServlet {
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		request.setAttribute("utilisateur", utilisateur);
 		EnchereManager em = new EnchereManager();
-		 request.setAttribute("em", em);
+		request.setAttribute("em", em);
 		ArticleManager manager = new ArticleManager();
 		String id = request.getParameter("idArticle");
-		 try {
-			 article = manager.getArticleById(Integer.parseInt(id));
-			 request.setAttribute("article", article);
+		try {
+			article = manager.getArticleById(Integer.parseInt(id));
+			request.setAttribute("article", article);
 		} catch (NumberFormatException e) {
 			// TODO Gestion d'exception à faire piairyck !!!
 		}
