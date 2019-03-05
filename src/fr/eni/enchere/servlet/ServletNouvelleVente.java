@@ -78,6 +78,8 @@ public class ServletNouvelleVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		Date aujourdhui=new Date();
+		Boolean Error=false;
 		
 		Random rd = new Random();
 		int valeur = 1 + rd.nextInt(100000 - 1);
@@ -90,6 +92,10 @@ public class ServletNouvelleVente extends HttpServlet {
 			Retrait retrait = new Retrait();
 			Date date = null;
 		    Date dateFin = null;
+		    Date time = null;
+		    Date timeFin = null;
+		    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		    SimpleDateFormat sdf2= new SimpleDateFormat("hh:mm");
 			ArticleManager am = new ArticleManager();
 		
 			
@@ -125,25 +131,21 @@ public class ServletNouvelleVente extends HttpServlet {
 				    	art.setPrixVente(Integer.parseInt(value));
 				    	break;
 				    case "debutEnchere":
-				    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 						date = sdf.parse(value);
 				    	break;
 				    case "debutEnchereTime":
-						SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
-						Date time = sdf2.parse(value);
+						time = sdf2.parse(value);
 						date.setHours(time.getHours());
 						date.setMinutes(time.getMinutes());
 						art.setDateDebutEncheres(date);
 						break;
 						
 				    case "finEnchere":
-				    	SimpleDateFormat sdfin = new SimpleDateFormat("yyyy-MM-dd");
-						dateFin = sdfin.parse(value);
+						dateFin = sdf.parse(value);
 				    	break;
 				    	
 				    case "finEnchereTime":
-						SimpleDateFormat sdfin2 = new SimpleDateFormat("hh:mm");
-						Date timeFin = sdfin2.parse(value);
+						timeFin = sdf2.parse(value);
 						dateFin.setHours(timeFin.getHours());
 						dateFin.setMinutes(timeFin.getMinutes());
 						art.setDateFinEncheres(dateFin);
@@ -174,16 +176,50 @@ public class ServletNouvelleVente extends HttpServlet {
 		
 				
 			}
+			if(art.getDateDebutEncheres().before(aujourdhui)){
+				Error=true;
+				request.setAttribute("dateDebutError", "La date saisie est anterieur à la date d'aujourd'hui");
+			}
+		    if(art.getDateDebutEncheres().after(art.getDateFinEncheres())){
+				Error=true;
+				request.setAttribute("dateFinError", "La date saisie est anterieur à la date de début de l'enchère");
+			}
 			
 
 		} catch (FileUploadException e) {
 		} catch (Exception e) {
 		}
-		art.setRetrait(retrait);
-		art.setProprietaire(utilisateur);
+		if(Error==false) {
+			art.setRetrait(retrait);
+			art.setProprietaire(utilisateur);
+	
+			am.insert(art);
+			response.sendRedirect(request.getContextPath()+"/Accueil");
+		}else {
+			CategorieManager cm=new CategorieManager();
+			
+			request.setAttribute("lesCategories", cm.getListCategorieWithoutToutes());
+			request.setAttribute("nomArticle",art.getNomArticle());
+			request.setAttribute("description",art.getDescription());
+			request.setAttribute("cat",art.getCategorie().getNoCategorie());
+			request.setAttribute("miseAPrix",art.getMiseAPrix());
+			request.setAttribute("debutEnchere", sdf.format(date));
+			request.setAttribute("debutEnchereTime",sdf2.format(time));
+			request.setAttribute("finEnchere",sdf.format(dateFin));
+			request.setAttribute("finEnchereTime",sdf2.format(timeFin));
+			request.setAttribute("rue",retrait.getRue());
+			request.setAttribute("codeP",retrait.getCode_postale());
+			request.setAttribute("ville",retrait.getVille());
+			
+			
 
-		am.insert(art);
-		response.sendRedirect(request.getContextPath()+"/Accueil");
+			
+			
+			RequestDispatcher reqDisp = request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp");
+			reqDisp.forward(request, response);
+			
+			
+		}
 
 			
 		}
