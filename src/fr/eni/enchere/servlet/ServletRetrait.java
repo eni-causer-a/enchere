@@ -47,7 +47,7 @@ public class ServletRetrait extends HttpServlet {
 			manager.retractArticle(article);
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/Accueil");
+		response.sendRedirect(request.getContextPath()+"/DetailVente?idArticle="+article.getNoArticle());
 	}
 
 	/**
