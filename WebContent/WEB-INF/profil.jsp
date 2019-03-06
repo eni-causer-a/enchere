@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,32 +33,32 @@
 			<div><label><fmt:message key="pseudo" bundle="${langue}"/> ${user.pseudo}</label></div>
 	</div>
 	<div class="form-row">
-			<div><label>Nom : ${user.nom}</label></div>
+			<div><label><fmt:message key="nom" bundle="${langue}"/> ${user.nom}</label></div>
 	</div>
 	<div class="form-row">
-			<div><label>Nom : ${user.prenom}</label></div>
+			<div><label><fmt:message key="prenom" bundle="${langue}"/> ${user.prenom}</label></div>
 	</div>
 	<div class="form-row">
-			<div ><label>Email : ${user.email}</label></div>
+			<div ><label><fmt:message key="email" bundle="${langue}"/> ${user.email}</label></div>
 	</div>
 	<div class="form-row">
-			<div><label>Téléphone : ${user.telephone}</label></div>
+			<div><label><fmt:message key="tel" bundle="${langue}"/> ${user.telephone}</label></div>
 	</div>
 	<div class="form-row">
-			<div><label>Rue : ${user.rue}</label></div>
+			<div><label><fmt:message key="rue" bundle="${langue}"/> ${user.rue}</label></div>
 	</div>						
 	<div class="form-row">
-			<div><label>Code Postal : ${user.codePostale}</label></div>
+			<div><label><fmt:message key="cp" bundle="${langue}"/> ${user.codePostale}</label></div>
 	</div>
 	<div class="form-row">
-			<div><label>Ville : ${user.ville}</label></div>
+			<div><label><fmt:message key="ville" bundle="${langue}"/> ${user.ville}</label></div>
 	</div>		
 			
 	
 	<div class="form-row">
 		<c:if test="${sessionScope.Utilisateur.getNoUtilisateur() == user.getNoUtilisateur()}">
 			<form action="modifProfil">
-				<div><button class="btn btn-secondary">Modifier</button></div>
+				<div><button class="btn btn-secondary"><fmt:message key="modifier" bundle="${langue}"/></button></div>
 			</form>
 		</c:if>
 	</div>
