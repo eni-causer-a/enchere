@@ -213,19 +213,19 @@
 				    	</c:if>
 				    		<p style="position: relative; margin-top: 10px;" class="card-text">${article.getDescription()}</p>
 				    	<c:if test="${article.getEtatVente() == 'CREE'}">
-				    		<p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-primary">Non débutée</span></p>
+				    		<p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-primary"><fmt:message key="e_c" bundle="${langue}"/></span></p>
 				    	</c:if>
 				    	<c:if test="${article.getEtatVente() == 'EN_COURS'}">
-				    		<p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-success">Enchère en cours</span></p>
+				    		<p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-success"><fmt:message key="e_ec" bundle="${langue}"/></span></p>
 				    	</c:if>
 				    	<c:if test="${article.getEtatVente() == 'ENCHERE_TERMINE'}">
-				    		<p style="postion: relative; padding-top:5px;"><span class="badge badge-pill badge-warning">Enchère Terminé</span></p>
+				    		<p style="postion: relative; padding-top:5px;"><span class="badge badge-pill badge-warning"><fmt:message key="e_t" bundle="${langue}"/></span></p>
 				    	</c:if>
 
-					    <p><label style="font-weight : bold;"><fmt:message key="categorie" bundle="${langue}"/></label>${article.getCategorie().getLibelle()}</p>
-					    <p><label style="font-weight : bold;"><fmt:message key="meilleur_o" bundle="${langue}"/></label>${article.getPrixVente()} points</p>
+					    <p><label style="font-weight : bold;"><fmt:message key="categorie" bundle="${langue}"/></label> ${article.getCategorie().getLibelle()}</p>
+					    <p><label style="font-weight : bold;"><fmt:message key="meilleur_o" bundle="${langue}"/></label> ${article.getPrixVente()} points</p>
 					    <p><label style="font-weight : bold;"><fmt:message key="a_debut" bundle="${langue}"/></label> ${article.printDateDebutEnchere()}</p>
-					    <p><label style="font-weight : bold;"><fmt:message key="a_fin" bundle="${langue}"/></label>${article.printDateFinEnchere()}</p>
+					    <p><label style="font-weight : bold;"><fmt:message key="a_fin" bundle="${langue}"/></label> ${article.printDateFinEnchere()}</p>
 					    <!--  <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>-->
 
 				  </div>

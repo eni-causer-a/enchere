@@ -27,8 +27,11 @@
 	        	<div class="col-md-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}"><fmt:message key="menu_profil" bundle="${langue}"/></a></div>
 	        	<div class="col-md-1"><a href="<%=request.getContextPath()%>/ezMoney"><fmt:message key="menu_credit" bundle="${langue}"/></a></div>
 	        	<div class="col-md-1"><a href="<%=request.getContextPath()%>/Deconnexion"><fmt:message key="menu_deco" bundle="${langue}"/></a></div>
-		    
+		    	
+		    	
+		    	
 	   		</c:if>
+	   		<form method="post" action="<%=request.getContextPath()%>/SwitchLang" ><div class="col-md-1"><button onClick="$LOCALE = 'en'"><fmt:message key="lang" bundle="${langue}"/></button></div></form>
 	   		
 		</div>  
 	</header>

@@ -36,8 +36,8 @@ public class ServletModifyProfil extends HttpServlet {
 		
 		HttpSession session= request.getSession(); 
 		
-		request.setAttribute("user", session.getAttribute("Utilisateur"));
-		if(request.getAttribute("user")==null) {
+		request.setAttribute("utilisateur", session.getAttribute("Utilisateur"));
+		if(request.getAttribute("utilisateur")==null) {
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}else {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifyProfil.jsp");
@@ -50,6 +50,7 @@ public class ServletModifyProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Boolean Error=false;
 		HttpSession session= request.getSession(); 
 		UtilisateurManager um = new UtilisateurManager();
 		if(request.getParameter("boutonSupprimer")!=null) {
@@ -64,36 +65,58 @@ public class ServletModifyProfil extends HttpServlet {
 			Utilisateur user;
 			user = new Utilisateur();
 			
-			if(request.getParameter("motDePasse").equals("") && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals((String) session.getAttribute("Utilisateur")))) {
+			if((((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse().equals( request.getParameter("motDePasse"))) && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo())) && request.getParameter("newMotDePasse").equals("")) {
 				user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse());
 			}else {
-				if(um.pseudoIsTaken(request.getParameter("pseudo")) && request.getParameter("pseudo").equals((String) session.getAttribute("Utilisateur"))) {
+				if(um.pseudoIsTaken(request.getParameter("pseudo")) && !request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo())) {
 					request.setAttribute("pseudoError", "true");
-				}
-
-				if(!(((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse().equals( request.getParameter("motDePasse")))) {
-					
-						request.setAttribute("mdpError", "true");
-					
-				}
-				if(!(request.getParameter("motDePasses") .equals( request.getParameter("confirmationMotDePasse")))) {
-
-						request.setAttribute("mdpConfError", "true");
+					Error=true;
 				}
 				
-				if(request.getParameter("newMotDePasse").equals(request.getParameter("confirmationMotDePasse")) && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals((String) session.getAttribute("Utilisateur")))) {
+				if(!request.getParameter("motDePasse").equals("")) {
+					if(!(((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse().equals( request.getParameter("motDePasse")))) {
+						
+							request.setAttribute("mdpError", "true");
+							Error=true;
+						
+					}
+					
+					if(!(request.getParameter("newMotDePasse") .equals( request.getParameter("confirmationMotDePasse")))) {
+	
+							request.setAttribute("mdpConfError", "true");
+							Error=true;
+					}
+				}
+				
+				if(request.getParameter("newMotDePasse").equals(request.getParameter("confirmationMotDePasse")) && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo()))) {
 					System.out.println("modif");
 					
 					user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("newMotDePasse"));
 				}
 			}
-			
-			user.setNoUtilisateur(((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
-			um.update(user);
-			session.setAttribute("Utilisateur", user);
-			RequestDispatcher rd = request.getRequestDispatcher("/profil?user="+((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
-			rd.forward(request, response);
+			if(Error==false) {
+				user.setNoUtilisateur(((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
+				um.update(user);
+				session.setAttribute("Utilisateur", user);
+				RequestDispatcher rd = request.getRequestDispatcher("/profil?user="+((Utilisateur) session.getAttribute("Utilisateur")).getNoUtilisateur());
+				rd.forward(request, response);
+			}else{
+				request.setAttribute("pseudo", request.getParameter("pseudo"));
+				request.setAttribute("nom", request.getParameter("nom"));
+				request.setAttribute("prenom", request.getParameter("prenom"));
+				request.setAttribute("email", request.getParameter("email"));
+				request.setAttribute("telephone", request.getParameter("telephone"));
+				request.setAttribute("rue", request.getParameter("rue"));
+				request.setAttribute("codePostal", request.getParameter("codePostal"));
+				request.setAttribute("ville", request.getParameter("ville"));
+				
+				request.setAttribute("utilisateur", session.getAttribute("Utilisateur"));
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifyProfil.jsp");
+				rd.forward(request, response);
 			}
+			
+		}
 			
 			
 		
