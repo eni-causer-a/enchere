@@ -61,12 +61,12 @@ public class ServletNouveauProfil extends HttpServlet {
 			
 				if(um.pseudoIsTaken(request.getParameter("pseudo"))) {
 					System.out.println("pseudo");
-					request.setAttribute("pseudoError", "Ce pseudo a déjà été utilisé");
+					request.setAttribute("pseudoError", "true");
 				}
 	
 				if(!request.getParameter("motDePasse").equalsIgnoreCase(request.getParameter("confirmationMotDePasse"))) {
 					System.out.println("mdp");
-					request.setAttribute("mdpError", "Les champs 'Confirmation' et 'Mot de passe' sont différents");	
+					request.setAttribute("mdpError", "true");	
 				}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NouveauProfil.jsp");
 				rd.forward(request, response);

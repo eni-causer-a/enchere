@@ -26,6 +26,7 @@
 	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
 	<fmt:setLocale value="${LOCALE}"/>	
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
@@ -101,7 +102,7 @@
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${dateDebutError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Debut" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>
@@ -119,7 +120,7 @@
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${dateFinError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Fin" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>

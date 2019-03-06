@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" errorPage="./Error.jsp"%>
     
 <%@page import="fr.eni.enchere.bo.Article"%>
 <%@page import="fr.eni.enchere.bo.Categorie"%>
@@ -209,13 +209,13 @@
 				    <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a></h5>
 				    <p class="card-text">${article.getDescription()}</p>
 				    
-				    <img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
+				    <!--  
 				    <p>Meilleur Offre : ${article.getPrixVente()} points</p>
 				    <p>Début : ${article.printDateDebutEnchere()}</p>
 				    <p>Fin : ${article.printDateFinEnchere()}</p>
 				    <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>
-
-
+					-->
+					<img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
 				    <p><label style="font-weight : bold;">Catégorie : </label>${article.getCategorie().getLibelle()}</p>
 				    <p><label style="font-weight : bold;">Meilleur Offre : </label>${article.getPrixVente()} points</p>
 				    <p><label style="font-weight : bold;">Début : </label> ${article.printDateDebutEnchere()}</p>
@@ -225,6 +225,10 @@
 
 				  </div>
 				  
+				  <%/*
+				  String ch=null;
+				  out.write(ch.toUpperCase());*/
+				  %>
 				  <!--  
 					  <ul class="list-group list-group-flush">
 					    <li class="list-group-item">MeilleurOffre : ${article.getPrixVente()} points</li>

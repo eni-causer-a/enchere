@@ -178,11 +178,11 @@ public class ServletNouvelleVente extends HttpServlet {
 			}
 			if(art.getDateDebutEncheres().before(aujourdhui)){
 				Error=true;
-				request.setAttribute("dateDebutError", "La date saisie est anterieur à la date d'aujourd'hui");
+				request.setAttribute("dateDebutError", "true");
 			}
 		    if(art.getDateDebutEncheres().after(art.getDateFinEncheres())){
 				Error=true;
-				request.setAttribute("dateFinError", "La date saisie est anterieur à la date de début de l'enchère");
+				request.setAttribute("dateFinError", "true");
 			}
 			
 

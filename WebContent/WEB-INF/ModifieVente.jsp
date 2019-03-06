@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,6 +24,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
@@ -98,7 +100,7 @@
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${dateDebutError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Debut" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>
@@ -116,7 +118,7 @@
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${dateFinError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Fin" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>
