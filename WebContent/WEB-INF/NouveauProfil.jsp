@@ -26,6 +26,7 @@
 	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
 	<fmt:setLocale value="${LOCALE}"/>	
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<header class="py-3 bg-dark header-demodule fixed-top">
 	    <div class="row">
 	   		<div class="col-5">	
@@ -59,7 +60,7 @@
 					<div class="w-100"></div>
 					<div class="col-3"></div>
 				  	<div class="col">
-				  		<label style="color: red;" class="label-danger">${pseudoError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errNewUser.exist" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>
@@ -132,7 +133,7 @@
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${mdpError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errConf.badConf" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>

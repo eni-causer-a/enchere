@@ -113,7 +113,7 @@ public class ServletModifieVente extends HttpServlet {
 				
 				if(dateDebut.before(aujourdhui)){
 					Error=true;
-					request.setAttribute("dateDebutError", "La date saisie est anterieur à la date d'aujourd'hui");
+					request.setAttribute("dateDebutError", "true");
 				}
 				
 				Date dateFin = sdf.parse(request.getParameter("finEnchere"));
@@ -124,7 +124,7 @@ public class ServletModifieVente extends HttpServlet {
 				
 				if(dateDebut.after(dateFin)){
 					Error=true;
-					request.setAttribute("dateFinError", "La date saisie est anterieur à la date de début de l'enchère");
+					request.setAttribute("dateFinError", "true");
 				}
 				
 			} catch (ParseException e) {

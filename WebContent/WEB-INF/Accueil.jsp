@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" errorPage="./Error.jsp"%>
     
 <%@page import="fr.eni.enchere.bo.Article"%>
 <%@page import="fr.eni.enchere.bo.Categorie"%>
@@ -207,7 +207,7 @@
 			<div class="form-group col-md-6">
 				<div class="card" style="width: 25rem;">
 				  <div class="card-body">
-				    	<h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle().toUpperCase()}</a></h5>
+				   <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle().toUpperCase()}</a></h5>
 				    	<c:if test="${article.getPhoto() != null}">
 				    		<img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
 				    	</c:if>
@@ -227,7 +227,6 @@
 					    <p><label style="font-weight : bold;"><fmt:message key="a_debut" bundle="${langue}"/></label> ${article.printDateDebutEnchere()}</p>
 					    <p><label style="font-weight : bold;"><fmt:message key="a_fin" bundle="${langue}"/></label>${article.printDateFinEnchere()}</p>
 					    <!--  <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>-->
-
 
 				  </div>
 				</div>
