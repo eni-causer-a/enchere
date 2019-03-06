@@ -50,13 +50,13 @@
 				<div class="form-row">
 	    			<div class="form-group">
 						<label><fmt:message key="meilleur_o" bundle="${langue}"/></label>
-						<label name="meilleurOffre">${article.getPrixVente()} points <c:if test="${article.miseAPrix != article.prixVente }">par <a href="<%=request.getContextPath()%>/profil?user=${em.getLastEnchere(article).utilisateur.getNoUtilisateur()}">${em.getLastEnchere(article).utilisateur.pseudo}</a></c:if>   </label>
+						<label name="meilleurOffre">${article.getPrixVente()} <fmt:message key="pts" bundle="${langue}"/> <c:if test="${article.miseAPrix != article.prixVente }"><fmt:message key="par" bundle="${langue}"/> <a href="<%=request.getContextPath()%>/profil?user=${em.getLastEnchere(article).utilisateur.getNoUtilisateur()}">${em.getLastEnchere(article).utilisateur.pseudo}</a></c:if>   </label>
 					</div>
 				</div>
 				<div class="form-row">
 	    			<div class="form-group">
 						<label><fmt:message key="map" bundle="${langue}"/></label>
-						<label name="miseAPrix">${article.getMiseAPrix()} points</label>
+						<label name="miseAPrix">${article.getMiseAPrix()} <fmt:message key="pts" bundle="${langue}"/></label>
 					</div>
 				</div>
 				<div class="form-row">
@@ -72,7 +72,7 @@
 											<input class="form-control" type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
 										</div>
 										<div class="form-group col-md-4">
-											<button class="btn btn-secondary">Enchérir</button>
+											<button class="btn btn-secondary"><fmt:message key="enchrir" bundle="${langue}"/></button>
 										</div>
 									</div>
 								</c:if>

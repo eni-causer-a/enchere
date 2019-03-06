@@ -146,15 +146,15 @@
 			<div class="col-md-4">
 				<c:if test="${select=='value2' and parame23!=null}">
 					<input type="checkbox" value="param23" name="param23" checked/>
-					<label style="color: black;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
+					<label style="color: black;" id="param231"><fmt:message key="termine" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value2' and parame23==null}">
 					<input type="checkbox" value="param23" name="param23" />
-					<label style="color: black;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
+					<label style="color: black;" id="param231"><fmt:message key="termine" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value2' and parame23==null}">
 					<input type="checkbox" value="param23" name="param23" disabled/>
-					<label style="color: #ccc;" id="param231">Ventes terminées</label>
+					<label style="color: #ccc;" id="param231"><fmt:message key="termine" bundle="${langue}"/></label>
 				</c:if>
 			</div>
 			</div>
@@ -222,10 +222,11 @@
 				    		<p style="postion: relative; padding-top:5px;"><span class="badge badge-pill badge-warning">Enchère Terminé</span></p>
 				    	</c:if>
 
-				    	<p><label style="font-weight : bold;">Catégorie : </label> ${article.getCategorie().getLibelle()}</p>
-				    	<p><label style="font-weight : bold;">Meilleur Offre : </label> ${article.getPrixVente()} points</p>
-				    	<p><label style="font-weight : bold;">Début : </label> ${article.printDateDebutEnchere()}</p>
-				    	<p><label style="font-weight : bold;">Fin : </label> ${article.printDateFinEnchere()}</p>
+					    <p><label style="font-weight : bold;"><fmt:message key="categorie" bundle="${langue}"/></label>${article.getCategorie().getLibelle()}</p>
+					    <p><label style="font-weight : bold;"><fmt:message key="meilleur_o" bundle="${langue}"/></label>${article.getPrixVente()} points</p>
+					    <p><label style="font-weight : bold;"><fmt:message key="a_debut" bundle="${langue}"/></label> ${article.printDateDebutEnchere()}</p>
+					    <p><label style="font-weight : bold;"><fmt:message key="a_fin" bundle="${langue}"/></label>${article.printDateFinEnchere()}</p>
+					    <!--  <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>-->
 
 
 				  </div>
