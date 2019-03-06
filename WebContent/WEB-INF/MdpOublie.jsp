@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +23,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<header class="py-3 bg-dark header-demodule fixed-top">
 	    <div class="row">
 	   		<div class="col-5">	
@@ -32,37 +36,27 @@
 	   		
 		</div>  
 	</header>
-	<h3 class="my-5 text-center">Mot de passe oublié</h3>
-	<div class="container">
+	<h3 class="my-5 text-center"><fmt:message key="mdpo_titre" bundle="${langue}"/></h3>
+	<div style="postion: relative; margin-left:425px;" class="container">
 		<form method="post" action="<%=request.getContextPath()%>/mdpoublie">
 			<c:if test="${loginError!=null}">
-					<div class="w-100"></div>
-					<div class="col-4"></div>
-				  	<div class="col">
-				  		<label class="label-danger">${loginError}</label>
+					<div class="form-row">
+						<div class="form-group">
+				  			<label class="label-danger">${loginError}</label>
+				  		</div>
 				  	</div>
-				  	<div class="col"></div>
-				  	<div class="col"></div>
-				</c:if>
-			<div class="row">
-				<div class="col-4"></div>
-				<div class="col-2">
-			  		<label>Email :</label>
-			  	</div>
-			  	<div class="col-2">
-			  		<input type="email" name="email" required>
-				</div>
-				
+			</c:if>
+			<div class="form-row">
+				<div class="form-group">
+			  		<label for="email"><fmt:message key="email" bundle="${langue}"/></label>
+			  		<input class="form-control" id="email" type="email" name="email" required>
+			  	</div>				
 			</div>
-			<br>
-			<div class="row">
-				<div class="col-6"></div>
-				<div class="col-2"> 
-					<button class="btn btn-secondary">Valider</button>
+			<div class="form-row">		
+				<div class="form-group"> 
+					<button class="btn btn-secondary"><fmt:message key="valider" bundle="${langue}"/></button>
 				</div>
-				<div class="col-5"></div>
-			<div class="w-100"></div>
-		</div>
+			</div>
 		</form>
 	</div>
     <!-- Footer -->

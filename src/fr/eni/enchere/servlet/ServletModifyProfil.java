@@ -52,31 +52,39 @@ public class ServletModifyProfil extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session= request.getSession(); 
 		UtilisateurManager um = new UtilisateurManager();
-		if(request.getParameter("boutonAnnuler")!=null) {
+		if(request.getParameter("boutonSupprimer")!=null) {
+			System.out.println("supr");
 			um.delete((Utilisateur) session.getAttribute("Utilisateur"));
 			session.removeAttribute("Utilisateur");
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}
 		else {
 			
-			System.out.println("ok");
-			
-			
 			
 			Utilisateur user;
 			user = new Utilisateur();
-			if(request.getParameter("motDePasse").equals("")) {
+			
+			if(request.getParameter("motDePasse").equals("") && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals((String) session.getAttribute("Utilisateur")))) {
 				user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse());
 			}else {
+				if(um.pseudoIsTaken(request.getParameter("pseudo")) && request.getParameter("pseudo").equals((String) session.getAttribute("Utilisateur"))) {
+					request.setAttribute("pseudoError", "true");
+				}
 
 				if(!(((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse().equals( request.getParameter("motDePasse")))) {
-					System.out.println("Mot de passe actuel FAUX");
-				}else if(!(request.getParameter("motDePasses") .equals( request.getParameter("confirmationMotDePasse")))) {
 					
-					System.out.println("Mot de passe non identique");
-				}else {
+						request.setAttribute("mdpError", "true");
+					
+				}
+				if(!(request.getParameter("motDePasses") .equals( request.getParameter("confirmationMotDePasse")))) {
+
+						request.setAttribute("mdpConfError", "true");
+				}
+				
+				if(request.getParameter("newMotDePasse").equals(request.getParameter("confirmationMotDePasse")) && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals((String) session.getAttribute("Utilisateur")))) {
 					System.out.println("modif");
-					user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("motDePasses"));
+					
+					user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("newMotDePasse"));
 				}
 			}
 			

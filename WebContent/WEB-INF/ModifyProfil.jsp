@@ -1,4 +1,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,6 +28,7 @@
 	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
 	<fmt:setLocale value="${LOCALE}"/>	
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
@@ -32,64 +37,85 @@
 		
 		<div class="form-row">
     		<div class="form-group col-md-6">
-      			<label for="inputPseudo">Pseudo</label>
-      			<input type="text" class="form-control" value="${user.pseudo}" name="pseudo" id="inputPseudo" placeholder="Pseudo">
+      			<label for="inputPseudo"><fmt:message key="pseudo" bundle="${langue}"/></label>
+      			<input type="text" class="form-control" value="${user.pseudo}" name="pseudo" id="inputPseudo" placeholder="<fmt:message key="pseudo" bundle="${langue}"/>">
     		</div>
     		<div class="form-group col-md-6">
       			<label for="inputNom"><fmt:message key="nom" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputNom" name="nom" value="${user.nom}" placeholder="Nom">
+      			<input type="text" class="form-control" id="inputNom" name="nom" value="${user.nom}" placeholder="<fmt:message key="nom" bundle="${langue}"/>">
     		</div>
     	</div>
+    	<c:if test="${pseudoError!=null}">
+	    	<div class="form-row">
+	    		<div class="form-group col-md-6">
+	      			<label style="color: red;" class="label-danger"><fmt:message key="errNewUser.exist" bundle="${errMessage}"/></label>
+	    		</div>
+	    	</div>
+	    </c:if>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputPrenom"><fmt:message key="prenom" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}" placeholder="Prenom">
+      			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}" placeholder="<fmt:message key="prenom" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputEmail"><fmt:message key="email" bundle="${langue}"/></label>
-      			<input type="email" class="form-control" id="inputEmail" name="email" value="${user.email}" placeholder="Email">
+      			<input type="email" class="form-control" id="inputEmail" name="email" value="${user.email}" placeholder="<fmt:message key="email" bundle="${langue}"/>">
     		</div>
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputTel"><fmt:message key="tel" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}" placeholder="T�l�phone">
+      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}" placeholder="<fmt:message key="tel" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputRue"><fmt:message key="rue" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputRue" name="rue" value="${user.rue}" placeholder="Rue">
+      			<input type="text" class="form-control" id="inputRue" name="rue" value="${user.rue}" placeholder="<fmt:message key="rue" bundle="${langue}"/>">
     		</div>
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputCp"><fmt:message key="cp" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputCp" name="codePostal" value="${user.codePostale}" placeholder="Code Postal">
+      			<input type="text" class="form-control" id="inputCp" name="codePostal" value="${user.codePostale}" placeholder="<fmt:message key="cp" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputVille"><fmt:message key="ville" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputVille" name="ville" value="${user.ville}" placeholder="Ville">
+      			<input type="text" class="form-control" id="inputVille" name="ville" value="${user.ville}" placeholder="<fmt:message key="ville" bundle="${langue}"/>">
     		</div>
     	</div>
     	<div class="form-group">
     			<label for="inputMdp"><fmt:message key="mdp_actuel" bundle="${langue}"/></label>
-      			<input type="password" class="form-control" id="inputMdp" name="motDePasse"  placeholder="Mot de passe">
+      			<input type="password" class="form-control" id="inputMdp" name="motDePasse"  placeholder="<fmt:message key="mdp_ph" bundle="${langue}"/>">
     	</div>
+    	<c:if test="${mdpError!=null}">
+	    	<div class="form-row">
+	    		<div class="form-group col-md-6">
+	      			<label style="color: red;" class="label-danger"><fmt:message key="errLog.Pass" bundle="${errMessage}"/></label>
+	    		</div>
+	    	</div>
+	    </c:if>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputMdpNew"><fmt:message key="new_mdp" bundle="${langue}"/></label>
-      			<input type="password" class="form-control" id="inputMdpNew" name="motDePasses"  placeholder="Nouveau Mot de passe">
+      			<input type="password" class="form-control" id="inputMdpNew" name="newMotDePasse"  placeholder="<fmt:message key="new_mdp" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputMdpNewC"><fmt:message key="mdp_conf" bundle="${langue}"/></label>
-      			<input type="password" class="form-control" id="inputMdpNewC" name="confirmationMotDePasse"  placeholder="Confirmation">
+      			<input type="password" class="form-control" id="inputMdpNewC" name="confirmationMotDePasse"  placeholder="<fmt:message key="mdp_conf" bundle="${langue}"/>">
     		</div>
     	</div>
+    	<c:if test="${mdpConfError!=null}">
+	    	<div class="form-row">
+	    		<div class="form-group col-md-6">
+	      			<label style="color: red;" class="label-danger"><fmt:message key="errConf.badConf" bundle="${errMessage}"/></label>
+	    		</div>
+	    	</div>
+	    </c:if>
 		<div class="form-row">
     		<div class="form-group  col-md-6">
     			<button name="boutonCreer" class="btn btn-secondary"><fmt:message key="save" bundle="${langue}"/></button>		
     		</div>
     		<div class="form-group  col-md-6">
-    			<button name="boutonAnnuler" class="btn btn-secondary"><fmt:message key="del_ac" bundle="${langue}"/></button>
+    			<button name="boutonSupprimer" class="btn btn-secondary"><fmt:message key="del_ac" bundle="${langue}"/></button>
     		</div>
     	</div>
 			 
