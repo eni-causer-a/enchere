@@ -34,7 +34,6 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) {
 			for (Cookie cookie : cookies) {
@@ -64,7 +63,7 @@ public class ServletConnexion extends HttpServlet {
 		//System.out.println(utilisateur);
 		if(utilisateur==null) {
 			request.setAttribute("Identifiant", id);
-			request.setAttribute("loginError", "Identifiant ou mot de passe erroné");
+			request.setAttribute("loginError", "true");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 			rd.forward(request, response);
 	

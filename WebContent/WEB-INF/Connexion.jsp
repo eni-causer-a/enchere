@@ -26,6 +26,7 @@
 	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
 	<fmt:setLocale value="${LOCALE}"/>	
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<header class="py-3 bg-dark header-demodule fixed-top">
 	    <div class="row">
 	   		<div class="col-5">	
@@ -59,10 +60,7 @@
 			<c:if test="${loginError!=null}">
 				<div class="form-row">
 					<div class="form-group col-md-6">					
-				  		<label style="color: red;" class="label-danger">${loginError}</label>
-					</div>
-					<div class="form-group col-md-6">
-						<input type="password" id="mdp" name="MotDePasse" required>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errLog.BadLog" bundle="${errMessage}"/></label>
 					</div>
 				</div>
 			</c:if>
@@ -70,6 +68,7 @@
 				<div class="form-group col-md-6">
 					<button class="btn btn-secondary"><fmt:message key="cnx" bundle="${langue}"/></button>
 				</div>
+				
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
@@ -77,10 +76,11 @@
 					<label for="SeSouvenirDeMoi"><fmt:message key="souvenir" bundle="${langue}"/></label>
 				</div>
 			</div>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<a href="mdpoublie"><fmt:message key="mdp_oublie" bundle="${langue}"/></a>
-				</div>
+			<div class="col-5"></div>
+			<div class="w-100"></div>
+			<div class="col-5"></div>
+			<div class="col-2">
+				<a href="mdpoublie"><fmt:message key="mdp_oublie" bundle="${langue}"/></a> <!-- <%=request.getContextPath()%>/ServletConnexion -->
 			</div>
 			
 		

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,16 +23,20 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
-		<h5 class="my-5 text-center">Modifier la vente</h5>
+		<h5 class="my-5 text-center"><fmt:message key="mv_titre" bundle="${langue}"/></h5>
 		<form method="post" action="<%=request.getContextPath()%>/ModifieVente">
 		    <div class="row">
 		    <input type="hidden" name="idArticle" value="${article.getNoArticle()}${idArticle}">
 		    	<div class="col"></div>
 				<div class="col">
-			  		<label>Article :</label>
+			  		<label><fmt:message key="article" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="nomArticle" value="${article.getNomArticle()}${nomArticle}" required>
@@ -41,7 +45,7 @@
 			  	<div class="w-100"></div>
 			  	<div class="col"></div>
 			  	<div class="col">
-			  		<label>Description :</label>
+			  		<label><fmt:message key="desc" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="description" value="${article.getDescription()}${description}">
@@ -50,7 +54,7 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Catégorie :</label>
+			  		<label><fmt:message key="categorie" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<select name="categorie")>
@@ -69,16 +73,16 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Photo de l'article :</label>
+			  		<label><fmt:message key="photo" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
-					<input type="button" value="Uploader">
+					<input type="button" value="<fmt:message key="up" bundle="${langue}"/>">
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Mise à prix :</label>
+			  		<label><fmt:message key="map" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="number" min="0" name="miseAPrix" value="${article.getMiseAPrix()}${miseAPrix}" required>
@@ -87,18 +91,18 @@
 				<div class="w-100"></div>
 				<div class="col-3"></div>
 			  	<div class="col-3">
-			  		<label>Début de l'enchère :</label>
+			  		<label><fmt:message key="debut" bundle="${langue}"/></label>
 			  	</div>
 			  	
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="debutEnchere" value="${formaterDate.format(article.getDateDebutEncheres())}${debutEnchere}" required> <label>  à  </label> <input type="time" name="debutEnchereTime" value="${formaterTime.format(article.getDateDebutEncheres())}${debutEnchereTime}" required>
+					<label><fmt:message key="le" bundle="${langue}"/></label>  <input type="date" name="debutEnchere" value="${formaterDate.format(article.getDateDebutEncheres())}${debutEnchere}" required> <label><fmt:message key="a" bundle="${langue}"/></label> <input type="time" name="debutEnchereTime" value="${formaterTime.format(article.getDateDebutEncheres())}${debutEnchereTime}" required>
 				</div> 
 				<div class="col-1"></div>
 				<c:if test="${dateDebutError!=null}">
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${dateDebutError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Debut" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>
@@ -106,17 +110,17 @@
 				<div class="w-100"></div>
 				<div class="col-3"></div>
 			  	<div class="col-3">
-			  		<label>Fin de l'enchère :</label>
+			  		<label><fmt:message key="fin" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col-5">
-					<label>Le  </label>  <input type="date" name="finEnchere" value="${formaterDate.format(article.getDateFinEncheres())}${finEnchere}" required> <label>  à  </label> <input type="time" name="finEnchereTime" value="${formaterTime.format(article.getDateFinEncheres())}${finEnchereTime}" required>
+					<label><fmt:message key="le" bundle="${langue}"/></label>  <input type="date" name="finEnchere" value="${formaterDate.format(article.getDateFinEncheres())}${finEnchere}" required> <label><fmt:message key="a" bundle="${langue}"/></label> <input type="time" name="finEnchereTime" value="${formaterTime.format(article.getDateFinEncheres())}${finEnchereTime}" required>
 				</div>
 				<div class="col-1"></div>
 				<c:if test="${dateFinError!=null}">
 					<div class="w-100"></div>
 					<div class="col-4"></div>
 				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${dateFinError}</label>
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Fin" bundle="${errMessage}"/></label>
 				  	</div>
 				  	<div class="col"></div>
 				  	<div class="col"></div>
@@ -127,12 +131,12 @@
 			<div class="row list-group-item  d-flex">
 				<div class="col-3"></div>
 				<div class="col">
-					<h6>Retrait :</h6>
+					<h6><fmt:message key="retrait" bundle="${langue}"/></h6>
 				</div>
 				<div class="w-100"></div>
 				<div class="col-4"></div>
 			  	<div class="col">
-			  		<label>Rue :</label>
+			  		<label><fmt:message key="rue" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="rue" value="${article.getRetrait().getRue()}${rue}" required>
@@ -141,7 +145,7 @@
 				<div class="w-100"></div>
 				<div class="col-4"></div>
 			  	<div class="col">
-			  		<label>Code postal :</label>
+			  		<label><fmt:message key="cp" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="codePostal" value="${article.getRetrait().getCode_postale()}${codeP}" required>
@@ -150,7 +154,7 @@
 				<div class="w-100"></div>
 				<div class="col-4"></div>
 			  	<div class="col">
-			  		<label>Ville :</label>
+			  		<label><fmt:message key="ville" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="ville" value="${article.getRetrait().getVille()}${ville}" required">
@@ -161,15 +165,15 @@
 			<div class="row">
 				<div class="col-4"></div>
 				<div class="col-1">
-					<button name="boutonEnregistrer" class="btn btn-secondary">Enregistrer</button>
+					<button name="boutonEnregistrer" class="btn btn-secondary"><fmt:message key="save" bundle="${langue}"/></button>
 				</div>
 				<div class="col-1"></div>
 				<div class="col-3">
-					<button name="boutonSupprimer" class="btn btn-secondary">Supprimer la vente</button>
+					<button name="boutonSupprimer" class="btn btn-secondary"><fmt:message key="mv_del" bundle="${langue}"/></button>
 				</div>
 				<div class="col-1"></div>
 				<div class="col-1">
-					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler">Annuler</a>
+					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler"><fmt:message key="annuler" bundle="${langue}"/></a>
 				</div>
 				<div class="col-5"></div>
 			</div>

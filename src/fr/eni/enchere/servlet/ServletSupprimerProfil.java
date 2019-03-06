@@ -1,9 +1,6 @@
 package fr.eni.enchere.servlet;
 
 import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,43 +8,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.enchere.bll.ArticleManager;
 import fr.eni.enchere.bll.UtilisateurManager;
+import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
- * Servlet implementation class ServletListeProfil
+ * Servlet implementation class ServletSupprimerProfil
  */
-@WebServlet("/ServletListeProfil")
-public class ServletListeProfil extends HttpServlet {
+@WebServlet("/ServletSupprimerProfil")
+public class ServletSupprimerProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletListeProfil() {
+    public ServletSupprimerProfil() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
-		request.setAttribute("utilisateur", utilisateur);
-		if(utilisateur!=null && utilisateur.isAdministareur()) {
+		
+		if (utilisateur.isAdministareur()) {
 			UtilisateurManager manager = new UtilisateurManager();
-			List<Utilisateur> listUtilisateur = manager.getAllUtilisateur();
-			request.setAttribute("listUser", listUtilisateur);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeProfil.jsp");
-			rd.forward(request, response);
+			String id = request.getParameter("userId");
+			Utilisateur userToDelete = manager.findUserById(Integer.parseInt(id));
+			manager.delete(userToDelete);
 		}
-		else {
-			response.sendRedirect(request.getContextPath()+"/Accueil");
-		}
+		
+		response.sendRedirect(request.getContextPath()+"/ServletListeProfil");
 	}
 
 	/**
