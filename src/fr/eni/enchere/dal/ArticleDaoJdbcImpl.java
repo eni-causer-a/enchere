@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.classfmt.JavaBinaryNames;
-
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.EtatVente;
@@ -83,12 +81,12 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	private static final String DELETE_RETRAIT="delete from RETRAITS\r\n" + 
 			"where no_article=?;";
 	
-	private static final String GETTOPENCHERE = "select distinct no_article, no_utilisateur from ENCHERES where no_utilisateur=?";
-	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_article = ? ;";
-	private static final String GETENCHEREOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0; ";
+	private static final String GETTOPENCHERE = "select distinct no_article, no_utilisateur from ENCHERES where no_utilisateur= ?";
+	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 and no_article = ? ;";
+	private static final String GETENCHEREOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ; ";
 	private static final String GETENCHEREREMP = "select * from ARTICLES_VENDUS where no_gagnant = ? ;";
-	private static final String ENCHEREENCOURSOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0; ";
-	private static final String ENCHEREOUVERTEREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 union select * from ARTICLES_VENDUS where no_gagnant = ? ;";
+	private static final String ENCHEREENCOURSOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ; ";
+	private static final String ENCHEREOUVERTEREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 union select * from ARTICLES_VENDUS where no_gagnant = ? ;";
 	private static final String ENCHEREENCOURSREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where no_gagnant = ? ";
 	
 	private static final String GETVENTEENCOURS = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ;" ;
@@ -222,7 +220,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			{
 				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 				Date date = new Date();
-				String uneDate = dateFormat.format(date);
+				//String uneDate = dateFormat.format(date);
 				
 				try {
 					if(dateFormat.parse(rs.getString("date_debut_encheres")).compareTo(date) >0)
@@ -240,7 +238,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 
 					}
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 				
