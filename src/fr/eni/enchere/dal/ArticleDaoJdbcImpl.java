@@ -209,8 +209,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		return art;
 	}
 	
-	public void getEtat(Article article) throws ParseException {
-		Utilisateur user = null;
+	public void getEtat(Article article)  {
 		
 		
 		try(Connection cnx = ConnectionProvider.getConnection();
@@ -221,23 +220,28 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			ResultSet rs = pstmtUser.executeQuery();
 			while(rs.next())
 			{
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 				Date date = new Date();
 				String uneDate = dateFormat.format(date);
 				
-				if(dateFormat.parse(rs.getString("date_debut_encheres")).compareTo(date) >0)
-				{
-					article.setEtatVente(EtatVente.CREE);
-					
-				}
-				else if (date.compareTo(dateFormat.parse(rs.getString("date_debut_encheres"))) >0 && dateFormat.parse(rs.getString("date_fin_encheres")).compareTo(date) >0 ) {
-					article.setEtatVente(EtatVente.EN_COURS);
+				try {
+					if(dateFormat.parse(rs.getString("date_debut_encheres")).compareTo(date) >0)
+					{
+						article.setEtatVente(EtatVente.CREE);
+						
+					}
+					else if (date.compareTo(dateFormat.parse(rs.getString("date_debut_encheres"))) >0 && dateFormat.parse(rs.getString("date_fin_encheres")).compareTo(date) >0 ) {
+						article.setEtatVente(EtatVente.EN_COURS);
 
-				}
-				else if(date.compareTo(dateFormat.parse(rs.getString("fin"))) >0)
-				{
-					article.setEtatVente(EtatVente.ENCHERE_TERMINE);
-					
+					}
+					else if(date.compareTo(dateFormat.parse(rs.getString("date_fin_encheres"))) >0)
+					{
+						article.setEtatVente(EtatVente.ENCHERE_TERMINE);
+
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 			}
@@ -1316,6 +1320,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							rsArticle.getInt("prix_initial"),
 							rsArticle.getInt("prix_vente"),
+							 article.getEtatVente(),
 							rsArticle.getString("image"),
 							 categorie,
 							 user);
@@ -1382,6 +1387,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							 new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							 rsArticle.getInt("prix_initial"),
 							 rsArticle.getInt("prix_vente"),
+							 article.getEtatVente(),
 								rsArticle.getString("image"),
 							 categorie,
 							 user);
@@ -1450,6 +1456,7 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							 new Date(rsArticle.getTimestamp("date_fin_encheres").getTime()),
 							 rsArticle.getInt("prix_initial"),
 							 rsArticle.getInt("prix_vente"),
+							 article.getEtatVente(),
 								rsArticle.getString("image"),
 							 categorie,
 							 user);

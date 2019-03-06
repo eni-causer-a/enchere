@@ -102,7 +102,7 @@ public class Article {
 	}
 	
 	public Article(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, EtatVente etatVente, Categorie categorie,Utilisateur proprietaire) {
+			Date dateFinEncheres, int miseAPrix, int prixVente, EtatVente etatVente,String photo, Categorie categorie,Utilisateur proprietaire) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -112,6 +112,7 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
+		this.photo = photo;
 		this.categorie = categorie;
 		this.proprietaire = proprietaire;
 		this.retire = false;

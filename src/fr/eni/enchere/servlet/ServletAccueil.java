@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.connector.Request;
 import org.apache.commons.lang3.StringUtils;
 
 import fr.eni.enchere.bll.ArticleManager;
@@ -23,7 +22,6 @@ import fr.eni.enchere.bll.CategorieManager;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Utilisateur;
-import fr.eni.enchere.dal.ArticleDaoJdbcImpl;
 
 import javax.servlet.RequestDispatcher;
 
@@ -52,6 +50,9 @@ public class ServletAccueil extends HttpServlet {
 		ArticleManager am = new ArticleManager();
 		List<Article> lesArticles = null;
 		lesArticles = am.getArticleEnCours();
+		for(Article article: lesArticles) {
+			am.getEtatVente(article);
+		}
 		request.setAttribute("lesArticles", lesArticles);
 
 		CategorieManager cm = new CategorieManager();
@@ -132,60 +133,74 @@ public class ServletAccueil extends HttpServlet {
 
 		if(param11 != null && param12 != null && param13 != null) {
 			lesArticles = am.getArticleEnCours();
+			
 
 		}
 		else if(param11 != null && param12 != null && param13 == null) {
 			lesArticles = am.getEnchereEnCoursOuverte(utilisateur);
+			
 		}
 		else if(param11 != null && param12 == null && param13 == null) {
 			lesArticles = am.getEnchereOuverte(utilisateur);
+			
 		}
 		else if(param11 == null && param12 != null && param13 == null) {
 			lesArticles = am.getEnchereEnCours(utilisateur);
+			
 
 		}
 		else if(param11 != null && param12 == null && param13 != null) {
 			lesArticles = am.getEnchereOuvertRemp(utilisateur);
+			
 
 		}
 		else if(param11 == null && param12 != null && param13 != null) {
 			lesArticles = am.getEnchereEnCourRemp(utilisateur);
+			
 
 		}
 		else if(param11 == null && param12 == null && param13 != null) {
 			lesArticles = am.getEnchereRemporte(utilisateur);
+			
 
 		}
 		else {
 			lesArticles = am.getArticleEnCours();
+			
 		}
 		
 		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		
 		if(param21 != null && param22 != null && param23 != null) {
 			lesArticles = am.getArticleEnCours();
+			
 
 		}
 		else if(param21 != null && param22 != null && param23 == null) {
 			lesArticles = am.getVenteNonDebEnCours(utilisateur);
+			
 		}
 		else if(param21 != null && param22 == null && param23 == null) {
 			lesArticles = am.getVenteEnCours(utilisateur);
+			
 		}
 		else if(param21 == null && param22 != null && param23 == null) {
 			lesArticles = am.getVenteDebute(utilisateur);
-
+			
 		}
 		else if(param21 != null && param22 == null && param23 != null) {
 			lesArticles = am.getVenteEnCoursTermine(utilisateur);
+			
 
 		}
 		else if(param21 == null && param22 != null && param23 != null) {
 			lesArticles = am.getVenteNonDebTermine(utilisateur);
+			
 
 		}
 		else if(param21 == null && param22 == null && param23 != null) {
 			lesArticles = am.getVenteTermine(utilisateur);
+			
 
 		}
 		else {
@@ -198,6 +213,8 @@ public class ServletAccueil extends HttpServlet {
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
 
 			for(Article article: lesArticles) {
+				am.getEtatVente(article);
+
 				if(am.trieWithCat(cat,article)!= null) {
 					lesArticlesTrie.add(am.trieWithCat(cat,article));
 
@@ -213,6 +230,7 @@ public class ServletAccueil extends HttpServlet {
 
 			String search = request.getParameter("filtre");
 			for(Article article: lesArticles) {
+				am.getEtatVente(article);
 				if(am.trieWithCatSearch(cat,search,article)!=null) {
 					lesArticlesTrie.add(am.trieWithCatSearch(cat,search,article));
 					System.out.println(search);
@@ -227,6 +245,8 @@ public class ServletAccueil extends HttpServlet {
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
 			String search = request.getParameter("filtre");
 			for(Article article: lesArticles) {
+				am.getEtatVente(article);
+
 				if(am.trieWithSearch(search,article)!= null) {
 					lesArticlesTrie.add(am.trieWithSearch(search,article));
 
@@ -237,6 +257,9 @@ public class ServletAccueil extends HttpServlet {
 
 		}
 		else {
+			for(Article article: lesArticles) {
+				am.getEtatVente(article);
+			}
 			request.setAttribute("lesArticles", lesArticles);
 
 		}

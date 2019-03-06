@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,60 +26,44 @@
 	<fmt:setLocale value="${LOCALE}"/>	
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
-	<h5 class="my-5 text-center"><fmt:message key="titre_info_pf" bundle="${langue}"/></h5>
-	<div class="row">
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="pseudo" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.pseudo}</div>
-			<div class="col"></div>		
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="nom" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.nom}</div>
-			<div class="col"></div>		
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="prenom" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.prenom}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="email" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.email}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="tel" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.telephone}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="rue" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.rue}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="cp" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.codePostale}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label><fmt:message key="ville" bundle="${langue}"/></label></div>
-			<div class="col-2">${user.ville}</div>
-			<div class="col"></div>	
+	
+	<div style="postion: relative; margin-left: 450px">
+	<h5 class="my-5"><fmt:message key="titre_info_pf" bundle="${langue}"/></h5>
+	<div class="form-row">
+			<div><label><fmt:message key="pseudo" bundle="${langue}"/> ${user.pseudo}</label></div>
 	</div>
-		
+	<div class="form-row">
+			<div><label><fmt:message key="nom" bundle="${langue}"/> ${user.nom}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label><fmt:message key="prenom" bundle="${langue}"/> ${user.prenom}</label></div>
+	</div>
+	<div class="form-row">
+			<div ><label><fmt:message key="email" bundle="${langue}"/> ${user.email}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label><fmt:message key="tel" bundle="${langue}"/> ${user.telephone}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label><fmt:message key="rue" bundle="${langue}"/> ${user.rue}</label></div>
+	</div>						
+	<div class="form-row">
+			<div><label><fmt:message key="cp" bundle="${langue}"/> ${user.codePostale}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label><fmt:message key="ville" bundle="${langue}"/> ${user.ville}</label></div>
+	</div>		
+			
+	
+	<div class="form-row">
 		<c:if test="${sessionScope.Utilisateur.getNoUtilisateur() == user.getNoUtilisateur()}">
 			<form action="modifProfil">
-			<br>
-			<div class="row">
-				<div class="col"></div>
-				<div class="col"><button class="btn btn-secondary"><fmt:message key="modifier" bundle="${langue}"/></button></div>
-				<div class="col"></div>
-				</div>
+				<div><button class="btn btn-secondary"><fmt:message key="modifier" bundle="${langue}"/></button></div>
 			</form>
 		</c:if>
-			
+	</div>
+	
+	</div>
 			
 	<!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">

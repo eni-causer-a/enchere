@@ -2,6 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,151 +25,122 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
-	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
-	<fmt:setLocale value="${LOCALE}"/>	
-	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
+	<div style="position: relative; margin-top: 30px;">
+		<h5  class="my-5 text-center"><fmt:message key="detail" bundle="${langue}"/></h5>
 	<div>
-		
-	
-		<h5 class="my-5 text-center"><fmt:message key="detail" bundle="${langue}"/></h5>
-		
-	    <div style="position: relative; left: 30px;" class="row">
-	    
-	    <div class="col"></div>
-		  	<div class="col">
-		  		<img style="position: relative;left: 100px;" src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>	
-		  	</div>
-		  	<div class="col"></div>
-			<div class="col"></div>
-		  	<div class="w-100"></div>
-		  	
-	    	<div class="col"></div>
-			<div style="postion: relative; left:-70px; padding-top:15px;" class="col">
-		  		<h6>${article.getNomArticle()}</h6>
-		  	</div>
-		  	<div class="w-100"></div>
-		  	
-		  	<br>
-		  	<div class="col-3"></div>
-		  	<div class="col-3">
-		  		<label><fmt:message key="desc" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col-3">
+	<div class="form-row">
+		<c:if test="${article.getPhoto() != null}">
+	    	<div class="form-group col-md-6">
+				  <img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
+			</div>
+		</c:if>	
+	    	
+	    	<div class="form-group col-md-6">
+	    		<div class="form-row">
+	    			<div class="form-group">
+						<h6>${article.getNomArticle()}</h6>
+					</div>
+				</div>
+				<div class="form-row">
+	    			<div class="form-group">
+						<label><fmt:message key="meilleur_o" bundle="${langue}"/></label>
+						<label name="meilleurOffre">${article.getPrixVente()} points <c:if test="${article.miseAPrix != article.prixVente }">par <a href="<%=request.getContextPath()%>/profil?user=${em.getLastEnchere(article).utilisateur.getNoUtilisateur()}">${em.getLastEnchere(article).utilisateur.pseudo}</a></c:if>   </label>
+					</div>
+				</div>
+				<div class="form-row">
+	    			<div class="form-group">
+						<label><fmt:message key="map" bundle="${langue}"/></label>
+						<label name="miseAPrix">${article.getMiseAPrix()} points</label>
+					</div>
+				</div>
+				<div class="form-row">
+	    			<div class="form-group">
+						<c:if test="${utilisateur!=null and utilisateur.getPseudo()!=article.getProprietaire().getPseudo() and enCours}">
+							<form method="post" action="<%=request.getContextPath()%>/DetailVente?idArticle=<%=request.getParameter("idArticle")%>">
+								<c:if test="${Utilisateur.pseudo != article.proprietaire.pseudo}">
+									<div class="form-row">
+										<div class="form-group col-md-4">
+											<label><fmt:message key="proposition" bundle="${langue}"/></label>
+										</div>
+										<div class="form-group col-md-4">
+											<input class="form-control" type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
+										</div>
+										<div class="form-group col-md-4">
+											<button class="btn btn-secondary">Enchérir</button>
+										</div>
+									</div>
+								</c:if>
+							</form>
+						</c:if>	
+					</div>
+				</div>
+				
+						
+			</div>
+
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<h6>${article.getNomArticle()}</h6>
+			</div>
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<label><fmt:message key="desc" bundle="${langue}"/></label>
 				<label name="description">${article.getDescription()}</label>
 			</div>
-			<div class="col-3"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label><fmt:message key="cat" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col">
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<label><fmt:message key="cat" bundle="${langue}"/></label>
 				<label name="categorie">${article.getCategorie().getLibelle()}</label>
 			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label><fmt:message key="meilleur_o" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col">
-				<label name="meilleurOffre">${article.getPrixVente()} points <c:if test="${article.miseAPrix != article.prixVente }">par <a href="<%=request.getContextPath()%>/profil?user=${em.getLastEnchere(article).utilisateur.getNoUtilisateur()}">${em.getLastEnchere(article).utilisateur.pseudo}</a></c:if>   </label>
-			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label><fmt:message key="map" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col">
-				<label name="miseAPrix">${article.getMiseAPrix()} points</label>
-			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label><fmt:message key="debut" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col">
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<label><fmt:message key="debut" bundle="${langue}"/></label>
 				<label name="debutEnchere">${article.printDateDebutEnchere()}</label>
 			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label><fmt:message key="fin" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col">
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<label><fmt:message key="fin" bundle="${langue}"/></label>
 				<label name="finEnchere">${article.printDateFinEnchere()}</label>
 			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label><fmt:message key="retrait" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col">
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<label><fmt:message key="retrait" bundle="${langue}"/></label>
 				<label name="retrait">${article.getRetrait().getRue()} ${article.getRetrait().getCode_postale()} ${article.getRetrait().getVille()}</label>
 			</div>
-			<div class="col"></div>
-			<div class="w-100"></div>
-			<div class="col"></div>
-		  	<div class="col">
-		  		<label><fmt:message key="vendeur" bundle="${langue}"/></label>
-		  	</div>
-		  	<div class="col">
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<label><fmt:message key="vendeur" bundle="${langue}"/></label>
 				<a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a>
 			</div>
-			<div class="col"></div>
-		</div>
-		<c:if test="${utilisateur!=null and utilisateur.getPseudo()!=article.getProprietaire().getPseudo() and enCours}">
-			<form method="post" action="<%=request.getContextPath()%>/DetailVente?idArticle=<%=request.getParameter("idArticle")%>">
-			<c:if test="${Utilisateur.pseudo != article.proprietaire.pseudo}">
-				<div class="row">
-					<div class="col"></div>
-				  	<div style="position: relative; left: 85px;" class="col">
-				  		<label><fmt:message key="proposition" bundle="${langue}"/></label>
-				  	</div>
-				  	
-				  	<div class="col">
-						<input class="form-control" type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
-					</div>
-					<div class="col">
-						<button class="btn btn-secondary"><fmt:message key="enchrir" bundle="${langue}"/></button>
-					</div>
-					<div class="col"></div>
-				</div>
-			</c:if>
-			</form>
-		</c:if>
-		<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo() and cree==true}">
-			<br>
-			<div class="row">
-				<div class="col-4"></div>
-			  	<div class="col-2">
-			  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary"><fmt:message key="modif" bundle="${langue}"/></a>
-			  	</div>
-				<div class="col"></div>
-			</div>
-		
-		</c:if>
-		
-		<c:if test="${ended ==true and article.getGagnant().getPseudo().equals(utilisateur.getPseudo())}">
-			<br>
-			<div class="row">
-				<div class="col-4"></div>
-			  	<div class="col-2">
-			  		<a href="<%=request.getContextPath()%>/ServletRetrait?idArticle=${article.getNoArticle()}" class="btn btn-secondary"><fmt:message key="retire" bundle="${langue}"/></a>
-			  	</div>
-				<div class="col"></div>
-			</div>
-		
-		</c:if>
-		
-		
 	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo() and cree==true}">
+			  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Modifier vente</a>
+				</c:if>
+			</div>
+	</div>
+	<div class="form-row">
+	    	<div class="form-group col-md-6">
+				<c:if test="${ended ==true and article.getGagnant().getPseudo().equals(utilisateur.getPseudo())}">
+			  		<a href="<%=request.getContextPath()%>/ServletRetrait?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Retiré</a>
+				</c:if>
+			</div>
+	</div>
+	
+
+	</div>
+	</div>
+	
 
 
     <!-- Footer -->

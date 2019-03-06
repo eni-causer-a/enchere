@@ -26,7 +26,7 @@
 	<h3 class="my-5 text-center">Crédits gratuit</h3>
 	<div class="container">
 		<form method="post" action="<%=request.getContextPath()%>/ezMoney">
-			<button>Cliquer pour gagner des crédits</button>
+			<button class="btn">Cliquer pour gagner des crédits</button>
 		</form>
 	</div>
     <!-- Footer -->
