@@ -19,7 +19,7 @@
 	   		</c:if>
 	   		
 	   		<c:if test="${utilisateur!=null}">
-	        	<div class="col-md-2"><h5 style="color: white;">${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} Crédits</h5></div>
+	        	<div class="col-md-2"><h5 style="color: white;">${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} <fmt:message key="crd" bundle="${langue}"/></h5></div>
 	        	<div class="col-md-1"><a href="<%=request.getContextPath()%>/NouvelleVente"><fmt:message key="menu_vendre" bundle="${langue}"/></a></div>
 	        	<div class="col-md-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}"><fmt:message key="menu_profil" bundle="${langue}"/></a></div>
 	        	<div class="col-md-1"><a href="<%=request.getContextPath()%>/ezMoney"><fmt:message key="menu_credit" bundle="${langue}"/></a></div>
