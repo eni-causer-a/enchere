@@ -38,11 +38,11 @@
 		<div class="form-row">
     		<div class="form-group col-md-6">
       			<label for="inputPseudo">Pseudo</label>
-      			<input type="text" class="form-control" value="${user.pseudo}" name="pseudo" id="inputPseudo" placeholder="Pseudo">
+      			<input type="text" class="form-control" value="${user.pseudo}${pseudo}" name="pseudo" id="inputPseudo" placeholder="Pseudo">
     		</div>
     		<div class="form-group col-md-6">
       			<label for="inputNom"><fmt:message key="nom" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputNom" name="nom" value="${user.nom}" placeholder="Nom">
+      			<input type="text" class="form-control" id="inputNom" name="nom" value="${user.nom}${nom}" placeholder="Nom">
     		</div>
     	</div>
     	<c:if test="${pseudoError!=null}">
@@ -55,31 +55,31 @@
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputPrenom"><fmt:message key="prenom" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}" placeholder="Prenom">
+      			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}${prenom}" placeholder="Prenom">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputEmail"><fmt:message key="email" bundle="${langue}"/></label>
-      			<input type="email" class="form-control" id="inputEmail" name="email" value="${user.email}" placeholder="Email">
+      			<input type="email" class="form-control" id="inputEmail" name="email" value="${user.email}${email}" placeholder="Email">
     		</div>
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputTel"><fmt:message key="tel" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}" placeholder="T�l�phone">
+      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}${telephone}" placeholder="T�l�phone">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputRue"><fmt:message key="rue" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputRue" name="rue" value="${user.rue}" placeholder="Rue">
+      			<input type="text" class="form-control" id="inputRue" name="rue" value="${user.rue}${rue}" placeholder="Rue">
     		</div>
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputCp"><fmt:message key="cp" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputCp" name="codePostal" value="${user.codePostale}" placeholder="Code Postal">
+      			<input type="text" class="form-control" id="inputCp" name="codePostal" value="${user.codePostale}${codePostal}" placeholder="Code Postal">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputVille"><fmt:message key="ville" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputVille" name="ville" value="${user.ville}" placeholder="Ville">
+      			<input type="text" class="form-control" id="inputVille" name="ville" value="${user.ville}${ville}" placeholder="Ville">
     		</div>
     	</div>
     	<div class="form-group">
