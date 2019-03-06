@@ -29,12 +29,12 @@
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
-		<h5 class="my-5 text-center">Nouvelle vente</h5>
+		<h5 class="my-5 text-center"><fmt:message key="new_v" bundle="${langue}"/></h5>
 		<form method="post" action="<%=request.getContextPath()%>/NouvelleVente" enctype="multipart/form-data">
 		    <div class="row">
 		    	<div class="col"></div>
 				<div class="col">
-			  		<label>Article :</label>
+			  		<label><fmt:message key="article" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" class="form-control" name="nomArticle" value="${nomArticle}" required>
@@ -43,7 +43,7 @@
 			  	<div class="w-100"></div>
 			  	<div class="col"></div>
 			  	<div class="col">
-			  		<label>Description :</label>
+			  		<label><fmt:message key="desc" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" class="form-control" name="description" value="${description}">
@@ -52,7 +52,7 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Catégorie :</label>
+			  		<label><fmt:message key="cat" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<select class="form-control" name="categorie">
@@ -72,7 +72,7 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label style="padding-left: 50px;">Photo de l'article :</label>
+			  		<label style="padding-left: 50px;"><fmt:message key="photo" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input style="padding-left: 100px;" class="btn" type="file" name="fileName" value="Uploader">
@@ -81,7 +81,7 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Mise à prix :</label>
+			  		<label><fmt:message key="map" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input class="form-control" type="number" min="0" name="miseAPrix" value="${miseAPrix}" required>
@@ -90,11 +90,11 @@
 				<div class="w-100"></div>
 				<div class="col-3"></div>
 			  	<div class="col-3">
-			  		<label>Début de l'enchère :</label>
+			  		<label><fmt:message key="debut" bundle="${langue}"/></label>
 			  	</div>
 			  	
 			  	<div class="col-5">
-					<label>Le  </label>  <input class="form-control" type="date" name="debutEnchere" value="${debutEnchere}" required> <label>  à  </label> <input class="form-control" type="time" name="debutEnchereTime" value="${debutEnchereTime}" required>
+					<label><fmt:message key="le" bundle="${langue}"/></label>  <input class="form-control" type="date" name="debutEnchere" value="${debutEnchere}" required> <label><fmt:message key="a" bundle="${langue}"/> </label> <input class="form-control" type="time" name="debutEnchereTime" value="${debutEnchereTime}" required>
 				</div> 
 				<div class="col-1"></div>
 				<c:if test="${dateDebutError!=null}">
@@ -109,10 +109,10 @@
 				<div class="w-100"></div>
 				<div class="col-3"></div>
 			  	<div class="col-3">
-			  		<label>Fin de l'enchère :</label>
+			  		<label><fmt:message key="fin" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col-5">
-					<label>Le  </label>  <input class="form-control" type="date" name="finEnchere" value="${finEnchere}" required> <label>  à  </label> <input class="form-control" type="time" name="finEnchereTime" value="${finEnchereTime}" required>
+					<label><fmt:message key="le" bundle="${langue}"/></label>  <input class="form-control" type="date" name="finEnchere" value="${finEnchere}" required> <label><fmt:message key="a" bundle="${langue}"/></label> <input class="form-control" type="time" name="finEnchereTime" value="${finEnchereTime}" required>
 				</div>
 				<div class="col-1"></div>
 				<c:if test="${dateFinError!=null}">
@@ -129,12 +129,12 @@
 			<div class="row list-group-item  d-flex">
 				<div class="col-3"></div>
 				<div class="col">
-					<h6>Retrait :</h6>
+					<h6><fmt:message key="retrait" bundle="${langue}"/></h6>
 				</div>
 				<div class="w-100"></div>
 				<div class="col-4"></div>
 			  	<div class="col">
-			  		<label>Rue :</label>
+			  		<label><fmt:message key="rue" bundle="${langue}"/></label>
 			  	</div>
 			  	<c:if test="${rue==null}">
 				  	<div class="col">
@@ -150,7 +150,7 @@
 				<div class="w-100"></div>
 				<div class="col-4"></div>
 			  	<div class="col">
-			  		<label>Code postal :</label>
+			  		<label><fmt:message key="cp" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 			  		<c:if test="${codeP==null}">
@@ -164,7 +164,7 @@
 				<div class="w-100"></div>
 				<div class="col-4"></div>
 			  	<div class="col">
-			  		<label>Ville :</label>
+			  		<label><fmt:message key="ville" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 			  		<c:if test="${ville==null}">
@@ -180,11 +180,11 @@
 			<div class="row">
 				<div class="col-4"></div>
 				<div class="col-1">
-					<button name="boutonEnregistrer" class="btn btn-secondary">Enregistrer</button>
+					<button name="boutonEnregistrer" class="btn btn-secondary"><fmt:message key="save" bundle="${langue}"/></button>
 				</div>
 				<div class="col-1"></div>
 				<div class="col-1">
-					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler">Annuler</a>
+					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler"><fmt:message key="annuler" bundle="${langue}"/></a>
 				</div>
 				<div class="col-5"></div>
 			</div>
