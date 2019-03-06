@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,12 +24,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div>
 		
 	
-		<h5 class="my-5 text-center">Détail vente</h5>
+		<h5 class="my-5 text-center"><fmt:message key="detail" bundle="${langue}"/></h5>
 		
 	    <div style="position: relative; left: 30px;" class="row">
 	    
@@ -50,7 +53,7 @@
 		  	<br>
 		  	<div class="col-3"></div>
 		  	<div class="col-3">
-		  		<label>Description :</label>
+		  		<label><fmt:message key="desc" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col-3">
 				<label name="description">${article.getDescription()}</label>
@@ -59,7 +62,7 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
-		  		<label>Catégorie :</label>
+		  		<label><fmt:message key="cat" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col">
 				<label name="categorie">${article.getCategorie().getLibelle()}</label>
@@ -68,7 +71,7 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
-		  		<label>Meilleur offre :</label>
+		  		<label><fmt:message key="meilleur_o" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col">
 				<label name="meilleurOffre">${article.getPrixVente()} points <c:if test="${article.miseAPrix != article.prixVente }">par <a href="<%=request.getContextPath()%>/profil?user=${em.getLastEnchere(article).utilisateur.getNoUtilisateur()}">${em.getLastEnchere(article).utilisateur.pseudo}</a></c:if>   </label>
@@ -77,7 +80,7 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
-		  		<label>Mise à prix :</label>
+		  		<label><fmt:message key="map" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col">
 				<label name="miseAPrix">${article.getMiseAPrix()} points</label>
@@ -86,7 +89,7 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
-		  		<label>Début de l'enchère :</label>
+		  		<label><fmt:message key="debut" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col">
 				<label name="debutEnchere">${article.printDateDebutEnchere()}</label>
@@ -95,7 +98,7 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
-		  		<label>Fin de l'enchère :</label>
+		  		<label><fmt:message key="fin" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col">
 				<label name="finEnchere">${article.printDateFinEnchere()}</label>
@@ -104,7 +107,7 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
-		  		<label>Retrait :</label>
+		  		<label><fmt:message key="retrait" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col">
 				<label name="retrait">${article.getRetrait().getRue()} ${article.getRetrait().getCode_postale()} ${article.getRetrait().getVille()}</label>
@@ -113,7 +116,7 @@
 			<div class="w-100"></div>
 			<div class="col"></div>
 		  	<div class="col">
-		  		<label>Vendeur :</label>
+		  		<label><fmt:message key="vendeur" bundle="${langue}"/></label>
 		  	</div>
 		  	<div class="col">
 				<a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a>
@@ -126,14 +129,14 @@
 				<div class="row">
 					<div class="col"></div>
 				  	<div style="position: relative; left: 85px;" class="col">
-				  		<label>Ma proposition :</label>
+				  		<label><fmt:message key="proposition" bundle="${langue}"/></label>
 				  	</div>
 				  	
 				  	<div class="col">
 						<input class="form-control" type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
 					</div>
 					<div class="col">
-						<button class="btn btn-secondary">Enchérir</button>
+						<button class="btn btn-secondary"><fmt:message key="enchrir" bundle="${langue}"/></button>
 					</div>
 					<div class="col"></div>
 				</div>
@@ -145,7 +148,7 @@
 			<div class="row">
 				<div class="col-4"></div>
 			  	<div class="col-2">
-			  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Modifier vente</a>
+			  		<a href="<%=request.getContextPath()%>/ModifieVente?idArticle=${article.getNoArticle()}" class="btn btn-secondary"><fmt:message key="modif" bundle="${langue}"/></a>
 			  	</div>
 				<div class="col"></div>
 			</div>
@@ -157,7 +160,7 @@
 			<div class="row">
 				<div class="col-4"></div>
 			  	<div class="col-2">
-			  		<a href="<%=request.getContextPath()%>/ServletRetrait?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Retiré</a>
+			  		<a href="<%=request.getContextPath()%>/ServletRetrait?idArticle=${article.getNoArticle()}" class="btn btn-secondary"><fmt:message key="retire" bundle="${langue}"/></a>
 			  	</div>
 				<div class="col"></div>
 			</div>
