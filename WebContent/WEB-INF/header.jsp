@@ -21,6 +21,9 @@
 		       	</div>
 	   		</c:if>
 	   		<c:if test="${utilisateur!=null}">
+	   			<c:if test="${utilisateur.isAdministareur()}">
+	   				<div class="col-1"><a href="<%=request.getContextPath()%>/ServletListeProfil">Liste profils</a></div>
+	   			</c:if>
 	        	<div class="col-2"><h5 style="color: white;">${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} Crédits</h5></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente"><fmt:message key="menu_vendre" bundle="${langue}"/></a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}"><fmt:message key="menu_profil" bundle="${langue}"/></a></div>
