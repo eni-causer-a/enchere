@@ -40,12 +40,10 @@
 	<form method="post" action="<%=request.getContextPath()%>/Accueil">
 	
 	<h3 class="my-5 text-center"><fmt:message key="liste_en" bundle="${langue}"/></h3>
-	<c:if test="${utilisateur!=null}">
-		
+	<c:if test="${utilisateur!=null}">	
 		<fieldset id="group1">
-		<br>
-			<div class="row">
-				<div class="col-3">
+			<div class="form-row">
+				<div class="col-md-4">
 					<c:if test="${select=='value1'}">
 				    	<input type="radio"  value="value1" name="groupe1" onclick="activeDesactive(this,1);" checked>
 				    	<label style="color: black;" id="achat"  for="groupe1"><fmt:message key="achat" bundle="${langue}"/></label>
@@ -56,7 +54,7 @@
 				    </c:if>
 			    	
 			    </div>
-			    <div class="col-3">
+			    <div class="col-md-4">
 			    	<c:if test="${select=='value2'}">
 				    	<input type="radio" value="value2" name="groupe1" onclick="activeDesactive(this,2);" checked>
 				    	<label style="color: black;" id="vente"  for="groupe1"><fmt:message key="vente" bundle="${langue}"/></label>
@@ -69,8 +67,8 @@
 			    </div>
 			</div>
 		</fieldset>
-		<div class="row">
-			<div class="col-3">
+		<div class="form-row">
+			<div class="col-md-4">
 				<c:if test="${select=='value1' and parame11!=null}">
 					<input type="checkbox" value="param11" name="param11" checked />
 					<label style="color: black;" id="param111"><fmt:message key="ouverte" bundle="${langue}"/></label>
@@ -84,7 +82,7 @@
 					<label style="color: #ccc;" id="param111"><fmt:message key="ouverte" bundle="${langue}"/></label>
 				</c:if>
 			</div>
-			<div class="col-3">
+			<div class="col-md-4">
 				<c:if test="${select=='value2' and parame21!=null}">
 					<input type="checkbox" value="param21" name="param21"  checked/>
 					<label style="color: black;" id="param211"><fmt:message key="en_cours" bundle="${langue}"/></label>
@@ -99,8 +97,9 @@
 				</c:if>
 			
 			</div>
-			<div class="w-100"></div>
-			<div class="col-3">
+			</div>
+			<div class="form-row">
+			<div class="col-md-4">
 				<c:if test="${select=='value1' and parame12!=null}">
 					<input type="checkbox" value="param12" name="param12" checked/>
 					<label style="color: black;" id="param121"><fmt:message key="en_cours_c" bundle="${langue}"/></label>
@@ -114,7 +113,7 @@
 					<label style="color: #ccc;" id="param121"><fmt:message key="en_cours_c" bundle="${langue}"/></label>
 				</c:if>
 			</div>
-			<div class="col-3">
+			<div class="col-md-4">
 				<c:if test="${select=='value2' and parame22!=null}">
 					<input type="checkbox" value="param22" name="param22" checked/>
 					<label style="color: black;" id="param221"><fmt:message key="non_débuté" bundle="${langue}"/></label>
@@ -128,8 +127,9 @@
 					<label style="color: #ccc;" id="param221"><fmt:message key="non_débuté" bundle="${langue}"/></label>
 				</c:if>
 			</div>
-			<div class="w-100"></div>
-			<div class="col-3">
+			</div>
+			<div class="form-row">
+			<div class="col-md-4">
 				<c:if test="${select=='value1' and parame13!=null}">
 					<input type="checkbox" value="param13" name="param13" checked />
 					<label style="color: black;" id="param131"><fmt:message key="remporté" bundle="${langue}"/></label>
@@ -143,7 +143,7 @@
 					<label style="color: #ccc;" id="param131"><fmt:message key="remporté" bundle="${langue}"/></label>
 				</c:if>
 			</div>
-			<div class="col-3">
+			<div class="col-md-4">
 				<c:if test="${select=='value2' and parame23!=null}">
 					<input type="checkbox" value="param23" name="param23" checked/>
 					<label style="color: black;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
@@ -157,8 +157,9 @@
 					<label style="color: #ccc;" id="param231">Ventes terminées</label>
 				</c:if>
 			</div>
+			</div>
 			
-		</div>
+		
 	</c:if>
 	<br>
 	<h3><fmt:message key="filtre" bundle="${langue}"/></h3>
@@ -201,44 +202,36 @@
 		</ul>
 	</div>-->
 	<br>
-	<div class="row">
+	<div class="form-row">
 		<c:forEach var="article" items="${lesArticles}">
-			<div class="col-6" style="margin-bottom: 2%;">
+			<div class="form-group col-md-6">
 				<div class="card" style="width: 25rem;">
 				  <div class="card-body">
-				    <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a></h5>
-				    <p class="card-text">${article.getDescription()}</p>
-				    
-				    <img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
-				    <p>Meilleur Offre : ${article.getPrixVente()} points</p>
-				    <p>Début : ${article.printDateDebutEnchere()}</p>
-				    <p>Fin : ${article.printDateFinEnchere()}</p>
-				    <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>
+				    	<h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle().toUpperCase()}</a></h5>
+				    	<c:if test="${article.getPhoto() != null}">
+				    		<img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
+				    	</c:if>
+				    		<p style="position: relative; margin-top: 10px;" class="card-text">${article.getDescription()}</p>
+				    	<c:if test="${article.getEtatVente() == 'CREE'}">
+				    		<p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-primary">Non débutée</span></p>
+				    	</c:if>
+				    	<c:if test="${article.getEtatVente() == 'EN_COURS'}">
+				    		<p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-success">Enchère en cours</span></p>
+				    	</c:if>
+				    	<c:if test="${article.getEtatVente() == 'ENCHERE_TERMINE'}">
+				    		<p style="postion: relative; padding-top:5px;"><span class="badge badge-pill badge-warning">Enchère Terminé</span></p>
+				    	</c:if>
 
-
-				    <p><label style="font-weight : bold;">Catégorie : </label>${article.getCategorie().getLibelle()}</p>
-				    <p><label style="font-weight : bold;">Meilleur Offre : </label>${article.getPrixVente()} points</p>
-				    <p><label style="font-weight : bold;">Début : </label> ${article.printDateDebutEnchere()}</p>
-				    <p><label style="font-weight : bold;">Fin : </label>${article.printDateFinEnchere()}</p>
-				    <!--  <p>Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></p>-->
+				    	<p><label style="font-weight : bold;">Catégorie : </label> ${article.getCategorie().getLibelle()}</p>
+				    	<p><label style="font-weight : bold;">Meilleur Offre : </label> ${article.getPrixVente()} points</p>
+				    	<p><label style="font-weight : bold;">Début : </label> ${article.printDateDebutEnchere()}</p>
+				    	<p><label style="font-weight : bold;">Fin : </label> ${article.printDateFinEnchere()}</p>
 
 
 				  </div>
-				  
-				  <!--  
-					  <ul class="list-group list-group-flush">
-					    <li class="list-group-item">MeilleurOffre : ${article.getPrixVente()} points</li>
-					    <li class="list-group-item">Début : ${article.printDateDebutEnchere()}</li>
-					    <li class="list-group-item">Fin : ${article.printDateFinEnchere()}</li>
-					    <li class="list-group-item">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></li>
-					    <!--<li class="list-group-item">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></li>
-					  </ul>
-					 -->
 				</div>
 			</div>
-			
 		</c:forEach>
-
 	</div>
 
 	<br>

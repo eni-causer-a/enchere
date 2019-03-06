@@ -21,61 +21,44 @@
 </head>
 <body class="container">
 	<jsp:include page="/WEB-INF/header.jsp" />
-	<h5 class="my-5 text-center">Informations Profil</h5>
-	<div class="row">
-			<div class="col-4"></div>
-			<div class="col-2"><label>Pseudo :</label></div>
-			<div class="col-2">${user.pseudo}</div>
-			<div class="col"></div>		
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label>Nom :</label></div>
-			<div class="col-2">${user.nom}</div>
-			<div class="col"></div>		
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label>Prénom :</label></div>
-			<div class="col-2">${user.prenom}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label>Email :</label></div>
-			<div class="col-2">${user.email}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label>Telephone :</label></div>
-			<div class="col-2">${user.telephone}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label>Rue :</label></div>
-			<div class="col-2">${user.rue}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label>Code Postal :</label></div>
-			<div class="col-2">${user.codePostale}</div>
-			<div class="col"></div>	
-		<div class="w-100"></div>
-			<div class="col-4"></div>
-			<div class="col-2"><label>Ville :</label></div>
-			<div class="col-2">${user.ville}</div>
-			<div class="col"></div>	
+	
+	<div style="postion: relative; margin-left: 450px">
+	<h5 class="my-5">Informations Profil</h5>
+	<div class="form-row">
+			<div><label>Pseudo : ${user.pseudo}</label></div>
 	</div>
-		
+	<div class="form-row">
+			<div><label>Nom : ${user.nom}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label>Nom : ${user.prenom}</label></div>
+	</div>
+	<div class="form-row">
+			<div ><label>Email : ${user.email}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label>Téléphone : ${user.telephone}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label>Rue : ${user.rue}</label></div>
+	</div>						
+	<div class="form-row">
+			<div><label>Code Postal : ${user.codePostale}</label></div>
+	</div>
+	<div class="form-row">
+			<div><label>Ville : ${user.ville}</label></div>
+	</div>		
+			
+	
+	<div class="form-row">
 		<c:if test="${sessionScope.Utilisateur.getNoUtilisateur() == user.getNoUtilisateur()}">
 			<form action="modifProfil">
-			<br>
-			<div class="row">
-				<div class="col"></div>
-				<div class="col"><button class="btn btn-secondary">Modifier</button></div>
-				<div class="col"></div>
-				</div>
+				<div><button class="btn btn-secondary">Modifier</button></div>
 			</form>
 		</c:if>
+	</div>
 	
-		
+	</div>
 			
 	<!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">

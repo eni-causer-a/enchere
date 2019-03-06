@@ -36,57 +36,50 @@
 		</div>  
 	</header>
 	<h3 class="my-5 text-center">Connexion</h3>
-	<div class="container">
+	<div class="container" style="position: relative; margin-left: 425px;">
 		<form method="post" action="<%=request.getContextPath()%>/Connexion">
-			<div class="row">
-				<div class="col-4"></div>
-				<div class="col-2">
-			  		<label>Identifiant :</label>
-			  	</div>
-			  	<div class="col-2">
-			  		<input type="text" name="Identifiant" value="${Identifiant}" required>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="id">Identifiant :</label>
+					<input type="text" id="id" class="form-control w-50" name="Identifiant" value="${Identifiant}" required>
 				</div>
-				<div class="col-4"></div>
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-				<div class="col-2">
-				  	<label>Mot de passe :</label>
-				</div>
-				<div class="col-2">
-				  	<input type="password" name="MotDePasse" required>
-				</div>
-				<div class="col-4"></div>
-				<c:if test="${loginError!=null}">
-					<div class="w-100"></div>
-					<div class="col-5"></div>
-				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger">${loginError}</label>
-				  	</div>
-				  	<div class="col"></div>
-				  	<div class="col"></div>
-				</c:if>
+				
 			</div>
-			<br>
-			<div class="row">
-				<div class="col-6"></div>
-				<div class="col-2">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="mdp">Mot de passe :</label>
+					<input type="password" id="mdp" class="form-control w-50" name="MotDePasse" required>
+				</div>
+			</div>
+			
+			<c:if test="${loginError!=null}">
+				<div class="form-row">
+					<div class="form-group col-md-6">					
+				  		<label style="color: red;" class="label-danger">${loginError}</label>
+					</div>
+					<div class="form-group col-md-6">
+						<input type="password" id="mdp" name="MotDePasse" required>
+					</div>
+				</div>
+			</c:if>
+			<div class="form-row">
+				<div class="form-group col-md-6">
 					<button class="btn btn-secondary">Connexion</button>
 				</div>
-				<div class="col-5"></div>
-			<div class="w-100"></div>
-			<div class="col-5"></div>
-			<div class="col-2">
-				<input type="checkbox" id="SeSouvenirDeMoi" name="SeSouvenirDeMoi" checked>
-				<label for="SeSouvenirDeMoi">Se souvenir de moi</label>
 			</div>
-			<div class="col-5"></div>
-			<div class="w-100"></div>
-			<div class="col-5"></div>
-			<div class="col-2">
-				<a href="mdpoublie">Mot de passe oublié</a> <!-- <%=request.getContextPath()%>/ServletConnexion -->
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<input type="checkbox" id="SeSouvenirDeMoi" name="SeSouvenirDeMoi" checked>
+					<label for="SeSouvenirDeMoi">Se souvenir de moi</label>
+				</div>
 			</div>
-			<div class="col-5"></div>
-		</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<a href="mdpoublie">Mot de passe oublié</a>
+				</div>
+			</div>
+			
+		
 		</form>
 	</div>
     <!-- Footer -->

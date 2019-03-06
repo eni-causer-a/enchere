@@ -33,36 +33,26 @@
 		</div>  
 	</header>
 	<h3 class="my-5 text-center">Mot de passe oublié</h3>
-	<div class="container">
+	<div style="postion: relative; margin-left:425px;" class="container">
 		<form method="post" action="<%=request.getContextPath()%>/mdpoublie">
 			<c:if test="${loginError!=null}">
-					<div class="w-100"></div>
-					<div class="col-4"></div>
-				  	<div class="col">
-				  		<label class="label-danger">${loginError}</label>
+					<div class="form-row">
+						<div class="form-group">
+				  			<label class="label-danger">${loginError}</label>
+				  		</div>
 				  	</div>
-				  	<div class="col"></div>
-				  	<div class="col"></div>
-				</c:if>
-			<div class="row">
-				<div class="col-4"></div>
-				<div class="col-2">
-			  		<label>Email :</label>
-			  	</div>
-			  	<div class="col-2">
-			  		<input type="email" name="email" required>
-				</div>
-				
+			</c:if>
+			<div class="form-row">
+				<div class="form-group">
+			  		<label for="email">Email :</label>
+			  		<input class="form-control" id="email" type="email" name="email" required>
+			  	</div>				
 			</div>
-			<br>
-			<div class="row">
-				<div class="col-6"></div>
-				<div class="col-2"> 
+			<div class="form-row">		
+				<div class="form-group"> 
 					<button class="btn btn-secondary">Valider</button>
 				</div>
-				<div class="col-5"></div>
-			<div class="w-100"></div>
-		</div>
+			</div>
 		</form>
 	</div>
     <!-- Footer -->

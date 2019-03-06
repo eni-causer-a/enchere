@@ -1,5 +1,6 @@
 package fr.eni.enchere.bll;
 
+import java.text.ParseException;
 import java.util.List;
 
 import fr.eni.enchere.bo.Article;
@@ -21,6 +22,10 @@ public class ArticleManager {
 	}
 	public List<Article> getArticleEnCours() {
 		return articleDao.getArticleEnCours();
+	}
+	
+	public void getEtatVente(Article article) {
+		articleDao.getEtat(article);
 	}
 	
 
