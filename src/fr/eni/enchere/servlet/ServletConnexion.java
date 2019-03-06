@@ -61,7 +61,7 @@ public class ServletConnexion extends HttpServlet {
 		UtilisateurManager utilisateurManager=new UtilisateurManager();
 		Utilisateur utilisateur=utilisateurManager.getUtilisateur(id,mdp);
 		//System.out.println(utilisateur);
-		if(utilisateur==null) {
+		if(utilisateur==null || utilisateur.isActivate()==false) {
 			request.setAttribute("Identifiant", id);
 			request.setAttribute("loginError", "true");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");

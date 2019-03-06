@@ -32,20 +32,17 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String UPDATEUSER = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=? where no_utilisateur = ? ; ";
 
-	private static final String GETACHATUSER = "select distinct ";
-	
-	
 	private static final String DELETEUSER = "update UTILISATEURS set mot_de_passe='' where no_utilisateur = ? ;";
 	private static final String DELETE_ARTICLE="delete from ARTICLES_VENDUS \r\n" + 
 			"where no_utilisateur=?\r\n" + 
 			"AND date_fin_encheres > GETDATE();";
 	private static final String DELETE_ENCHERE="delete from ENCHERES\r\n" + 
-			"where no_article=(\r\n" + 
+			"where no_article IN (\r\n" + 
 			"	select no_article from ARTICLES_VENDUS\r\n" + 
 			"	where no_utilisateur=?\r\n" + 
 			"	AND date_fin_encheres > GETDATE());";
 	private static final String DELETE_RETRAIT="delete from RETRAITS\r\n" + 
-			"where no_article=(\r\n" + 
+			"where no_article IN (\r\n" + 
 			"	select no_article from ARTICLES_VENDUS\r\n" + 
 			"	where no_utilisateur=?\r\n" + 
 			"	AND date_fin_encheres > GETDATE());";

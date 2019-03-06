@@ -37,8 +37,14 @@ public class ServletSupprimerProfil extends HttpServlet {
 		if (utilisateur.isAdministareur()) {
 			UtilisateurManager manager = new UtilisateurManager();
 			String id = request.getParameter("userId");
-			Utilisateur userToDelete = manager.findUserById(Integer.parseInt(id));
-			manager.delete(userToDelete);
+			Utilisateur selectedUser = manager.findUserById(Integer.parseInt(id));
+			if (selectedUser.isActivate()) {
+				manager.delete(selectedUser);
+			}
+			else {
+				manager.activate(selectedUser);
+			}
+			
 		}
 		
 		response.sendRedirect(request.getContextPath()+"/ServletListeProfil");

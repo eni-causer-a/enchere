@@ -27,7 +27,14 @@
 		<td><a href="<%=request.getContextPath()%>/profil?user=${user.getNoUtilisateur()}">${user.getPseudo()}</a></td>
 		<td>${user.getNom()}</td>
 		<td>${user.getPrenom()}</td>
-		<td><a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Supprimer</a></td>
+		<c:if test="${user.isActivate()==true}">
+			<td><p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-success">Activée</span></p></td>
+			<td><a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Désactiver</a></td>
+		</c:if>
+		<c:if test="${user.isActivate()==false}">
+			<td><p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-danger">Désactivé</span></p></td>
+			<td><a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Activer</a></td>
+		</c:if>
 	<tr/>
 	</c:forEach>
 	</table>

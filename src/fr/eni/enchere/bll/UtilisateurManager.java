@@ -1,6 +1,5 @@
 package fr.eni.enchere.bll;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.enchere.bo.Article;
@@ -40,12 +39,7 @@ public class UtilisateurManager {
 	}
 	
 	public Utilisateur findUserById(int id) {
-		Utilisateur user =utilisateurDao.findUserById(id);
-		Utilisateur res = null;
-		if (user != null && user.isActivate()) {
-			res = user;
-		}
-		return res;
+		return utilisateurDao.findUserById(id);
 	}
 	
 	public boolean pseudoIsTaken(String pseudo) {
@@ -73,14 +67,7 @@ public class UtilisateurManager {
 	}
 	
 	public List<Utilisateur> getAllUtilisateur(){
-		List<Utilisateur> listUser = this.utilisateurDao.getAllUtilisateurs();
-		List<Utilisateur> res = new ArrayList<Utilisateur>();
-		for (int i = 0; i < listUser.size(); i++) {
-			if (listUser.get(i).isActivate()) {
-				res.add(listUser.get(i));
-			}
-		}
-		return res;
+		return this.utilisateurDao.getAllUtilisateurs();
 	}
 	
 	public void activate(Utilisateur user) {
@@ -88,7 +75,7 @@ public class UtilisateurManager {
 			this.utilisateurDao.setActivate(user, true);
 		}
 	}
-	public void Desactivate(Utilisateur user) {
+	public void desactivate(Utilisateur user) {
 		if (user !=null) {
 			this.utilisateurDao.setActivate(user, false);
 		}
