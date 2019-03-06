@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +23,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<header class="py-3 bg-dark header-demodule fixed-top">
 	    <div class="row">
 	   		<div class="col-5">	
@@ -31,23 +35,23 @@
 	   		</div>
 	   		<div class="col-1"></div>
 	   		<div class="col-6">
-	        	<a href="<%=request.getContextPath()%>/NouveauProfil">Créer un compte </a>
+	        	<a href="<%=request.getContextPath()%>/NouveauProfil"><fmt:message key="creer_compte" bundle="${langue}"/> </a>
 	       	</div>
 		</div>  
 	</header>
-	<h3 class="my-5 text-center">Connexion</h3>
+	<h3 class="my-5 text-center"><fmt:message key="cnx" bundle="${langue}"/></h3>
 	<div class="container" style="position: relative; margin-left: 425px;">
 		<form method="post" action="<%=request.getContextPath()%>/Connexion">
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label for="id">Identifiant :</label>
+					<label for="id"><fmt:message key="id" bundle="${langue}"/></label>
 					<input type="text" id="id" class="form-control w-50" name="Identifiant" value="${Identifiant}" required>
 				</div>
 				
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label for="mdp">Mot de passe :</label>
+					<label for="mdp"><fmt:message key="mdp" bundle="${langue}"/></label>
 					<input type="password" id="mdp" class="form-control w-50" name="MotDePasse" required>
 				</div>
 			</div>
@@ -64,18 +68,18 @@
 			</c:if>
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<button class="btn btn-secondary">Connexion</button>
+					<button class="btn btn-secondary"><fmt:message key="cnx" bundle="${langue}"/></button>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<input type="checkbox" id="SeSouvenirDeMoi" name="SeSouvenirDeMoi" checked>
-					<label for="SeSouvenirDeMoi">Se souvenir de moi</label>
+					<label for="SeSouvenirDeMoi"><fmt:message key="souvenir" bundle="${langue}"/></label>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<a href="mdpoublie">Mot de passe oublié</a>
+					<a href="mdpoublie"><fmt:message key="mdp_oublie" bundle="${langue}"/></a>
 				</div>
 			</div>
 			

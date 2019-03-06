@@ -29,4 +29,6 @@ public interface UtilisateurDao {
 	public boolean setRecup(int nb);
 	
 	public void endRecup(int nb, String mdp);
+	
+	public List<Utilisateur> getAllUtilisateurs();
 }

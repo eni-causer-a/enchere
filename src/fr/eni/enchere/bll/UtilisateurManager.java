@@ -60,4 +60,8 @@ public class UtilisateurManager {
 	public void endRecup(int nb, String mdp) {
 		utilisateurDao.endRecup(nb, mdp);
 	}
+	
+	public List<Utilisateur> getAllUtilisateur(){
+		return this.utilisateurDao.getAllUtilisateurs();
+	}
 }

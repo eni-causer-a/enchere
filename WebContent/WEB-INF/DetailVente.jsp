@@ -27,7 +27,7 @@
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div style="position: relative; margin-top: 30px;">
-		<h5  class="my-5 text-center">Détail vente</h5>
+		<h5  class="my-5 text-center"><fmt:message key="detail" bundle="${langue}"/></h5>
 	<div>
 	<div class="form-row">
 		<c:if test="${article.getPhoto() != null}">
@@ -44,13 +44,13 @@
 				</div>
 				<div class="form-row">
 	    			<div class="form-group">
-						<label>Meilleur offre :</label>
+						<label><fmt:message key="meilleur_o" bundle="${langue}"/></label>
 						<label name="meilleurOffre">${article.getPrixVente()} points <c:if test="${article.miseAPrix != article.prixVente }">par <a href="<%=request.getContextPath()%>/profil?user=${em.getLastEnchere(article).utilisateur.getNoUtilisateur()}">${em.getLastEnchere(article).utilisateur.pseudo}</a></c:if>   </label>
 					</div>
 				</div>
 				<div class="form-row">
 	    			<div class="form-group">
-						<label>Mise à prix :</label>
+						<label><fmt:message key="map" bundle="${langue}"/></label>
 						<label name="miseAPrix">${article.getMiseAPrix()} points</label>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 								<c:if test="${Utilisateur.pseudo != article.proprietaire.pseudo}">
 									<div class="form-row">
 										<div class="form-group col-md-4">
-											<label>Ma proposition :</label>
+											<label><fmt:message key="proposition" bundle="${langue}"/></label>
 										</div>
 										<div class="form-group col-md-4">
 											<input class="form-control" type="number" min="${article.getPrixVente()+1}" value="${article.getPrixVente()+1}" name="miseAPrix">
@@ -87,37 +87,37 @@
 	</div>
 	<div class="form-row">
 	    	<div class="form-group col-md-6">
-				<label>Description :</label>
+				<label><fmt:message key="desc" bundle="${langue}"/></label>
 				<label name="description">${article.getDescription()}</label>
 			</div>
 	</div>
 	<div class="form-row">
 	    	<div class="form-group col-md-6">
-				<label>Catégorie :</label>
+				<label><fmt:message key="cat" bundle="${langue}"/></label>
 				<label name="categorie">${article.getCategorie().getLibelle()}</label>
 			</div>
 	</div>
 	<div class="form-row">
 	    	<div class="form-group col-md-6">
-				<label>Début de l'enchère :</label>
+				<label><fmt:message key="debut" bundle="${langue}"/></label>
 				<label name="debutEnchere">${article.printDateDebutEnchere()}</label>
 			</div>
 	</div>
 	<div class="form-row">
 	    	<div class="form-group col-md-6">
-				<label>Fin de l'enchère :</label>
+				<label><fmt:message key="fin" bundle="${langue}"/></label>
 				<label name="finEnchere">${article.printDateFinEnchere()}</label>
 			</div>
 	</div>
 	<div class="form-row">
 	    	<div class="form-group col-md-6">
-				<label>Retrait :</label>
+				<label><fmt:message key="retrait" bundle="${langue}"/></label>
 				<label name="retrait">${article.getRetrait().getRue()} ${article.getRetrait().getCode_postale()} ${article.getRetrait().getVille()}</label>
 			</div>
 	</div>
 	<div class="form-row">
 	    	<div class="form-group col-md-6">
-				<label>Vendeur :</label>
+				<label><fmt:message key="vendeur" bundle="${langue}"/></label>
 				<a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a>
 			</div>
 	</div>

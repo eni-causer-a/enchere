@@ -20,12 +20,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div style="postion: relative; margin-left: 450px">
-	<h5 class="my-5">Informations Profil</h5>
+	<h5 class="my-5"><fmt:message key="titre_info_pf" bundle="${langue}"/></h5>
 	<div class="form-row">
-			<div><label>Pseudo : ${user.pseudo}</label></div>
+			<div><label><fmt:message key="pseudo" bundle="${langue}"/> ${user.pseudo}</label></div>
 	</div>
 	<div class="form-row">
 			<div><label>Nom : ${user.nom}</label></div>

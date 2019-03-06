@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +23,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<header class="py-3 bg-dark header-demodule fixed-top">
 	    <div class="row">
 	   		<div class="col-5">	
@@ -33,19 +37,19 @@
 	</header>
 	
 	<div>
-		<h5 class="my-5 text-center">Mon Profil</h5>
+		<h5 class="my-5 text-center"><fmt:message key="mon_pf" bundle="${langue}"/></h5>
 		<form method="post" action="<%=request.getContextPath()%>/NouveauProfil">
 		    <div class="row">
 		    	<div class="col"></div>
 				<div class="col">
-			  		<label>Pseudo :</label>
+			  		<label><fmt:message key="pseudo" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="pseudo" value="${pseudo}" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Nom :</label>
+			  		<label><fmt:message key="nom" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="nom" value="${nom}" required>
@@ -63,14 +67,14 @@
 			  	<div class="w-100"></div>
 			  	<div class="col"></div>
 			  	<div class="col">
-			  		<label>Prénom :</label>
+			  		<label><fmt:message key="prenom" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="prenom" value="${prenom}" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Email :</label>
+			  		<label><fmt:message key="email" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="email" name="email" value="${email}" required>
@@ -79,7 +83,7 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Téléphone :</label>
+			  		<label><fmt:message key="tel" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="tel" name="telephone" value="${telephone}" required>
@@ -95,14 +99,14 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Code Postal :</label>
+			  		<label><fmt:message key="cp" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="codePostal" value="${codePostal}" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Ville :</label>
+			  		<label><fmt:message key="ville" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="text" name="ville" value="${ville}" required>
@@ -111,14 +115,14 @@
 				<div class="w-100"></div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Mot de passe :</label>
+			  		<label><fmt:message key="mdp" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="password" name="motDePasse" required>
 				</div>
 				<div class="col"></div>
 			  	<div class="col">
-			  		<label>Confirmation :</label>
+			  		<label><fmt:message key="mdp_conf" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
 					<input type="password" name="confirmationMotDePasse" required>
@@ -140,11 +144,11 @@
 			<div class="row">
 				<div class="col-5"></div>
 				<div class="col-1">
-					<button name="boutonCreer" class="btn btn-secondary">Créer</button>
+					<button name="boutonCreer" class="btn btn-secondary"><fmt:message key="creer" bundle="${langue}"/></button>
 				</div>
 				<div class="col-1">
 					<!--<button name="boutonAnnuler">Annuler</button>-->
-					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler">Annuler</a>
+					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler"><fmt:message key="annuler" bundle="${langue}"/></a>
 				</div>
 				<div class="col-5"></div>
 			</div>

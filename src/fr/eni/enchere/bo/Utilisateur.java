@@ -143,7 +143,6 @@ public class Utilisateur {
 	public void setAdministareur(boolean administareur) {
 		this.administareur = administareur;
 	}
-	
 	public List<Article> getArticlesEnVente() {
 		return articlesEnVente;
 	}
