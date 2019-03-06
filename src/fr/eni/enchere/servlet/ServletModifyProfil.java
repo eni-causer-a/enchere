@@ -36,8 +36,8 @@ public class ServletModifyProfil extends HttpServlet {
 		
 		HttpSession session= request.getSession(); 
 		
-		request.setAttribute("user", session.getAttribute("Utilisateur"));
-		if(request.getAttribute("user")==null) {
+		request.setAttribute("utilisateur", session.getAttribute("Utilisateur"));
+		if(request.getAttribute("utilisateur")==null) {
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}else {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifyProfil.jsp");
@@ -65,7 +65,7 @@ public class ServletModifyProfil extends HttpServlet {
 			Utilisateur user;
 			user = new Utilisateur();
 			
-			if(request.getParameter("motDePasse").equals("") && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo()))) {
+			if((((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse().equals( request.getParameter("motDePasse"))) && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo())) && request.getParameter("newMotDePasse").equals("")) {
 				user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse());
 			}else {
 				if(um.pseudoIsTaken(request.getParameter("pseudo")) && !request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo())) {
@@ -109,7 +109,8 @@ public class ServletModifyProfil extends HttpServlet {
 				request.setAttribute("rue", request.getParameter("rue"));
 				request.setAttribute("codePostal", request.getParameter("codePostal"));
 				request.setAttribute("ville", request.getParameter("ville"));
-			
+				
+				request.setAttribute("utilisateur", session.getAttribute("Utilisateur"));
 				
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifyProfil.jsp");
 				rd.forward(request, response);
