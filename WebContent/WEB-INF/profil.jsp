@@ -29,29 +29,37 @@
 	
 	<div style="postion: relative; margin-left: 450px">
 	<h5 class="my-5"><fmt:message key="titre_info_pf" bundle="${langue}"/></h5>
-	<div class="form-row">
-			<div><label><fmt:message key="pseudo" bundle="${langue}"/> ${user.pseudo}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row ">
+			<div class="form-group col-md-2 "><label><fmt:message key="pseudo" bundle="${langue}"/> </label></div>
+			<div>${user.pseudo}</div>
 	</div>
-	<div class="form-row">
-			<div><label><fmt:message key="nom" bundle="${langue}"/> ${user.nom}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row">
+			<div class="form-group col-md-2"><label><fmt:message key="nom" bundle="${langue}"/></label></div>
+			<div>${user.nom}</div>
 	</div>
-	<div class="form-row">
-			<div><label><fmt:message key="prenom" bundle="${langue}"/> ${user.prenom}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row">
+			<div class="form-group col-md-2"><label><fmt:message key="prenom" bundle="${langue}"/> </label></div>
+			<div>${user.prenom}</div>
 	</div>
-	<div class="form-row">
-			<div ><label><fmt:message key="email" bundle="${langue}"/> ${user.email}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row">
+			<div class="form-group col-md-2"><label><fmt:message key="email" bundle="${langue}"/> </label></div>
+			<div>${user.email}</div>
 	</div>
-	<div class="form-row">
-			<div><label><fmt:message key="tel" bundle="${langue}"/> ${user.telephone}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row">
+			<div class="form-group col-md-2"><label><fmt:message key="tel" bundle="${langue}"/> </label></div>
+			<div>${user.telephone}</div>
 	</div>
-	<div class="form-row">
-			<div><label><fmt:message key="rue" bundle="${langue}"/> ${user.rue}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row">
+			<div class="form-group col-md-2"><label><fmt:message key="rue" bundle="${langue}"/> </label></div>
+			<div>${user.rue}</div>
 	</div>						
-	<div class="form-row">
-			<div><label><fmt:message key="cp" bundle="${langue}"/> ${user.codePostale}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row">
+			<div class="form-group col-md-2"><label><fmt:message key="cp" bundle="${langue}"/> </label></div>
+			<div>${user.codePostale}</div>
 	</div>
-	<div class="form-row">
-			<div><label><fmt:message key="ville" bundle="${langue}"/> ${user.ville}</label></div>
+	<div style="position: relative; margin-top: -15px;" class="form-row">
+			<div class="form-group col-md-2"><label><fmt:message key="ville" bundle="${langue}"/></label></div>
+			<div> ${user.ville}</div>
 	</div>		
 			
 	

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -25,18 +27,20 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="container">
+	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
+	<fmt:setLocale value="${LOCALE}"/>	
+	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div style="position: relative; margin-top: 30px;">
-		<h5  class="my-5 text-center"><fmt:message key="detail" bundle="${langue}"/></h5>
-	<div>
+		<h5 class="my-5 text-center"><fmt:message key="detail" bundle="${langue}"/></h5>
+	</div>
 	<div class="form-row">
-		<c:if test="${article.getPhoto() != null}">
+		<c:if test="${article.getPhoto()!=null}">
 	    	<div class="form-group col-md-6">
 				  <img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
 			</div>
-		</c:if>	
-	    	
+		</c:if>	  	
 	    	<div class="form-group col-md-6">
 	    		<div class="form-row">
 	    			<div class="form-group">
@@ -136,10 +140,8 @@
 				</c:if>
 			</div>
 	</div>
-	
 
-	</div>
-	</div>
+	
 	
 
 
