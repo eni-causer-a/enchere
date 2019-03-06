@@ -63,17 +63,17 @@
 			<div class="col-2">${user.ville}</div>
 			<div class="col"></div>	
 	</div>
-		
-		<c:if test="${sessionScope.Utilisateur.getNoUtilisateur() == user.getNoUtilisateur()}">
-			<form action="modifProfil">
-			<br>
-			<div class="row">
-				<div class="col"></div>
-				<div class="col"><button class="btn btn-secondary">Modifier</button></div>
-				<div class="col"></div>
-				</div>
-			</form>
-		</c:if>
+	
+	<c:if test="${sessionScope.Utilisateur.getNoUtilisateur() == user.getNoUtilisateur()}">
+		<form action="modifProfil">
+		<br>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col"><button class="btn btn-secondary">Modifier</button></div>
+			<div class="col"></div>
+			</div>
+		</form>
+	</c:if>
 	
 		
 			

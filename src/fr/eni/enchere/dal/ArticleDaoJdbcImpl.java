@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.jdt.internal.compiler.classfmt.JavaBinaryNames;
+
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.EtatVente;
@@ -443,7 +445,13 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 			//ps.setSting(7, article.getPhoto());
 			ps.setInt(7, article.getCategorie().getNoCategorie());
 			ps.setBoolean(8, article.isRetire());
-			ps.setInt(9, article.getGagnant()!=null?article.getGagnant().getNoUtilisateur():0);
+			if (article.getGagnant()!=null) {
+				ps.setInt(9, article.getGagnant().getNoUtilisateur());
+			}
+			else {
+				ps.setNull(9, java.sql.Types.INTEGER);
+			}
+			
 			ps.setInt(10, article.getNoArticle());
 			
 			ps.executeUpdate();

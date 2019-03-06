@@ -54,6 +54,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String GET_USER_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo LIKE ?;";
 	
+	private static final String GET_ALL_USERS = "SELECt * FROM UTILISATEURS;";
+	
 	public void insert(Utilisateur user) {
 		try(Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmtUser = cnx.prepareStatement(INSERT_USER,Statement.RETURN_GENERATED_KEYS))
@@ -332,15 +334,45 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 		try(Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement pstmtUser = cnx.prepareStatement(END_REC)){
 			
-					pstmtUser.setString(1, mdp);
-					pstmtUser.setInt(2, nb);
-					pstmtUser.executeUpdate();
-					
-				}//Fermeture automatique de la connexion
-				catch (SQLException e) {
-					e.printStackTrace();
-				}	
+				pstmtUser.setString(1, mdp);
+				pstmtUser.setInt(2, nb);
+				pstmtUser.executeUpdate();
+				
+			}//Fermeture automatique de la connexion
+			catch (SQLException e) {
+				e.printStackTrace();
+			}	
 	}
 	
-	
+	@Override
+	public List<Utilisateur> getAllUtilisateurs(){
+		List<Utilisateur> res = new ArrayList<Utilisateur>();
+		
+		try(Connection cnx = ConnectionProvider.getConnection();){
+			PreparedStatement ps = cnx.prepareStatement(GET_ALL_USERS);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Utilisateur user = new Utilisateur(rs.getInt("no_utilisateur"),
+						rs.getString("pseudo"),
+						rs.getString("Nom"), 
+						rs.getString("Prenom"),
+						rs.getString("email"),
+						rs.getString("telephone"),
+						rs.getString("rue"),
+						rs.getString("code_postal"),
+						rs.getString("ville"),
+						rs.getString("mot_de_passe"),
+						rs.getInt("credit"),
+						rs.getBoolean("administrateur")
+						);
+				res.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 }
