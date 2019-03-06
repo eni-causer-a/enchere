@@ -31,4 +31,6 @@ public interface UtilisateurDao {
 	public void endRecup(int nb, String mdp);
 	
 	public List<Utilisateur> getAllUtilisateurs();
+	
+	public void setActivate(Utilisateur user, boolean activate);
 }

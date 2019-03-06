@@ -37,12 +37,12 @@
 		
 		<div class="form-row">
     		<div class="form-group col-md-6">
-      			<label for="inputPseudo">Pseudo</label>
-      			<input type="text" class="form-control" value="${user.pseudo}${pseudo}" name="pseudo" id="inputPseudo" placeholder="Pseudo">
+      			<label for="inputPseudo"><fmt:message key="pseudo" bundle="${langue}"/></label>
+      			<input type="text" class="form-control" value="${user.pseudo}${pseudo}" name="pseudo" id="inputPseudo" placeholder="<fmt:message key="pseudo" bundle="${langue}"/>">
     		</div>
     		<div class="form-group col-md-6">
       			<label for="inputNom"><fmt:message key="nom" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputNom" name="nom" value="${user.nom}${nom}" placeholder="Nom">
+      			<input type="text" class="form-control" id="inputNom" name="nom" value="${user.nom}${nom}" placeholder="<fmt:message key="nom" bundle="${langue}"/>">
     		</div>
     	</div>
     	<c:if test="${pseudoError!=null}">
@@ -55,36 +55,36 @@
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputPrenom"><fmt:message key="prenom" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}${prenom}" placeholder="Prenom">
+      			<input type="text" class="form-control" id="inputPrenom" name="prenom" value="${user.prenom}${prenom}" placeholder="<fmt:message key="prenom" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputEmail"><fmt:message key="email" bundle="${langue}"/></label>
-      			<input type="email" class="form-control" id="inputEmail" name="email" value="${user.email}${email}" placeholder="Email">
+      			<input type="email" class="form-control" id="inputEmail" name="email" value="${user.email}${email}" placeholder="<fmt:message key="email" bundle="${langue}"/>">
     		</div>
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputTel"><fmt:message key="tel" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}${telephone}" placeholder="T�l�phone">
+      			<input type="text" class="form-control" id="inputTel" name="telephone" value="${user.telephone}${telephone}" placeholder="<fmt:message key="tel" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputRue"><fmt:message key="rue" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputRue" name="rue" value="${user.rue}${rue}" placeholder="Rue">
+      			<input type="text" class="form-control" id="inputRue" name="rue" value="${user.rue}${rue}" placeholder="<fmt:message key="rue" bundle="${langue}"/>">
     		</div>
     	</div>
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputCp"><fmt:message key="cp" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputCp" name="codePostal" value="${user.codePostale}${codePostal}" placeholder="Code Postal">
+      			<input type="text" class="form-control" id="inputCp" name="codePostal" value="${user.codePostale}${codePostal}" placeholder="<fmt:message key="cp" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputVille"><fmt:message key="ville" bundle="${langue}"/></label>
-      			<input type="text" class="form-control" id="inputVille" name="ville" value="${user.ville}${ville}" placeholder="Ville">
+      			<input type="text" class="form-control" id="inputVille" name="ville" value="${user.ville}${ville}" placeholder="<fmt:message key="ville" bundle="${langue}"/>">
     		</div>
     	</div>
     	<div class="form-group">
     			<label for="inputMdp"><fmt:message key="mdp_actuel" bundle="${langue}"/></label>
-      			<input type="password" class="form-control" id="inputMdp" name="motDePasse"  placeholder="Mot de passe">
+      			<input type="password" class="form-control" id="inputMdp" name="motDePasse"  placeholder="<fmt:message key="mdp_actuel" bundle="${langue}"/>">
     	</div>
     	<c:if test="${mdpError!=null}">
 	    	<div class="form-row">
@@ -96,11 +96,11 @@
     	<div class="form-row">
     		<div class="form-group  col-md-6">
     			<label for="inputMdpNew"><fmt:message key="new_mdp" bundle="${langue}"/></label>
-      			<input type="password" class="form-control" id="inputMdpNew" name="newMotDePasse"  placeholder="Nouveau Mot de passe">
+      			<input type="password" class="form-control" id="inputMdpNew" name="newMotDePasse"  placeholder="<fmt:message key="new_mdp" bundle="${langue}"/>">
     		</div>
     		<div class="form-group  col-md-6">
     			<label for="inputMdpNewC"><fmt:message key="mdp_conf" bundle="${langue}"/></label>
-      			<input type="password" class="form-control" id="inputMdpNewC" name="confirmationMotDePasse"  placeholder="Confirmation">
+      			<input type="password" class="form-control" id="inputMdpNewC" name="confirmationMotDePasse"  placeholder="<fmt:message key="mdp_conf" bundle="${langue}"/>">
     		</div>
     	</div>
     	<c:if test="${mdpConfError!=null}">

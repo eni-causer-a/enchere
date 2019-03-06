@@ -17,11 +17,13 @@ public class Utilisateur {
 	private int credit;
 	private boolean administareur;
 	private int nbRecup;
+	private boolean activate;
 	
 	private List<Article> articlesEnVente;
 	
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administareur) {
+			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administareur,
+			boolean activate) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -36,6 +38,7 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administareur = administareur;
 		this.articlesEnVente = new ArrayList<Article>();
+		this.activate = activate;
 	}
 	public Utilisateur( String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostale, String ville, String motDePasse) {
@@ -155,8 +158,12 @@ public class Utilisateur {
 	public void setNbRecup(int nbRecup) {
 		this.nbRecup = nbRecup;
 	}
-	
-	
+	public boolean isActivate() {
+		return activate;
+	}
+	public void setActivate(boolean activate) {
+		this.activate = activate;
+	}
 	
 
 }
