@@ -54,7 +54,11 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 	
 	private static final String GET_USER_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo LIKE ?;";
 	
-	private static final String GET_ALL_USERS = "SELECt * FROM UTILISATEURS;";
+	private static final String GET_ALL_USERS = "SELECT * FROM UTILISATEURS;";
+	
+	private static final String SET_ACTIVATE = "update UTILISATEURS "+
+			"set activate=? "+
+			"where no_utilisateur=?";
 	
 	public void insert(Utilisateur user) {
 		try(Connection cnx = ConnectionProvider.getConnection();
@@ -131,7 +135,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 									rs.getString("ville"),
 									rs.getString("mot_de_passe"),
 									rs.getInt("credit"),
-									rs.getBoolean("administrateur")
+									rs.getBoolean("administrateur"),
+									rs.getBoolean("activate")
 									);
 				}
 			}
@@ -236,8 +241,9 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 			ps.setInt(1, user.getNoUtilisateur());
 			ps.executeUpdate();
 
-			ps = cnx.prepareStatement(DELETEUSER);
-			ps.setInt(1, user.getNoUtilisateur());
+			ps = cnx.prepareStatement(SET_ACTIVATE);
+			ps.setBoolean(1, false);
+			ps.setInt(2, user.getNoUtilisateur());
 			ps.executeUpdate();
 			
 		}//Fermeture automatique de la connexion
@@ -273,7 +279,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 									rs.getString("ville"),
 									rs.getString("mot_de_passe"),
 									rs.getInt("credit"),
-									rs.getBoolean("administrateur")
+									rs.getBoolean("administrateur"),
+									rs.getBoolean("activate")
 									);
 				}
 			}
@@ -365,7 +372,8 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 						rs.getString("ville"),
 						rs.getString("mot_de_passe"),
 						rs.getInt("credit"),
-						rs.getBoolean("administrateur")
+						rs.getBoolean("administrateur"),
+						rs.getBoolean("activate")
 						);
 				res.add(user);
 			}
@@ -374,5 +382,21 @@ public class UtilisateurDaoJdbcImpl implements UtilisateurDao{
 		}
 		
 		return res;
+	}
+	
+	public void setActivate(Utilisateur user, boolean activate) {
+		List<Utilisateur> res = new ArrayList<Utilisateur>();
+		
+		try(Connection cnx = ConnectionProvider.getConnection();){
+			PreparedStatement ps = cnx.prepareStatement(SET_ACTIVATE);
+			
+			ps.setBoolean(1, activate);
+			ps.setInt(2, user.getNoUtilisateur());
+			
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

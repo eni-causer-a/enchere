@@ -293,7 +293,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -391,7 +392,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -514,7 +516,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -577,7 +580,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -648,7 +652,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -715,7 +720,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -781,7 +787,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -847,7 +854,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -916,7 +924,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -980,7 +989,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -1047,7 +1057,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -1114,7 +1125,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -1179,7 +1191,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -1244,7 +1257,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -1303,7 +1317,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -1369,7 +1384,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}
@@ -1437,7 +1453,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 							rsUser.getString("ville"),
 							rsUser.getString("mot_de_passe"),
 							rsUser.getInt("credit"),
-							rsUser.getBoolean("administrateur")
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
 							);
 
 				}

@@ -21,11 +21,17 @@
 </head>
 <body class="container">
 	<jsp:include page="/WEB-INF/header.jsp" />
+	<table>
 	<c:forEach var="user" items="${listUser}">
-		<p>${user.getPseudo()}</p>
+	<tr>
+		<td><a href="<%=request.getContextPath()%>/profil?user=${user.getNoUtilisateur()}">${user.getPseudo()}</a></td>
+		<td>${user.getNom()}</td>
+		<td>${user.getPrenom()}</td>
+		<td><a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Supprimer</a></td>
+	<tr/>
 	</c:forEach>
-		
-			
+	</table>
+	
 	<!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">
     	

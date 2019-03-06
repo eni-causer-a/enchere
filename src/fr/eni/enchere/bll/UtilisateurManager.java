@@ -1,5 +1,6 @@
 package fr.eni.enchere.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.enchere.bo.Article;
@@ -23,7 +24,12 @@ public class UtilisateurManager {
 	}
 	
 	public Utilisateur getUtilisateur(String pseudo, String mdp) {
-		return utilisateurDao.getUser(pseudo, mdp);
+		Utilisateur user =utilisateurDao.getUser(pseudo, mdp);
+		Utilisateur res = null;
+		if (user != null && user.isActivate()) {
+			res = user;
+		}
+		return res;
 	}
 	
 	public List<Article> getListVentes(Utilisateur user){
@@ -34,7 +40,12 @@ public class UtilisateurManager {
 	}
 	
 	public Utilisateur findUserById(int id) {
-		return utilisateurDao.findUserById(id);
+		Utilisateur user =utilisateurDao.findUserById(id);
+		Utilisateur res = null;
+		if (user != null && user.isActivate()) {
+			res = user;
+		}
+		return res;
 	}
 	
 	public boolean pseudoIsTaken(String pseudo) {
@@ -62,6 +73,24 @@ public class UtilisateurManager {
 	}
 	
 	public List<Utilisateur> getAllUtilisateur(){
-		return this.utilisateurDao.getAllUtilisateurs();
+		List<Utilisateur> listUser = this.utilisateurDao.getAllUtilisateurs();
+		List<Utilisateur> res = new ArrayList<Utilisateur>();
+		for (int i = 0; i < listUser.size(); i++) {
+			if (listUser.get(i).isActivate()) {
+				res.add(listUser.get(i));
+			}
+		}
+		return res;
+	}
+	
+	public void activate(Utilisateur user) {
+		if (user !=null) {
+			this.utilisateurDao.setActivate(user, true);
+		}
+	}
+	public void Desactivate(Utilisateur user) {
+		if (user !=null) {
+			this.utilisateurDao.setActivate(user, false);
+		}
 	}
 }
