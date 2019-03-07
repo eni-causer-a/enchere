@@ -78,6 +78,7 @@ public class ServletNouvelleVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		request.setAttribute("utilisateur", utilisateur);
 		Date aujourdhui=new Date();
 		Boolean Error=false;
 		
