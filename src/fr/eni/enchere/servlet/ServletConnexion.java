@@ -1,6 +1,8 @@
 package fr.eni.enchere.servlet;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.logging.log4j.*;
+
 
 import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Utilisateur;
@@ -86,6 +91,16 @@ public class ServletConnexion extends HttpServlet {
 				cookie.setPath("/Enchere/Connexion");
 				response.addCookie(cookie);
 			}
+			Logger logger = LogManager.getLogger(ServletConnexion.class);
+			 String remoteAddr = "";
+
+		        if (request != null) {
+		            remoteAddr = request.getHeader("X-FORWARDED-FOR");
+		            if (remoteAddr == null || "".equals(remoteAddr)) {
+		                remoteAddr = request.getRemoteAddr();
+		            }
+		        }
+			logger.info("Connexion de "+ utilisateur.getPseudo() + " ip : " + remoteAddr);
 			
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}
