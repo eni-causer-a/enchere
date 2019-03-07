@@ -1,6 +1,5 @@
 package fr.eni.enchere.bll;
 
-import java.text.ParseException;
 import java.util.List;
 
 import fr.eni.enchere.bo.Article;
@@ -140,6 +139,11 @@ public class ArticleManager {
 			proprietaire.setCredit(proprietaire.getCredit()+ article.getPrixVente());
 			DAOFactory.getUtilisateurDao().updateUser(proprietaire);
 		}
+	}
+
+	public List<Article> getVenteAll(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		return articleDao.getVenteAll(utilisateur);
 	}
 	
 }

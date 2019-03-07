@@ -78,6 +78,7 @@ public class ServletNouvelleVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
+		request.setAttribute("utilisateur", utilisateur);
 		Date aujourdhui=new Date();
 		Boolean Error=false;
 		
@@ -169,11 +170,15 @@ public class ServletNouvelleVente extends HttpServlet {
 				}
 				//request.getServletContext().getAttribute("FILES_DIR")+
 				if(fileItem.getFieldName().equalsIgnoreCase("fileName")) {
-					if(fileItem.getName() != null) {
+
+				
+				
+					if(!fileItem.getName().equals("")) {
 					File file = new File("//10.51.0.254/Outils/groupe6Image"+File.separator+valeur+fileItem.getName());
 					art.setPhoto(valeur+fileItem.getName());
 					fileItem.write(file);
 					}
+					
 				}
 		
 				

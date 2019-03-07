@@ -83,15 +83,15 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 	
 	
 	private static final String GETENCHEREOUVERTEALL = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ; ";
-
+	private static final String GETVENTEALL = "select * from ARTICLES_VENDUS where no_utilisateur = ?";
 	
 	private static final String GETTOPENCHERE = "select distinct no_article, no_utilisateur from ENCHERES where no_utilisateur= ?";
 	private static final String GETENCHEREENCOURS = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 and no_article = ? ;";
 	private static final String GETENCHEREOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ; ";
-	private static final String GETENCHEREREMP = "select * from ARTICLES_VENDUS where no_gagnant = ? ;";
+	private static final String GETENCHEREREMP = "select * from ARTICLES_VENDUS where no_gagnant = ? and  cast(date_fin_encheres AS DATETIME) - GETDATE() < 0  ;";
 	private static final String ENCHEREENCOURSOUVERTE = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ; ";
 	private static final String ENCHEREOUVERTEREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 union select * from ARTICLES_VENDUS where no_gagnant = ? ;";
-	private static final String ENCHEREENCOURSREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and no_utilisateur = ? union select * from ARTICLES_VENDUS where no_gagnant = ? ";
+	private static final String ENCHEREENCOURSREMP = "select * from ARTICLES_VENDUS where cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 and no_article = ? union select * from ARTICLES_VENDUS where no_gagnant = ? and  cast(date_fin_encheres AS DATETIME) - GETDATE() < 0";
 	
 	private static final String GETVENTEENCOURS = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() < 0 and cast(date_fin_encheres AS DATETIME) - GETDATE() > 0 ;" ;
 	private static final String GETVENTEDEBUTE = "select * from ARTICLES_VENDUS where no_utilisateur = ? and cast(date_debut_encheres AS DATETIME) - GETDATE() > 0 ;" ;
@@ -817,7 +817,84 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		Utilisateur user = null;
 
 		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtTop = cnx.prepareStatement(GETTOPENCHERE);
 				PreparedStatement pstmtArticle = cnx.prepareStatement(ENCHEREENCOURSREMP);
+				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
+				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
+			{
+
+			pstmtTop.setInt(1,utilisateur.getNoUtilisateur() );
+			
+			ResultSet rsTop = pstmtTop.executeQuery();
+
+			while(rsTop.next()) {
+			
+			
+			pstmtArticle.setInt(1,rsTop.getInt("no_article"));
+			pstmtArticle.setInt(2,utilisateur.getNoUtilisateur());
+			
+
+			ResultSet rs = pstmtArticle.executeQuery();
+			while(rs.next())
+			{
+				
+				pstmtCategorie.setInt(1,rs.getInt("no_categorie"));
+
+				ResultSet rsCat = pstmtCategorie.executeQuery();
+				while(rsCat.next()) {
+				 categorie = new Categorie(rsCat.getInt("no_categorie"),rsCat.getString("libelle"));
+
+				}
+				pstmtUser.setInt(1,rs.getInt("no_utilisateur"));
+
+				ResultSet rsUser = pstmtUser.executeQuery();
+				while(rsUser.next()) {
+					user = new Utilisateur(rsUser.getInt("no_utilisateur"),
+							rsUser.getString("pseudo"),
+							rsUser.getString("Nom"), 
+							rsUser.getString("Prenom"),
+							rsUser.getString("email"),
+							rsUser.getString("telephone"),
+							rsUser.getString("rue"),
+							rsUser.getString("code_postal"),
+							rsUser.getString("ville"),
+							rsUser.getString("mot_de_passe"),
+							rsUser.getInt("credit"),
+							rsUser.getBoolean("administrateur"),
+							rsUser.getBoolean("activate")
+							);
+
+				}
+				Article article = new Article(rs.getInt("no_article"),
+										rs.getString("nom_article"), 
+										rs.getString("description"), 
+										new Date(rs.getTimestamp("date_debut_encheres").getTime()),
+										new Date(rs.getTimestamp("date_fin_encheres").getTime()),
+										rs.getInt("prix_initial"),
+										rs.getInt("prix_vente"),
+										rs.getString("image"),
+										 categorie,
+										 user);
+				listeEnchere.add(article);
+			}
+			}
+		}//Fermeture automatique de la connexion
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listeEnchere;
+	}
+
+	@Override
+	public List<Article> getEnchereRemporte(Utilisateur utilisateur) {
+		List<Article> listeEnchere = new ArrayList<Article>();
+		Categorie categorie = null;
+		Utilisateur user = null;
+
+		try(Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETENCHEREREMP);
 				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
 				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
 			{
@@ -876,22 +953,20 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 		
 		return listeEnchere;
 	}
-
-	@Override
-	public List<Article> getEnchereRemporte(Utilisateur utilisateur) {
+	
+	public List<Article> getVenteAll(Utilisateur utilisateur) {
 		List<Article> listeEnchere = new ArrayList<Article>();
 		Categorie categorie = null;
 		Utilisateur user = null;
 
 		try(Connection cnx = ConnectionProvider.getConnection();
-				PreparedStatement pstmtArticle = cnx.prepareStatement(GETENCHEREREMP);
+				PreparedStatement pstmtArticle = cnx.prepareStatement(GETVENTEALL);
 				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
 				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
 			{
 
+			pstmtArticle.setInt(1, utilisateur.getNoUtilisateur());
 			
-			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
-
 			ResultSet rs = pstmtArticle.executeQuery();
 			while(rs.next())
 			{
@@ -1090,6 +1165,8 @@ public class ArticleDaoJdbcImpl implements ArticleDao{
 				PreparedStatement pstmtCategorie = cnx.prepareStatement(GETCATEGORIE);
 				PreparedStatement pstmtUser = cnx.prepareStatement(GETUSER))
 			{
+			
+			
 			pstmtArticle.setInt(1,utilisateur.getNoUtilisateur());
 			pstmtArticle.setInt(2,utilisateur.getNoUtilisateur());
 
