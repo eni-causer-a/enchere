@@ -71,7 +71,11 @@ public class ServletDetailVente extends HttpServlet {
 		ArticleManager am = new ArticleManager();
 		EnchereManager em = new EnchereManager();
 		
-		em.encherir((Utilisateur) session.getAttribute("Utilisateur"), am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))), Integer.parseInt(request.getParameter("miseAPrix")));
+		boolean isEnchereOK = em.encherir((Utilisateur) session.getAttribute("Utilisateur"), am.getArticleById(Integer.parseInt(request.getParameter("idArticle"))), Integer.parseInt(request.getParameter("miseAPrix")));
+		if (!isEnchereOK) {
+			System.out.println("ploup856");
+			request.setAttribute("ErrorEncherir", "true");
+		}
 		doGet(request, response);
 	}
 	

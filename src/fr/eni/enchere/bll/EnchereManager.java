@@ -33,11 +33,11 @@ public class EnchereManager {
 			lastUser = lastEnchere.getUtilisateur();
 		}
 		if (lastUser != null && lastUser.getPseudo().equals(user.getPseudo())) {
-			getEnoughtPoint = (value-lastEnchere.getMontant_enchere()< user.getCredit());
+			getEnoughtPoint = (value-lastEnchere.getMontant_enchere()<= user.getCredit());
 			lastUser = user;
 		}
 		else {
-			getEnoughtPoint = value<user.getCredit();
+			getEnoughtPoint = value<=user.getCredit();
 		}
 		
 		if (getEnoughtPoint) {

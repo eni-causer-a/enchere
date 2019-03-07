@@ -30,6 +30,7 @@
 	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
 	<fmt:setLocale value="${LOCALE}"/>	
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<div style="position: relative; margin-top: 30px;">
@@ -59,6 +60,14 @@
 						<label name="miseAPrix">${article.getMiseAPrix()} <fmt:message key="pts" bundle="${langue}"/></label>
 					</div>
 				</div>
+				
+				<c:if test="${ ErrorEncherir != null}">
+					<div class="form-row">
+				    	<div class="form-group col-md-6">
+							<label style="color: red;" class="label-danger"><fmt:message key="errEncherir.fail" bundle="${errMessage}"/></label>
+						</div>
+					</div>
+				</c:if>
 				<div class="form-row">
 	    			<div class="form-group">
 						<c:if test="${utilisateur!=null and utilisateur.getPseudo()!=article.getProprietaire().getPseudo() and enCours}">
@@ -126,6 +135,7 @@
 				<a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a>
 			</div>
 	</div>
+	
 	<div class="form-row">
 	    	<div class="form-group col-md-6">
 				<c:if test="${utilisateur.getPseudo()==article.getProprietaire().getPseudo() and cree==true}">
@@ -134,11 +144,11 @@
 			</div>
 	</div>
 	<div class="form-row">
-	    	<div class="form-group col-md-6">
-				<c:if test="${ended ==true and article.getGagnant().getPseudo().equals(utilisateur.getPseudo())}">
-			  		<a href="<%=request.getContextPath()%>/ServletRetrait?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Retiré</a>
-				</c:if>
-			</div>
+    	<div class="form-group col-md-6">
+			<c:if test="${ended ==true and article.getGagnant().getPseudo().equals(utilisateur.getPseudo())}">
+		  		<a href="<%=request.getContextPath()%>/ServletRetrait?idArticle=${article.getNoArticle()}" class="btn btn-secondary">Retiré</a>
+			</c:if>
+		</div>
 	</div>
 
 	
