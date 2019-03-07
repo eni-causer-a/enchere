@@ -26,6 +26,8 @@ import fr.eni.enchere.bo.Utilisateur;
 import javax.servlet.RequestDispatcher;
 
 
+
+
 /**
  * Servlet implementation class ServletAccueil
  */
@@ -45,16 +47,40 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 	
 		
 		ArticleManager am = new ArticleManager();
 		List<Article> lesArticles = null;
+		List<Article> lesArticlesPagination =new ArrayList();
+		int selectPage=1;
 		lesArticles = am.getArticleEnCours();
+		int nbrPage = (int)(Math.ceil(lesArticles.size()/6.0));
 		for(Article article: lesArticles) {
 			am.getEtatVente(article);
 		}
-		request.setAttribute("lesArticles", lesArticles);
-
+		
+		if(request.getParameter("page")!=null) {
+			selectPage=Integer.parseInt(request.getParameter("page"));
+		}
+		if(selectPage>nbrPage || selectPage<0) {
+			selectPage=1;
+		}
+		request.setAttribute("nbrPage", nbrPage);
+		if(nbrPage==0) {
+			request.setAttribute("nbrPage", 1);
+			nbrPage=nbrPage+1;
+		}
+		for(int i=selectPage*6-6;i<selectPage*6;i++) {
+			if(lesArticles.size()>i) {
+				lesArticlesPagination.add(lesArticles.get(i));
+			}
+		}
+		
+		
+		
+		
+		request.setAttribute("lesArticles", lesArticlesPagination);
 		CategorieManager cm = new CategorieManager();
 		List<Categorie> lesCategories = null;
 		lesCategories = cm.getListCategorie();
@@ -74,6 +100,7 @@ public class ServletAccueil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		
@@ -110,11 +137,14 @@ public class ServletAccueil extends HttpServlet {
 	
 	@SuppressWarnings("null")
 	public void filtre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int nbrPage=0;
 		
+		List<Article> lesArticlesPagination =new ArrayList();
 		HttpSession session= request.getSession();
 		Utilisateur utilisateur=(Utilisateur) session.getAttribute("Utilisateur");
 		List<Article> lesArticles = null;
-
+		List<Article> result=null;
+		int selectPage=1;
 		CategorieManager cm = new CategorieManager();
 		List<Categorie> lesCategories = null;
 		lesCategories = cm.getListCategorie();
@@ -221,9 +251,8 @@ public class ServletAccueil extends HttpServlet {
 				}
 
 			}
-			request.setAttribute("lesArticles", lesArticlesTrie);
-
-
+			
+			result=lesArticlesPagination;
 		}
 		else if(StringUtils.isNotEmpty(request.getParameter("filtre")) && !cat.equalsIgnoreCase("Toutes")) {
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
@@ -237,9 +266,7 @@ public class ServletAccueil extends HttpServlet {
 				}
 
 			}
-			request.setAttribute("lesArticles", lesArticlesTrie);
-
-
+			result=lesArticlesPagination;
 		}
 		else if(StringUtils.isNotEmpty(request.getParameter("filtre")) && cat.equalsIgnoreCase("Toutes")) {
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
@@ -253,19 +280,42 @@ public class ServletAccueil extends HttpServlet {
 				}
 
 			}
-			request.setAttribute("lesArticles", lesArticlesTrie);
+			result=lesArticlesPagination;
 
 		}
 		else {
 			for(Article article: lesArticles) {
 				am.getEtatVente(article);
 			}
-			request.setAttribute("lesArticles", lesArticles);
-
+			result=lesArticles;
 		}
 		
-
-
+		if(request.getParameter("page")!=null) {
+			selectPage=Integer.parseInt(request.getParameter("page"));
+		}
+		
+		
+	
+		nbrPage = (int)(Math.ceil((lesArticles.size())/6.0));
+		if(selectPage>nbrPage || selectPage<0) {
+			selectPage=1;
+		}
+		if(nbrPage==0) {
+			nbrPage=1;
+		}
+		
+		for(int i=selectPage*6-6;i<selectPage*6;i++) {
+			if(result.size()>i) {
+				lesArticlesPagination.add(result.get(i));
+			}
+		}
+		request.setAttribute("lesArticles", lesArticlesPagination);
+		request.setAttribute("nbrPage", nbrPage);
+		
+		
+		
+		
+		
 		request.setAttribute("parame11", param11);
 		request.setAttribute("parame12", param12);
 		request.setAttribute("parame13", param13);

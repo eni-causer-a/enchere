@@ -67,6 +67,7 @@ public class ServletModifyProfil extends HttpServlet {
 			
 			if((((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse().equals( request.getParameter("motDePasse"))) && (!um.pseudoIsTaken(request.getParameter("pseudo")) || request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo())) && request.getParameter("newMotDePasse").equals("")) {
 				user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),((Utilisateur) session.getAttribute("Utilisateur")).getMotDePasse());
+				user.setCredit(((Utilisateur) session.getAttribute("Utilisateur")).getCredit());
 			}else {
 				if(um.pseudoIsTaken(request.getParameter("pseudo")) && !request.getParameter("pseudo").equals(((Utilisateur) session.getAttribute("Utilisateur")).getPseudo())) {
 					request.setAttribute("pseudoError", "true");
@@ -92,6 +93,7 @@ public class ServletModifyProfil extends HttpServlet {
 					System.out.println("modif");
 					
 					user = new Utilisateur(request.getParameter("pseudo"),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),request.getParameter("telephone"),request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),request.getParameter("newMotDePasse"));
+					user.setCredit(((Utilisateur) session.getAttribute("Utilisateur")).getCredit());
 				}
 			}
 			if(Error==false) {
