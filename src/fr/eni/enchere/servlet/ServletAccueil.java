@@ -252,7 +252,7 @@ public class ServletAccueil extends HttpServlet {
 
 			}
 			
-			result=lesArticlesPagination;
+			result=lesArticlesTrie;
 		}
 		else if(StringUtils.isNotEmpty(request.getParameter("filtre")) && !cat.equalsIgnoreCase("Toutes")) {
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
@@ -266,7 +266,7 @@ public class ServletAccueil extends HttpServlet {
 				}
 
 			}
-			result=lesArticlesPagination;
+			result=lesArticlesTrie;
 		}
 		else if(StringUtils.isNotEmpty(request.getParameter("filtre")) && cat.equalsIgnoreCase("Toutes")) {
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
@@ -280,7 +280,7 @@ public class ServletAccueil extends HttpServlet {
 				}
 
 			}
-			result=lesArticlesPagination;
+			result=lesArticlesTrie;
 
 		}
 		else {
@@ -295,8 +295,9 @@ public class ServletAccueil extends HttpServlet {
 		}
 		
 		
-	
-		nbrPage = (int)(Math.ceil((lesArticles.size())/6.0));
+		
+		nbrPage = (int)(Math.ceil((result.size())/6.0));
+		
 		if(selectPage>nbrPage || selectPage<0) {
 			selectPage=1;
 		}
