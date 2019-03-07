@@ -71,7 +71,7 @@ public class ServletConnexion extends HttpServlet {
 		}else {
 			HttpSession session= request.getSession();
 			session.setAttribute("Utilisateur", utilisateur);
-			session.setMaxInactiveInterval(10*60*60);
+			session.setMaxInactiveInterval(20*60);
 			
 			if(seSouvenirDeMoi!=null) {
 				Cookie cookie=new Cookie("idCompte",id);

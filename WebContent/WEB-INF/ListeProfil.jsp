@@ -21,24 +21,33 @@
 </head>
 <body class="container">
 	<jsp:include page="/WEB-INF/header.jsp" />
-	<table>
+	<div style="position: relative; margin-top: 50px;">
 	<c:forEach var="user" items="${listUser}">
-	<tr>
-		<td><a href="<%=request.getContextPath()%>/profil?user=${user.getNoUtilisateur()}">${user.getPseudo()}</a></td>
-		<td>${user.getNom()}</td>
-		<td>${user.getPrenom()}</td>
+	<div class="form-row">
+		<div class="form-group col-md-3">
+		<a href="<%=request.getContextPath()%>/profil?user=${user.getNoUtilisateur()}">${user.getPseudo()}</a>
+		${user.getNom()}
+		${user.getPrenom()}
+		</div>
 		<c:if test="${user.isActivate()==true}">
-			<td><p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-success">Activée</span></p></td>
-			<td><a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Désactiver</a></td>
+		<div class="form-group">
+			<p><span  class="badge badge-pill badge-success">Activée</span></p>
+		</div>
+		<div class="form-group col-md-2">
+			<a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Désactiver</a>
+		</div>
 		</c:if>
 		<c:if test="${user.isActivate()==false}">
-			<td><p style="postion: relative; padding-top:5px;"><span  class="badge badge-pill badge-danger">Désactivé</span></p></td>
-			<td><a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Activer</a></td>
+			<div class="form-group">
+				<p><span  class="badge badge-pill badge-danger">Désactivé</span></p>
+			</div>
+			<div class="form-group col-md-2">
+				<a class="btn btn-secondary" href="<%=request.getContextPath()%>/ServletSupprimerProfil?userId=${user.getNoUtilisateur()}" role="button" name="boutonSupprimer">Activer</a>
+			</div>
 		</c:if>
-	<tr/>
+	</div>
 	</c:forEach>
-	</table>
-	
+	</div>
 	<!-- Footer -->
     <footer class="row bg-dark footer-demodule fixed-bottom py-1">
     	
