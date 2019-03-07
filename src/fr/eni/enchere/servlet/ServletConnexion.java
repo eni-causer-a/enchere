@@ -25,6 +25,7 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/Connexion")
 public class ServletConnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = LogManager.getLogger(ServletConnexion.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -91,16 +92,8 @@ public class ServletConnexion extends HttpServlet {
 				cookie.setPath("/Enchere/Connexion");
 				response.addCookie(cookie);
 			}
-			Logger logger = LogManager.getLogger(ServletConnexion.class);
-			 String remoteAddr = "";
-
-		        if (request != null) {
-		            remoteAddr = request.getHeader("X-FORWARDED-FOR");
-		            if (remoteAddr == null || "".equals(remoteAddr)) {
-		                remoteAddr = request.getRemoteAddr();
-		            }
-		        }
-			logger.info("Connexion de "+ utilisateur.getPseudo() + " ip : " + remoteAddr);
+			
+			logger.info("Connexion de "+ utilisateur.getPseudo());
 			
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}
