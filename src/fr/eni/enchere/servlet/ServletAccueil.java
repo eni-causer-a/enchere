@@ -161,6 +161,9 @@ public class ServletAccueil extends HttpServlet {
 		String param22 = (String)request.getParameter("param22");		
 		String param23 = (String)request.getParameter("param23");
 
+		
+		if(request.getParameter("groupe1").equalsIgnoreCase("value1")) {
+			
 		if(param11 != null && param12 != null && param13 != null) {
 			lesArticles = am.getEnchereOuverteAll();
 			
@@ -194,15 +197,19 @@ public class ServletAccueil extends HttpServlet {
 			
 
 		}
-		else {
+		else if(param11 == null && param12 == null && param13 == null) {
 			lesArticles = am.getEnchereOuverteAll();
 			
 		}
+		}
+		else {
+			
+		
 		
 		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		
 		if(param21 != null && param22 != null && param23 != null) {
-			lesArticles = am.getEnchereOuverteAll();
+			lesArticles = am.getVenteAll(utilisateur);
 			
 
 		}
@@ -229,13 +236,17 @@ public class ServletAccueil extends HttpServlet {
 
 		}
 		else if(param21 == null && param22 == null && param23 != null) {
+			System.out.println("ok");
 			lesArticles = am.getVenteTermine(utilisateur);
 			
 
 		}
-		else {
-			//lesArticles = am.getArticleEnCours();
+		else if(param21 == null && param22 == null && param23 == null) {
+			lesArticles = am.getVenteAll(utilisateur);
 		}
+		
+		}
+		
 		
 		
 		String cat = request.getParameter("categorie");

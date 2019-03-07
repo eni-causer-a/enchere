@@ -29,9 +29,11 @@ public interface ArticleDao {
 	public List<Article> getVenteNonDebTermine(Utilisateur utilisateur);
 	public List<Article> getVenteTermine(Utilisateur utilisateur);
 	public List<Article> getVenteEnCours(Utilisateur utilisateur);
+	
 	public Article trieWithCat(String cat, Article article);
 	public Article trieWithCatSearch(String cat, String search, Article article);
 	public Article trieWithSearch(String search, Article article);
 	public void updateArticle(Article article);
+	public List<Article> getVenteAll(Utilisateur utilisateur);
 
 }
