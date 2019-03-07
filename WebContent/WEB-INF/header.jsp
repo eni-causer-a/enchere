@@ -31,7 +31,7 @@
 		    	
 		    	
 	   		</c:if>
-	   		<form method="post" action="<%=request.getContextPath()%>/SwitchLang" ><div class="col-md-1"><button onClick="$LOCALE = 'en'"><fmt:message key="lang" bundle="${langue}"/></button></div></form>
+	   		<form method="post" action="<%=request.getContextPath()%>/SwitchLang" ><div class="col-md-1"><button style="background-color: #343a40!important; border-color:#343a40!important; color: #007bff;" onClick="$LOCALE = 'en'"><fmt:message key="lang" bundle="${langue}"/></button></div></form>
 	   		
 		</div>  
 	</header>
