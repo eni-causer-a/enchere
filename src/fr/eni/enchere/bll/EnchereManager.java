@@ -26,21 +26,32 @@ public class EnchereManager {
 	
 	public boolean encherir(Utilisateur user, Article article, int value) {
 		boolean res = true;
-		if (user.getCredit() >= value) {
-			Enchere lastEnchere = getLastEnchere(article);
-			if (lastEnchere != null) {
-				Utilisateur lastUser = lastEnchere.getUtilisateur();
-				if (lastUser.getPseudo().equals(user.getPseudo())) {
-					lastUser = user;
-				}
+		Enchere lastEnchere = getLastEnchere(article);
+		Utilisateur lastUser =null;
+		boolean getEnoughtPoint = false;
+		if (lastEnchere != null) {
+			lastUser = lastEnchere.getUtilisateur();
+		}
+		if (lastUser != null && lastUser.getPseudo().equals(user.getPseudo())) {
+			getEnoughtPoint = (value-lastEnchere.getMontant_enchere()< user.getCredit());
+			lastUser = user;
+		}
+		else {
+			getEnoughtPoint = value<user.getCredit();
+		}
+		
+		if (getEnoughtPoint) {
+			if (lastUser !=null) {
+				// On rend les points au précédent enchérisseurs
 				lastUser.setCredit(lastUser.getCredit()+lastEnchere.getMontant_enchere());
-				
 				DAOFactory.getUtilisateurDao().updateUser(lastUser);
 			}
 			
+			// On retire les points au nouvel enchérisseur
 			user.setCredit(user.getCredit() - value);
 			DAOFactory.getUtilisateurDao().updateUser(user);
 			
+			// Maj du prix de l'article
 			article.setPrixVente(value);
 			article.setGagnant(user);
 			DAOFactory.getArticleDao().updateArticle(article);
@@ -51,6 +62,7 @@ public class EnchereManager {
 		else {
 			res = false;
 		}
+
 		return res;
 	}
 }

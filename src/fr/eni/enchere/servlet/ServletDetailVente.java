@@ -30,7 +30,6 @@ public class ServletDetailVente extends HttpServlet {
      */
     public ServletDetailVente() {
         super();
-        
     }
 
 	/**
@@ -76,5 +75,4 @@ public class ServletDetailVente extends HttpServlet {
 		doGet(request, response);
 	}
 	
-
 }

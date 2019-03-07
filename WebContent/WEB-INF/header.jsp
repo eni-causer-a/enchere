@@ -31,7 +31,7 @@
 		    	
 		    	
 	   		</c:if>
-	   		<form method="post" action="<%=request.getContextPath()%>/SwitchLang" ><div class="col-md-1"><button onClick="$LOCALE = 'en'"><fmt:message key="lang" bundle="${langue}"/></button></div></form>
+	   		<form method="post" action="<%=request.getContextPath()%>/SwitchLang" ><div class="col-md-1"><button style="background: none; border: none"><fmt:message key="lang" bundle="${langue}"/></button></div></form>
 	   		
 		</div>  
 	</header>
@@ -52,7 +52,7 @@
 	   		</c:if>
 	   		<c:if test="${utilisateur!=null}">
 				 
-	        	<div class="col-2"><h5 style="color: white;">${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} Crédits</h5></div>
+	        	<div class="col-2"><h5 style="color: white;">${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} Crï¿½dits</h5></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/NouvelleVente"><fmt:message key="menu_vendre" bundle="${langue}"/></a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}"><fmt:message key="menu_profil" bundle="${langue}"/></a></div>
 	        	<div class="col-1"><a href="<%=request.getContextPath()%>/ezMoney"><fmt:message key="menu_credit" bundle="${langue}"/></a></div>

@@ -146,15 +146,15 @@
 			<div class="col-md-4">
 				<c:if test="${select=='value2' and parame23!=null}">
 					<input type="checkbox" value="param23" name="param23" checked/>
-					<label style="color: black;" id="param231"><fmt:message key="termine" bundle="${langue}"/></label>
+					<label style="color: black;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select=='value2' and parame23==null}">
 					<input type="checkbox" value="param23" name="param23" />
-					<label style="color: black;" id="param231"><fmt:message key="termine" bundle="${langue}"/></label>
+					<label style="color: black;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
 				</c:if>
 				<c:if test="${select!='value2' and parame23==null}">
 					<input type="checkbox" value="param23" name="param23" disabled/>
-					<label style="color: #ccc;" id="param231"><fmt:message key="termine" bundle="${langue}"/></label>
+					<label style="color: #ccc;" id="param231"><fmt:message key="terminé" bundle="${langue}"/></label>
 				</c:if>
 			</div>
 			</div>
