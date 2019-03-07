@@ -54,7 +54,7 @@ public class ServletAccueil extends HttpServlet {
 		List<Article> lesArticles = null;
 		List<Article> lesArticlesPagination =new ArrayList();
 		int selectPage=1;
-		lesArticles = am.getArticleEnCours();
+		lesArticles = am.getEnchereOuverteAll();
 		int nbrPage = (int)(Math.ceil(lesArticles.size()/6.0));
 		for(Article article: lesArticles) {
 			am.getEtatVente(article);
@@ -162,7 +162,7 @@ public class ServletAccueil extends HttpServlet {
 		String param23 = (String)request.getParameter("param23");
 
 		if(param11 != null && param12 != null && param13 != null) {
-			lesArticles = am.getArticleEnCours();
+			lesArticles = am.getEnchereOuverteAll();
 			
 
 		}
@@ -195,14 +195,14 @@ public class ServletAccueil extends HttpServlet {
 
 		}
 		else {
-			lesArticles = am.getArticleEnCours();
+			lesArticles = am.getEnchereOuverteAll();
 			
 		}
 		
 		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		
 		if(param21 != null && param22 != null && param23 != null) {
-			lesArticles = am.getArticleEnCours();
+			lesArticles = am.getEnchereOuverteAll();
 			
 
 		}

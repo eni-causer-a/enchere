@@ -17,6 +17,7 @@ public interface ArticleDao {
 	
 	public List<Article> getEnchereEnCoursOuverte(Utilisateur utilisateur);
 	public List<Article> getEnchereOuverte(Utilisateur utilisateur);
+	public List<Article> getEnchereOuverteAll();
 	public List<Article> getEnchereEnCours(Utilisateur utilisateur);
 	public List<Article> getEnchereOuvertRemp(Utilisateur utilisateur);
 	public List<Article> getEnchereEnCourRemp(Utilisateur utilisateur);

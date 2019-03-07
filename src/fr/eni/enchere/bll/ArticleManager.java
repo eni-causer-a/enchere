@@ -23,6 +23,9 @@ public class ArticleManager {
 	public List<Article> getArticleEnCours() {
 		return articleDao.getArticleEnCours();
 	}
+	public List<Article> getEnchereOuverteAll() {
+		return articleDao.getEnchereOuverteAll();
+	}
 	
 	public void getEtatVente(Article article) {
 		articleDao.getEtat(article);
