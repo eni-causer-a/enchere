@@ -100,7 +100,7 @@ public class ServletConnexion extends HttpServlet {
 		                remoteAddr = request.getRemoteAddr();
 		            }
 		        }
-			logger.info("Connexion de "+ utilisateur.getPseudo() + "ip : " + remoteAddr);
+			logger.info("Connexion de "+ utilisateur.getPseudo() + " ip : " + remoteAddr);
 			
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}
