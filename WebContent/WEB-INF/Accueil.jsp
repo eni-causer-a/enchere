@@ -186,39 +186,15 @@
 			</div>
 	
 		</div>
-		<nav aria-label="Page navigation example">
+		<nav style="position: relative; margin-left: 450px; margin-top: 25px;" aria-label="Page navigation example">
 			  <ul class="pagination">
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
 			    <c:forEach var="page" begin="1" end="${nbrPage}">
-			    	<li class="page-item"><input class="page-link" name="page" type="submit" value="${page}"></li>
-			    </c:forEach>
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
+			    	<li  class="page-item"><input class="page-link" name="page" type="submit" value="${page}"></li>
+			    </c:forEach>			    
 			  </ul>
 			</nav>
 	</form>
-	<br>
-    <!-- <div class="row">
-        <ul class="list-group col-12">
-           	<c:forEach var="article" items="${lesArticles}">
-           		<li class="list-group-item d-flex justify-content-between align-items-center"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle()}</a>
-	        	<div>  
-                    <div class="col-12">Prix : ${article.getPrixVente()} points</div>      
-                    <div class="col-12">Fin de l'enchère : ${article.printDateFinEnchere()}</div>
-                    <div class="col-12">Vendeur : <a href="<%=request.getContextPath()%>/profil?user=${article.getProprietaire().getNoUtilisateur()}">${article.getProprietaire().getPseudo()}</a></div>
-	        	</div> 
-           		</li>
-           </c:forEach>
-		</ul>
-	</div>-->
-	<br>
+	
 	<div class="form-row">
 		<c:forEach var="article" items="${lesArticles}">
 			<div class="form-group col-md-6">
