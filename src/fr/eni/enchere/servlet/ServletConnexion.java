@@ -1,6 +1,8 @@
 package fr.eni.enchere.servlet;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.*;
+
+
 import fr.eni.enchere.bll.UtilisateurManager;
 import fr.eni.enchere.bo.Utilisateur;
 
@@ -20,6 +25,7 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/Connexion")
 public class ServletConnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = LogManager.getLogger(ServletConnexion.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -86,6 +92,8 @@ public class ServletConnexion extends HttpServlet {
 				cookie.setPath("/Enchere/Connexion");
 				response.addCookie(cookie);
 			}
+			
+			logger.info("Connexion de "+ utilisateur.getPseudo());
 			
 			response.sendRedirect(request.getContextPath()+"/Accueil");
 		}

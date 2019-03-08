@@ -48,7 +48,7 @@
 			  		<label><fmt:message key="desc" bundle="${langue}"/></label>
 			  	</div>
 			  	<div class="col">
-					<input type="text" name="description" value="${article.getDescription()}${description}">
+					<textarea class="form-control" rows="10" cols="25" wrap="hard" name="description" maxlength="1000">${article.getDescription()}${description}</textarea>
 				</div>
 				<div class="col"></div>
 				<div class="w-100"></div>

@@ -32,35 +32,17 @@
 	<div>
 		<h5 class="my-5 text-center"><fmt:message key="new_v" bundle="${langue}"/></h5>
 		<form method="post" action="<%=request.getContextPath()%>/NouvelleVente" enctype="multipart/form-data">
-		    <div class="row">
-		    	<div class="col"></div>
-				<div class="col">
-			  		<label><fmt:message key="article" bundle="${langue}"/></label>
-			  	</div>
-			  	<div class="col">
-					<input type="text" class="form-control" name="nomArticle" value="${nomArticle}" required>
-				</div>
-				<div class="col"></div>
-			  	<div class="w-100"></div>
-			  	<div class="col"></div>
-			  	<div class="col">
-			  		<label><fmt:message key="desc" bundle="${langue}"/></label>
-			  	</div>
-			  	<div class="col">
-					<!--<input type="text" class="form-control" name="description" value="${description}">-->
-					<textarea class="form-control" rows="10" cols="25" wrap="hard" name="description" maxlength="1000">${description}</textarea>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
+		    <div class="form-row">
+		    	<div class="form-group col-md-6">
+		    		<div class="form-row">
+			  			<label><fmt:message key="article" bundle="${langue}"/></label>
+			  			<input type="text" class="form-control" name="nomArticle" value="${nomArticle}" required>
+			  		</div>
+			  		<div class="form-row">
 			  		<label><fmt:message key="cat" bundle="${langue}"/></label>
-			  	</div>
-			  	<div class="col">
 					<select class="form-control" name="categorie">
 						<c:forEach var="categorie" items="${lesCategories}">
 							<!-- <option value="${categorie.getNoCategorie()}">${categorie.getLibelle()} -->
-							
 							<c:if test="${cat==categorie.getNoCategorie()}">
 								<option value="${categorie.getNoCategorie()}" selected>${categorie.getLibelle()}</option>
 							</c:if>
@@ -69,133 +51,115 @@
 							</c:if>
 						</c:forEach>		
 					</select>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
-			  		<label style="padding-left: 50px;"><fmt:message key="photo" bundle="${langue}"/></label>
-			  	</div>
-			  	<div class="col">
-					<input style="padding-left: 100px;" class="btn" type="file" name="fileName" value="Uploader">
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col"></div>
-			  	<div class="col">
+			  		</div>
+			  		 <div class="form-row">
+			  			<label style="padding-top: 15px;"><fmt:message key="photo" bundle="${langue}"/></label>
+						<input style="padding-left: 10px; padding-top: 10px;" class="btn" type="file" name="fileName" value="Uploader">
+			  		</div>
+			  		<div class="form-row">
 			  		<label><fmt:message key="map" bundle="${langue}"/></label>
-			  	</div>
-			  	<div class="col">
 					<input class="form-control" type="number" min="0" name="miseAPrix" value="${miseAPrix}" required>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-3"></div>
-			  	<div class="col-3">
-			  		<label><fmt:message key="debut" bundle="${langue}"/></label>
+			  		</div>
+		    	</div>		  		
+			  	<div class="form-group col-md-6">
+			  		<label><fmt:message key="desc" bundle="${langue}"/></label>
+					<textarea class="form-control" rows="9" cols="25" wrap="hard" name="description" maxlength="1000">${description}</textarea>
 			  	</div>
-			  	
-			  	<div class="col-5">
-					<label><fmt:message key="le" bundle="${langue}"/></label>  <input class="form-control" type="date" name="debutEnchere" value="${debutEnchere}" required> <label><fmt:message key="a" bundle="${langue}"/> </label> <input class="form-control" type="time" name="debutEnchereTime" value="${debutEnchereTime}" required>
-				</div> 
-				<div class="col-1"></div>
-				<c:if test="${dateDebutError!=null}">
-					<div class="w-100"></div>
-					<div class="col-4"></div>
-				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Debut" bundle="${errMessage}"/></label>
-				  	</div>
-				  	<div class="col"></div>
-				  	<div class="col"></div>
-				</c:if>
-				<div class="w-100"></div>
-				<div class="col-3"></div>
-			  	<div class="col-3">
+		    </div>
+		  
+			<div class="form-row">
+			<div class="form-group col-md-2">
+			  		<label><fmt:message key="debut" bundle="${langue}"/></label>
+			  </div>
+				<div class="form-group col-md-10">
+					<div class="form-row">
+				
+					<div class="form-group col-md-4">
+					<label><fmt:message key="le" bundle="${langue}"/></label>
+					<input class="form-control" type="date" name="debutEnchere" value="${debutEnchere}" required>
+					</div>
+					<div class="form-group col-md-3">
+					<label><fmt:message key="a" bundle="${langue}"/> </label>
+					<input class="form-control" type="time" name="debutEnchereTime" value="${debutEnchereTime}" required>
+					</div>
+			  		<div class="form-group col-md-3">
+					<c:if test="${dateDebutError!=null}">
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Debut" bundle="${errMessage}"/></label>			  	
+					</c:if>
+					</div>
+					</div>
+				</div>
+				<div class="form-group col-md-2">
 			  		<label><fmt:message key="fin" bundle="${langue}"/></label>
 			  	</div>
-			  	<div class="col-5">
-					<label><fmt:message key="le" bundle="${langue}"/></label>  <input class="form-control" type="date" name="finEnchere" value="${finEnchere}" required> <label><fmt:message key="a" bundle="${langue}"/></label> <input class="form-control" type="time" name="finEnchereTime" value="${finEnchereTime}" required>
+				<div class="form-group col-md-10">
+				
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label><fmt:message key="le" bundle="${langue}"/></label>  
+						<input class="form-control" type="date" name="finEnchere" value="${finEnchere}" required>
+					</div>
+					<div class="form-group col-md-3">
+						<label><fmt:message key="a" bundle="${langue}"/></label>
+						<input class="form-control" type="time" name="finEnchereTime" value="${finEnchereTime}" required>
+					</div>
+			  		<div class="form-group col-md-3">
+					<c:if test="${dateFinError!=null}">
+				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Fin" bundle="${errMessage}"/></label>			  	
+					</c:if>
+					</div>
 				</div>
-				<div class="col-1"></div>
-				<c:if test="${dateFinError!=null}">
-					<div class="w-100"></div>
-					<div class="col-4"></div>
-				  	<div class="col-6">
-				  		<label style="color: red;" class="label-danger"><fmt:message key="errDate.Fin" bundle="${errMessage}"/></label>
-				  	</div>
-				  	<div class="col"></div>
-				  	<div class="col"></div>
-				</c:if>
-			</div>
-			<br>
-			<div class="row list-group-item  d-flex">
-				<div class="col-3"></div>
-				<div class="col">
+				</div>
+		    </div>
+		    
+		    
+			
+		    <div class="form-row list-group-item  d-flex">
+		    	<div class="form-row">
 					<h6><fmt:message key="retrait" bundle="${langue}"/></h6>
 				</div>
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col">
-			  		<label><fmt:message key="rue" bundle="${langue}"/></label>
+				<div style="postion: relative; margin-left: 20px;" class="form-row">		
+		    		<div class="form-group col-md-4">
+			  			<label><fmt:message key="rue" bundle="${langue}"/></label>
+			  			<c:if test="${rue==null}">
+							<input class="form-control" type="text" name="rue" value="${utilisateur.getRue()}" required>
+						</c:if>
+						<c:if test="${rue!=null}">
+							<input class="form-control" type="text" name="rue" value="${rue}" required>
+						</c:if>
+			  		</div>
+		    		<div class="form-group col-md-4">
+			  			<label><fmt:message key="cp" bundle="${langue}"/></label>
+			  			<c:if test="${codeP==null}">
+							<input class="form-control" type="text" name=codePostal value="${utilisateur.getCodePostale()}" required>
+						</c:if>
+						<c:if test="${codeP!=null}">
+							<input class="form-control" type="text" name="codePostal" value="${codeP}" required>
+						</c:if>
+		   			</div>
+		    		<div class="form-group col-md-4">
+			  			<label><fmt:message key="ville" bundle="${langue}"/></label>
+			  			<c:if test="${ville==null}">
+							<input class="form-control" type="text" name="ville" value="${utilisateur.getVille()}" required>
+						</c:if>
+						<c:if test="${ville!=null}">
+							<input class="form-control" type="text" name="ville" value="${ville}" required>
+						</c:if>
+			  		</div>
+			  		</div>
+		   </div>
+		   
+			 <div style="position : relative; margin-left: 400px; margin-top: 15px;" class="form-row">
+		    	<div class="form-group col-md-2">
+			  		<button name="boutonEnregistrer" class="btn btn-secondary"><fmt:message key="save" bundle="${langue}"/></button>		
 			  	</div>
-			  	<c:if test="${rue==null}">
-				  	<div class="col">
-						<input class="form-control" type="text" name="rue" value="${utilisateur.getRue()}" required>
-					</div>
-				</c:if>
-				<c:if test="${rue!=null}">
-				  	<div class="col">
-						<input class="form-control" type="text" name="rue" value="${rue}" required>
-					</div>
-				</c:if>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col">
-			  		<label><fmt:message key="cp" bundle="${langue}"/></label>
+			  	<div class="form-group col-md-2">
+			  		<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler"><fmt:message key="annuler" bundle="${langue}"/></a>	
 			  	</div>
-			  	<div class="col">
-			  		<c:if test="${codeP==null}">
-						<input class="form-control" type="text" name=codePostal value="${utilisateur.getCodePostale()}" required>
-					</c:if>
-					<c:if test="${codeP!=null}">
-						<input class="form-control" type="text" name="codePostal" value="${codeP}" required>
-					</c:if>
-				</div>
-				<div class="col"></div>
-				<div class="w-100"></div>
-				<div class="col-4"></div>
-			  	<div class="col">
-			  		<label><fmt:message key="ville" bundle="${langue}"/></label>
-			  	</div>
-			  	<div class="col">
-			  		<c:if test="${ville==null}">
-						<input class="form-control" type="text" name="ville" value="${utilisateur.getVille()}" required>
-					</c:if>
-					<c:if test="${ville!=null}">
-						<input class="form-control" type="text" name="ville" value="${ville}" required>
-					</c:if>
-				</div>
-				<div class="col"></div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-4"></div>
-				<div class="col-1">
-					<button name="boutonEnregistrer" class="btn btn-secondary"><fmt:message key="save" bundle="${langue}"/></button>
-				</div>
-				<div class="col-1"></div>
-				<div class="col-1">
-					<a class="btn btn-secondary" href="<%=request.getContextPath()%>/Accueil" role="button" name="boutonAnnuler"><fmt:message key="annuler" bundle="${langue}"/></a>
-				</div>
-				<div class="col-5"></div>
-			</div>
-			
+		    </div>
+	
 		</form>			
 	</div>
-	<br>
-	<br>
-
 
 
     <!-- Footer -->
