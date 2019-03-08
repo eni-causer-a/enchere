@@ -35,6 +35,7 @@
 	<jsp:useBean id="LOCALE" scope="session" class="java.lang.String"/>
 	<fmt:setLocale value="${LOCALE}"/>	
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
+	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<jsp:include page="/WEB-INF/header.jsp" />
 	
 	<form method="post" action="<%=request.getContextPath()%>/Accueil">
@@ -196,6 +197,11 @@
 	</form>
 	
 	<div class="form-row">
+	<c:if test="${lesArticles.size()==0}">
+		<div class="col-md-6">
+			<label><fmt:message key="empty.pasEnchere" bundle="${errMessage}"/></label>
+		</div>
+	</c:if>
 		<c:forEach var="article" items="${lesArticles}">
 			<div class="form-group col-md-6">
 				<div class="card" style="width: 25rem;">

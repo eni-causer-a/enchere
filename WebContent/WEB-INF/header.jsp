@@ -26,7 +26,7 @@
 				       <a class="nav-item nav-link" href="<%=request.getContextPath()%>/NouvelleVente"><fmt:message key="menu_vendre" bundle="${langue}"/> <span class="sr-only">(current)</span></a>
 				      </li>
 				      <li class="nav-item">
-				       <a class="nav-item nav-link" href="<%=request.getContextPath()%>/ezMoney""><fmt:message key="menu_credit" bundle="${langue}"/></a>
+				       <a class="nav-item nav-link" href="<%=request.getContextPath()%>/ezMoney"><fmt:message key="menu_credit" bundle="${langue}"/></a>
 				      </li>
 				</c:if>
 		    </ul>
@@ -35,8 +35,8 @@
 			    	<span class="navbar-text navbar-right">
 				    	${sessionScope.Utilisateur.getPseudo()} ${sessionScope.Utilisateur.getCredit()} <fmt:message key="crd" bundle="${langue}"/>
 				    </span>
-				    <a class="nav-item nav-link" href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}"><fmt:message key="menu_profil" bundle="${langue}"/></a>
-			    	<a class="nav-item nav-link" href="<%=request.getContextPath()%>/Deconnexion"><fmt:message key="menu_deco" bundle="${langue}"/></a>
+				    <a class="nav-item nav-link" style="color:rgba(0,0,0,.5);" href="<%=request.getContextPath()%>/profil?user=${sessionScope.Utilisateur.getNoUtilisateur()}"><fmt:message key="menu_profil" bundle="${langue}"/></a>
+			    	<a class="nav-item nav-link" style="color:rgba(0,0,0,.5);" href="<%=request.getContextPath()%>/Deconnexion"><fmt:message key="menu_deco" bundle="${langue}"/></a>
 		    	</c:if>
 		    	<c:if test="${utilisateur==null}">
 		    		<a href="<%=request.getContextPath()%>/Connexion"><fmt:message key="menu_co" bundle="${langue}"/></a>
