@@ -170,7 +170,7 @@ public class ServletNouvelleVente extends HttpServlet {
 				}
 				//request.getServletContext().getAttribute("FILES_DIR")+
 				if(fileItem.getFieldName().equalsIgnoreCase("fileName")) {
-					if(fileItem.getName().isEmpty()) {
+					if(fileItem.getName().equals("")) {
 					File file = new File("//10.51.0.254/Outils/groupe6Image"+File.separator+valeur+fileItem.getName());
 					art.setPhoto(valeur+fileItem.getName());
 					fileItem.write(file);
