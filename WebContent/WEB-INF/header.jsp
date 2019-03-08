@@ -26,7 +26,7 @@
 				       <a class="nav-item nav-link" href="<%=request.getContextPath()%>/NouvelleVente"><fmt:message key="menu_vendre" bundle="${langue}"/> <span class="sr-only">(current)</span></a>
 				      </li>
 				      <li class="nav-item">
-				       <a class="nav-item nav-link" href="<%=request.getContextPath()%>/ezMoney""><fmt:message key="menu_credit" bundle="${langue}"/></a>
+				       <a class="nav-item nav-link" href="<%=request.getContextPath()%>/ezMoney"><fmt:message key="menu_credit" bundle="${langue}"/></a>
 				      </li>
 				</c:if>
 		    </ul>
