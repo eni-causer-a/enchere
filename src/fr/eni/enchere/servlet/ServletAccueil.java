@@ -161,96 +161,95 @@ public class ServletAccueil extends HttpServlet {
 		String param22 = (String)request.getParameter("param22");		
 		String param23 = (String)request.getParameter("param23");
 
+		if(request.getParameter("groupe1")!=null) {
+			if(request.getParameter("groupe1").equalsIgnoreCase("value1")) {	
+				if(param11 != null && param12 != null && param13 != null) {
+					lesArticles = am.getEnchereOuverteAll();
+					
 		
-		if(request.getParameter("groupe1").equalsIgnoreCase("value1")) {
+				}
+				else if(param11 != null && param12 != null && param13 == null) {
+					lesArticles = am.getEnchereEnCoursOuverte(utilisateur);
+					
+				}
+				else if(param11 != null && param12 == null && param13 == null) {
+					lesArticles = am.getEnchereOuverte(utilisateur);
+					
+				}
+				else if(param11 == null && param12 != null && param13 == null) {
+					lesArticles = am.getEnchereEnCours(utilisateur);
+					
+		
+				}
+				else if(param11 != null && param12 == null && param13 != null) {
+					lesArticles = am.getEnchereOuvertRemp(utilisateur);
+					
+		
+				}
+				else if(param11 == null && param12 != null && param13 != null) {
+					lesArticles = am.getEnchereEnCourRemp(utilisateur);
+					
+		
+				}
+				else if(param11 == null && param12 == null && param13 != null) {
+					lesArticles = am.getEnchereRemporte(utilisateur);
+					
+		
+				}
+				else if(param11 == null && param12 == null && param13 == null) {
+					lesArticles = am.getEnchereOuverteAll();
+					
+				}
+			}
+			else {
+				//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+				
+				if(param21 != null && param22 != null && param23 != null) {
+					lesArticles = am.getVenteAll(utilisateur);
+					
+		
+				}
+				else if(param21 != null && param22 != null && param23 == null) {
+					lesArticles = am.getVenteNonDebEnCours(utilisateur);
+					
+				}
+				else if(param21 != null && param22 == null && param23 == null) {
+					lesArticles = am.getVenteEnCours(utilisateur);
+					
+				}
+				else if(param21 == null && param22 != null && param23 == null) {
+					lesArticles = am.getVenteDebute(utilisateur);
+					
+				}
+				else if(param21 != null && param22 == null && param23 != null) {
+					lesArticles = am.getVenteEnCoursTermine(utilisateur);
+					
+		
+				}
+				else if(param21 == null && param22 != null && param23 != null) {
+					lesArticles = am.getVenteNonDebTermine(utilisateur);
+					
+		
+				}
+				else if(param21 == null && param22 == null && param23 != null) {
+					System.out.println("ok");
+					lesArticles = am.getVenteTermine(utilisateur);
+					
+		
+				}
+				else if(param21 == null && param22 == null && param23 == null) {
+					lesArticles = am.getVenteAll(utilisateur);
+				}
 			
-		if(param11 != null && param12 != null && param13 != null) {
+			}
+		}else {
 			lesArticles = am.getEnchereOuverteAll();
-			
-
 		}
-		else if(param11 != null && param12 != null && param13 == null) {
-			lesArticles = am.getEnchereEnCoursOuverte(utilisateur);
-			
-		}
-		else if(param11 != null && param12 == null && param13 == null) {
-			lesArticles = am.getEnchereOuverte(utilisateur);
-			
-		}
-		else if(param11 == null && param12 != null && param13 == null) {
-			lesArticles = am.getEnchereEnCours(utilisateur);
-			
-
-		}
-		else if(param11 != null && param12 == null && param13 != null) {
-			lesArticles = am.getEnchereOuvertRemp(utilisateur);
-			
-
-		}
-		else if(param11 == null && param12 != null && param13 != null) {
-			lesArticles = am.getEnchereEnCourRemp(utilisateur);
-			
-
-		}
-		else if(param11 == null && param12 == null && param13 != null) {
-			lesArticles = am.getEnchereRemporte(utilisateur);
-			
-
-		}
-		else if(param11 == null && param12 == null && param13 == null) {
-			lesArticles = am.getEnchereOuverteAll();
-			
-		}
-		}
-		else {
-			
-		
-		
-		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-		
-		if(param21 != null && param22 != null && param23 != null) {
-			lesArticles = am.getVenteAll(utilisateur);
-			
-
-		}
-		else if(param21 != null && param22 != null && param23 == null) {
-			lesArticles = am.getVenteNonDebEnCours(utilisateur);
-			
-		}
-		else if(param21 != null && param22 == null && param23 == null) {
-			lesArticles = am.getVenteEnCours(utilisateur);
-			
-		}
-		else if(param21 == null && param22 != null && param23 == null) {
-			lesArticles = am.getVenteDebute(utilisateur);
-			
-		}
-		else if(param21 != null && param22 == null && param23 != null) {
-			lesArticles = am.getVenteEnCoursTermine(utilisateur);
-			
-
-		}
-		else if(param21 == null && param22 != null && param23 != null) {
-			lesArticles = am.getVenteNonDebTermine(utilisateur);
-			
-
-		}
-		else if(param21 == null && param22 == null && param23 != null) {
-			System.out.println("ok");
-			lesArticles = am.getVenteTermine(utilisateur);
-			
-
-		}
-		else if(param21 == null && param22 == null && param23 == null) {
-			lesArticles = am.getVenteAll(utilisateur);
-		}
-		
-		}
-		
 		
 		
 		String cat = request.getParameter("categorie");
 		if(!cat.equalsIgnoreCase("Toutes") && StringUtils.isEmpty(request.getParameter("filtre"))) {
+		
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
 
 			for(Article article: lesArticles) {
@@ -280,11 +279,11 @@ public class ServletAccueil extends HttpServlet {
 			result=lesArticlesTrie;
 		}
 		else if(StringUtils.isNotEmpty(request.getParameter("filtre")) && cat.equalsIgnoreCase("Toutes")) {
+			
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
 			String search = request.getParameter("filtre");
 			for(Article article: lesArticles) {
 				am.getEtatVente(article);
-
 				if(am.trieWithSearch(search,article)!= null) {
 					lesArticlesTrie.add(am.trieWithSearch(search,article));
 
