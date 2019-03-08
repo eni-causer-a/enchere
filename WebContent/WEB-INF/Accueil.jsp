@@ -207,7 +207,7 @@
 				<div class="card" style="width: 25rem;">
 				  <div class="card-body">
 				   <h5 class="card-title"><a href="<%=request.getContextPath()%>/DetailVente?idArticle=${article.getNoArticle()}">${article.getNomArticle().toUpperCase()}</a></h5>
-				    	<c:if test="${article.getPhoto() != ''}">
+				    	<c:if test="${article.getPhoto() != ''  && article.getPhoto()!= null}">
 				    		<img src="http://10.51.101.6:8080/MesDocuments/${article.getPhoto()}" width="300" height="250"/>
 				    	</c:if>
 				    		<p style="position: relative; margin-top: 10px;" class="card-text">${article.getDescription()}</p>
