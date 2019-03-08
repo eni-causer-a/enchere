@@ -249,7 +249,7 @@ public class ServletAccueil extends HttpServlet {
 		
 		String cat = request.getParameter("categorie");
 		if(!cat.equalsIgnoreCase("Toutes") && StringUtils.isEmpty(request.getParameter("filtre"))) {
-			System.out.println("ici1");
+		
 			List<Article> lesArticlesTrie = new ArrayList<Article>();
 
 			for(Article article: lesArticles) {

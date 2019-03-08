@@ -28,17 +28,7 @@
 	<fmt:setBundle basename="fr.eni.enchere.lang.langue" var ="langue"/>
 	<fmt:setBundle basename="fr.eni.enchere.Error.Message.ErrorMessage" var ="errMessage"/>
 	<header class="py-3 bg-dark header-demodule fixed-top">
-	    <div class="row">
-	   		<div class="col-5">	
-	   			<div class="container text-center text-white">
-	   				<h3><a class="hn_clicable" href="<%=request.getContextPath()%>/Accueil">ENI-Encheres</a></h3>
-	   			</div>
-	   		</div>
-	   		<div class="col-1"></div>
-	   		<div class="col-6">
-	        	<a href="<%=request.getContextPath()%>/NouveauProfil"><fmt:message key="creer_compte" bundle="${langue}"/> </a>
-	       	</div>
-		</div>  
+	   <jsp:include page="/WEB-INF/header.jsp" />  
 	</header>
 	<h3 class="my-5 text-center"><fmt:message key="cnx" bundle="${langue}"/></h3>
 	<div class="container" style="position: relative; margin-left: 425px;">
@@ -82,7 +72,7 @@
 			<div class="col-2">
 				<a href="mdpoublie"><fmt:message key="mdp_oublie" bundle="${langue}"/></a> <!-- <%=request.getContextPath()%>/ServletConnexion -->
 			</div>
-			
+			<a href="<%=request.getContextPath()%>/NouveauProfil"><fmt:message key="creer_compte" bundle="${langue}"/> </a>
 		
 		</form>
 	</div>
