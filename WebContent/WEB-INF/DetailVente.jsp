@@ -155,11 +155,7 @@
 	
 
 
-    <!-- Footer -->
-    <footer class="row bg-dark footer-demodule fixed-bottom py-1">
-    	
-        <!-- /.container -->
-    </footer>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="../../../vendor/jquery/jquery.min.js"></script>
